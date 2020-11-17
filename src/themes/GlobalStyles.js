@@ -5,6 +5,7 @@ export default createGlobalStyle`
 
   *, *::before, *::after {
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
   }
 
   html {
@@ -13,6 +14,6 @@ export default createGlobalStyle`
 
   body {
     color: ${({ theme }) => theme.black};
-    font-family: 'Roboto', sans-serif;
+    margin: 0;
   }
 `;

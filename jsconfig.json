@@ -6,7 +6,7 @@
       "@templates/*": ["./src/templates/*"],
       "@themes/*": ["./src/themes/*"],
       "@views/*": ["./src/views/*"],
-      "@utils/*": ["./src/utils/*"],
+      "@hooks/*": ["src/hooks/*"],
       "@constants/*": ["./src/constants/*"]
     }
   },

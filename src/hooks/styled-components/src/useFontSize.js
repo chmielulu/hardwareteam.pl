@@ -9,7 +9,7 @@ const calcFontSize = (min, max, minWidth, maxWidth) => {
   return `calc(${min}rem + ${incrementSize}vw)`;
 };
 
-const getFontSize = (theme, fontSize = defaultSize) => css`
+const useFontSize = (theme, fontSize = defaultSize) => css`
   font-size: ${`${theme.desktop[fontSize]}rem`};
 
   @media (min-width: 1921px) and (max-width: 3839px) {
@@ -26,4 +26,4 @@ const getFontSize = (theme, fontSize = defaultSize) => css`
   }
 `;
 
-export default getFontSize;
+export default useFontSize;
