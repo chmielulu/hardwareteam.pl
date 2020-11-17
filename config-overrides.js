@@ -6,6 +6,7 @@ module.exports = function override(config) {
     "@templates": "src/templates/",
     "@themes": "src/themes/",
     "@views": "src/views/",
+    "@utils": "src/utils/",
   })(config);
 
   return config;

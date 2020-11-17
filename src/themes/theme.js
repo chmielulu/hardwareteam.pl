@@ -7,4 +7,30 @@ export const theme = {
   lighterGray: "#F1F1F1",
   gradient: `linear-gradient(88.97deg, #402C72 -12.83%, #A8368F 173.97%)`,
   black: "#2d2d2d",
+  fontSizes: {
+    hiDpi: {
+      xs: "1.8rem",
+      s: "2.2rem",
+      m: "2.4rem",
+      l: "3.2rem",
+      xl: "4.8rem",
+      xxl: "6.4rem",
+    },
+    desktop: {
+      xs: "1.2rem",
+      s: "1.4rem",
+      m: "1.6rem",
+      l: "2.4rem",
+      xl: "3.2rem",
+      xxl: "4.2rem",
+    },
+    mobile: {
+      xs: "1.0rem",
+      s: "1.0rem",
+      m: "1.2rem",
+      l: "1.4rem",
+      xl: "1.8rem",
+      xxl: "2.4rem",
+    },
+  },
 };
