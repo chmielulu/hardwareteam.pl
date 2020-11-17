@@ -6,7 +6,8 @@
       "@templates/*": ["./src/templates/*"],
       "@themes/*": ["./src/themes/*"],
       "@views/*": ["./src/views/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@constants/*": ["./src/constants/*"]
     }
   },
   "exclude": ["node_modules", "build"]

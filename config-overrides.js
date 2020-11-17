@@ -7,6 +7,7 @@ module.exports = function override(config) {
     "@themes": "src/themes/",
     "@views": "src/views/",
     "@utils": "src/utils/",
+    "@constants": "src/constants/",
   })(config);
 
   return config;
