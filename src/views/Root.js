@@ -1,6 +1,16 @@
 import React from "react";
 import MainTemplate from "@templates/MainTemplate";
-import { Headline } from "@components/atoms";
+import { Select } from "@components/atoms";
+import { primary, secondary } from "@constants/types";
+
+const options = [
+  "Sortowanie domyślne",
+  "Cena - od najniżej",
+  "Cena - od najwyżej",
+  "Po popularności",
+  "Po ocenach klientów",
+  "Po ilości komentarzy",
+];
 
 const Root = () => (
   <MainTemplate>
@@ -11,11 +21,13 @@ const Root = () => (
         height: "100vh",
         alignItems: "center",
         justifyContent: "center",
-        flexDirection: "column",
       }}
     >
-      <div style={{ width: "50vw" }}>
-        <Headline type="tertiary">Popularne w tym tygodniu</Headline>
+      <div style={{ width: "215px", marginRight: "20px" }}>
+        <Select options={options} type={primary} />
+      </div>
+      <div style={{ width: "215px", marginRight: "20px" }}>
+        <Select options={options} type={secondary} />
       </div>
     </div>
   </MainTemplate>
