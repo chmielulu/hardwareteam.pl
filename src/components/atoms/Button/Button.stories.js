@@ -14,14 +14,18 @@ export const withButton = () => {
   const icon = select("Icon", ["unset", "heartLine"], "unset");
   const position = select("Position", ["left", "right"], "left");
   const label = text("Label", "Click me");
+  const fullWidth = select("Full Width", [false, true], false);
 
   return (
-    <Button
-      type={type}
-      icon={icon !== "unset" && heartLine}
-      position={position}
-    >
-      {label}
-    </Button>
+    <div style={{ display: "flex", width: "200px" }}>
+      <Button
+        type={type}
+        icon={icon !== "unset" && heartLine}
+        position={position}
+        fullWidth={fullWidth}
+      >
+        {label}
+      </Button>
+    </div>
   );
 };

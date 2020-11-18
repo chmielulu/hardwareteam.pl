@@ -18,6 +18,7 @@ const StyledButton = styled.button`
   border-radius: 10px;
   display: flex;
   align-items: center;
+  justify-content: center;
 
   :focus {
     box-shadow: 0 0 0 4px ${({ theme, type }) =>
@@ -37,6 +38,13 @@ const StyledButton = styled.button`
           ${rgba(type === tertiary ? theme[secondary] : theme[type], 0.4)};
       }
     `}
+
+  ${({ fullWidth }) =>
+    fullWidth &&
+    css`
+      padding: 15px 0;
+      width: 100%;
+    `}
 `;
 
 const StyledInlineIcon = styled(InlineIcon)`
@@ -52,8 +60,8 @@ const StyledInlineIcon = styled(InlineIcon)`
     `}
 `;
 
-const Button = ({ children, type, icon, position, ...props }) => (
-  <StyledButton type={type} {...props}>
+const Button = ({ children, type, icon, position, fullWidth, ...props }) => (
+  <StyledButton type={type} fullWidth={fullWidth} {...props}>
     {icon && <StyledInlineIcon icon={icon} position={position} />}
     {children}
   </StyledButton>
@@ -64,6 +72,7 @@ Button.propTypes = {
   type: PropTypes.oneOf([primary, secondary, tertiary]),
   icon: PropTypes.object,
   position: PropTypes.oneOf(["left", "right"]),
+  fullWidth: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -71,6 +80,7 @@ Button.defaultProps = {
   type: primary,
   icon: null,
   position: "left",
+  fullWidth: false,
 };
 
 export default Button;

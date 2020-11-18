@@ -5,4 +5,4 @@ export default {
   title: "atoms/Logo",
 };
 
-export const withHeadline = () => <Logo />;
+export const withLogo = () => <Logo />;
