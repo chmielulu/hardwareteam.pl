@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { css } from "styled-components";
 import { defaultSize } from "@constants/fontSizes";
 

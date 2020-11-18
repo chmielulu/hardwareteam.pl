@@ -1,6 +1,6 @@
 import React from "react";
 import MainTemplate from "@templates/MainTemplate";
-import Headline from "@components/atoms/Headline";
+import { Headline } from "@components/atoms";
 
 const Root = () => (
   <MainTemplate>

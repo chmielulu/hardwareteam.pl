@@ -7,7 +7,8 @@
       "@themes/*": ["./src/themes/*"],
       "@views/*": ["./src/views/*"],
       "@hooks/*": ["src/hooks/*"],
-      "@constants/*": ["./src/constants/*"]
+      "@constants/*": ["./src/constants/*"],
+      "@assets/*": ["./src/assets/*"]
     }
   },
   "exclude": ["node_modules", "build"]

@@ -25,7 +25,7 @@ const StyledButton = styled.button`
   }
 
   ${({ type, theme }) =>
-    type === "tertiary" &&
+    type === tertiary &&
     css`
       background: transparent;
       border: 1.5px solid ${theme.secondary};
@@ -34,8 +34,7 @@ const StyledButton = styled.button`
 
       :focus {
         box-shadow: 0 0 0 2px
-          ${({ theme, type }) =>
-            rgba(type === tertiary ? theme[secondary] : theme[type], 0.4)};
+          ${rgba(type === tertiary ? theme[secondary] : theme[type], 0.4)};
       }
     `}
 `;
