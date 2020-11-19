@@ -17,7 +17,7 @@ export const withButton = () => {
   const fullWidth = select("Full Width", [false, true], false);
 
   return (
-    <div style={{ display: "flex", width: "200px" }}>
+    <div style={{ display: "flex", width: "400px" }}>
       <Button
         type={type}
         icon={icon !== "unset" && heartLine}
