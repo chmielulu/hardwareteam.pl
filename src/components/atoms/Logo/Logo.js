@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
 import { l } from "@constants/fontSizes";
-import logo from "@assets/logo.png";
+import logo from "@assets/images/logo.png";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ const StyledText = styled.h1`
 `;
 
 const StyledImage = styled.img`
-  width: 60px;
+  width: 50px;
   height: auto;
   margin-right: 10px;
 `;

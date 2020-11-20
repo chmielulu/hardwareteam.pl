@@ -1,7 +1,7 @@
 import React from "react";
 import { withKnobs, select, text } from "@storybook/addon-knobs";
 import heartLine from "@iconify-icons/clarity/heart-line";
-import { primary, secondary, tertiary } from "@constants/types";
+import { primary, secondary, tertiary } from "@constants/kinds";
 import Button from "./Button";
 
 export default {
@@ -10,7 +10,7 @@ export default {
 };
 
 export const withButton = () => {
-  const type = select("Type", [primary, secondary, tertiary], primary);
+  const kind = select("Kind", [primary, secondary, tertiary], primary);
   const icon = select("Icon", ["unset", "heartLine"], "unset");
   const position = select("Position", ["left", "right"], "left");
   const label = text("Label", "Click me");
@@ -19,7 +19,7 @@ export const withButton = () => {
   return (
     <div style={{ display: "flex", width: "400px" }}>
       <Button
-        type={type}
+        kind={kind}
         icon={icon !== "unset" && heartLine}
         position={position}
         fullWidth={fullWidth}

@@ -2,14 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
-import { primary, secondary, tertiary } from "@constants/types";
+import { primary, secondary, tertiary } from "@constants/kinds";
 import { rgba } from "polished";
 import { InlineIcon } from "@iconify/react";
 
 const StyledButton = styled.button`
   ${({ theme }) => useFontSize(theme)}
-  background: ${({ theme, type }) =>
-    type === tertiary ? theme[secondary] : theme[type]};
+  background: ${({ theme, kind }) =>
+    kind === tertiary ? theme[secondary] : theme[kind]};
   border: 0;
   color: #fff;
   padding: 15px 25px;
@@ -21,12 +21,12 @@ const StyledButton = styled.button`
   justify-content: center;
 
   :focus {
-    box-shadow: 0 0 0 4px ${({ theme, type }) =>
-      rgba(type === tertiary ? theme[secondary] : theme[type], 0.4)};
+    box-shadow: 0 0 0 4px ${({ theme, kind }) =>
+      rgba(kind === tertiary ? theme[secondary] : theme[kind], 0.4)};
   }
 
-  ${({ type, theme }) =>
-    type === tertiary &&
+  ${({ kind, theme }) =>
+    kind === tertiary &&
     css`
       background: transparent;
       border: 1.5px solid ${theme.secondary};
@@ -35,7 +35,7 @@ const StyledButton = styled.button`
 
       :focus {
         box-shadow: 0 0 0 2px
-          ${rgba(type === tertiary ? theme[secondary] : theme[type], 0.4)};
+          ${rgba(kind === tertiary ? theme[secondary] : theme[kind], 0.4)};
       }
     `}
 
@@ -60,8 +60,8 @@ const StyledInlineIcon = styled(InlineIcon)`
     `}
 `;
 
-const Button = ({ children, type, icon, position, fullWidth, ...props }) => (
-  <StyledButton type={type} fullWidth={fullWidth} {...props}>
+const Button = ({ children, kind, icon, position, fullWidth, ...props }) => (
+  <StyledButton kind={kind} fullWidth={fullWidth} {...props}>
     {icon && <StyledInlineIcon icon={icon} position={position} />}
     {children}
   </StyledButton>
@@ -69,7 +69,7 @@ const Button = ({ children, type, icon, position, fullWidth, ...props }) => (
 
 Button.propTypes = {
   children: PropTypes.node,
-  type: PropTypes.oneOf([primary, secondary, tertiary]),
+  kind: PropTypes.oneOf([primary, secondary, tertiary]),
   icon: PropTypes.object,
   position: PropTypes.oneOf(["left", "right"]),
   fullWidth: PropTypes.bool,
@@ -77,7 +77,7 @@ Button.propTypes = {
 
 Button.defaultProps = {
   children: "",
-  type: primary,
+  kind: primary,
   icon: null,
   position: "left",
   fullWidth: false,

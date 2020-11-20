@@ -1,6 +1,6 @@
 import React from "react";
 import { withKnobs, select, text } from "@storybook/addon-knobs";
-import { primary, secondary, tertiary } from "@constants/types";
+import { primary, secondary, tertiary } from "@constants/kinds";
 import { allSizes, l as defaultSize } from "@constants/fontSizes";
 import Headline from "./Headline";
 
@@ -10,13 +10,13 @@ export default {
 };
 
 export const withHeadline = () => {
-  const type = select("Type", [primary, secondary, tertiary], primary);
+  const kind = select("Kind", [primary, secondary, tertiary], primary);
   const label = text("Label", "Popularne w tym tygodniu");
   const fontSize = select("Font size", allSizes, defaultSize);
 
   return (
     <div style={{ width: "50vw" }}>
-      <Headline type={type} fontSize={fontSize}>
+      <Headline kind={kind} fontSize={fontSize}>
         {label}
       </Headline>
     </div>

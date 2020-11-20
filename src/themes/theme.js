@@ -31,4 +31,6 @@ export const theme = {
     xl: "1.8",
     xxl: "2.4",
   },
+  shadow: "0px 15px 29px -8px rgba(0, 0, 0, 0.25)",
+  shadow2: "0px -6px 17px 0px #000000 25%",
 };

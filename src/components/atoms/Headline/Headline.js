@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
 import { allSizes, l as defaultSize } from "@constants/fontSizes";
-import { allTypes, primary, secondary, tertiary } from "@constants/types";
+import { allKinds, primary, secondary, tertiary } from "@constants/kinds";
 
 const StyledHeadline = styled.h1`
   ${({ theme, fontSize }) => useFontSize(theme, fontSize)};
@@ -17,8 +17,8 @@ const StyledHeadline = styled.h1`
     position: absolute;
   }
 
-  ${({ type, theme }) =>
-    type === primary &&
+  ${({ kind, theme }) =>
+    kind === primary &&
     css`
       display: block;
 
@@ -31,8 +31,8 @@ const StyledHeadline = styled.h1`
       }
     `}
 
-  ${({ type, theme }) =>
-    type === secondary &&
+  ${({ kind, theme }) =>
+    kind === secondary &&
     css`
       padding-left: 0;
       display: inline;
@@ -57,8 +57,8 @@ const StyledHeadline = styled.h1`
       }
     `}
 
-  ${({ type }) =>
-    type === tertiary &&
+  ${({ kind }) =>
+    kind === tertiary &&
     css`
       padding: 0;
     }
@@ -66,12 +66,12 @@ const StyledHeadline = styled.h1`
 `;
 
 StyledHeadline.propTypes = {
-  type: PropTypes.oneOf(allTypes),
+  kind: PropTypes.oneOf(allKinds),
   fontSize: PropTypes.oneOf(allSizes),
 };
 
 StyledHeadline.defaultProps = {
-  type: primary,
+  kind: primary,
   fontSize: defaultSize,
 };
 

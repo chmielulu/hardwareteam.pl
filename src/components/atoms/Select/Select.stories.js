@@ -1,6 +1,6 @@
 import React from "react";
 import { withKnobs, select } from "@storybook/addon-knobs";
-import { primary, secondary } from "@constants/types";
+import { primary, secondary } from "@constants/kinds";
 import Select from "./Select";
 
 const options = [
