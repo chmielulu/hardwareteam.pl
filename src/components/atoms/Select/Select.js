@@ -38,6 +38,7 @@ const StyledSelectedOption = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 99%;
 `;
 
 const StyledDropDown = styled.ul`

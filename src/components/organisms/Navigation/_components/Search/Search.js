@@ -39,7 +39,6 @@ const StyledInput = styled(Input)`
 
 const StyledSelect = styled(Select)`
   width: 200px;
-
   border-radius: 0;
   border-left: 0;
   border-right: 0;
@@ -52,6 +51,7 @@ const StyledSelect = styled(Select)`
     min-width: 100%;
     width: unset;
     white-space: nowrap;
+    top: 100%;
   }
 
   @media (max-width: 1752px) {
@@ -60,6 +60,7 @@ const StyledSelect = styled(Select)`
 
   @media (max-width: 1480px) {
     width: 100px;
+    padding: 10px;
   }
 `;
 

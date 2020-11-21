@@ -4,7 +4,7 @@ import BottomBar from "./_components/BottomBar/BottomBar";
 import TopBar from "./_components/TopBar/TopBar";
 import dummyContent from "./_dummyContent";
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.header`
   position: fixed;
   top: 0;
   left: 0;
