@@ -1,7 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
-import { l } from "@constants/fontSizes";
+import { l, allSizes } from "@constants/fontSizes";
 import logo from "@assets/images/logo.png";
 
 const StyledWrapper = styled.div`
@@ -10,7 +11,7 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledText = styled.h1`
-  ${({ theme }) => useFontSize(theme, l)}
+  ${({ theme, size }) => useFontSize(theme, size)}
   font-weight: 400;
 `;
 
@@ -20,13 +21,21 @@ const StyledImage = styled.img`
   margin-right: 10px;
 `;
 
-const Logo = () => {
+const Logo = ({ size }) => {
   return (
     <StyledWrapper>
       <StyledImage src={logo} />
-      <StyledText>Hardware Team</StyledText>
+      <StyledText size={size}>Hardware Team</StyledText>
     </StyledWrapper>
   );
+};
+
+Logo.propTypes = {
+  size: PropTypes.oneOf(allSizes),
+};
+
+Logo.defaultProps = {
+  size: l,
 };
 
 export default Logo;

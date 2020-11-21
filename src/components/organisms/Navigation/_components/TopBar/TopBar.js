@@ -6,6 +6,7 @@ import helpLine from "@iconify-icons/clarity/help-line";
 import heart from "@iconify-icons/clarity/heart-line";
 import user from "@iconify-icons/clarity/user-line";
 import basket from "@iconify-icons/clarity/shopping-bag-line";
+import { useWindowSize } from "@hooks/utils";
 import Link from "../StyledLink/StyledLink";
 import Search from "../Search/Search";
 import TextWithIcon from "../TextWithIcon/TextWithIcon";
@@ -22,11 +23,23 @@ const StyledWrapper = styled.header`
 
 const StyledLink = styled(Link)`
   margin-right: 40px;
+
+  @media (max-width: 1480px) {
+    margin-right: 20px;
+  }
 `;
 
 const TextWithIconsWrapper = styled.div`
   margin-left: 40px;
   display: flex;
+
+  @media (max-width: 1480px) {
+    margin-left: 20px;
+  }
+
+  @media (max-width: 1300px) {
+    margin-left: 30px;
+  }
 `;
 
 const StyledTextWithIcon = styled(TextWithIcon)`
@@ -35,9 +48,16 @@ const StyledTextWithIcon = styled(TextWithIcon)`
   :last-of-type {
     margin-right: 0;
   }
+
+  @media (max-width: 1300px) {
+    margin-right: 30px;
+  }
 `;
 
 const TopBar = () => {
+  const size = useWindowSize();
+  console.log(size);
+
   return (
     <StyledWrapper>
       <StyledLink to={routes.index}>

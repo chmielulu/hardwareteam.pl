@@ -13,39 +13,45 @@ const StyledWrapper = styled.div`
   position: relative;
   cursor: pointer;
   width: 100%;
-`;
-
-const StyledSelectedOption = styled.div`
-  padding: 8px 40px 8px 15px;
+  display: flex;
   border: 1px solid ${({ theme }) => theme.gray};
   border-radius: 10px;
-  user-select: none;
-
-  :hover {
-    background: ${({ theme }) => theme.lighterGray};
-  }
+  padding: 8px 15px;
+  align-items: center;
+  justify-content: space-between;
 
   ${({ isDropDownActive }) =>
     isDropDownActive &&
     css`
       border-radius: 10px 10px 0 0;
       border-bottom: 0;
-      box-shadow: ${({ theme }) => theme.shadow};
     `}
+
+  :hover {
+    background: ${({ theme }) => theme.lighterGray};
+  }
+`;
+
+const StyledSelectedOption = styled.div`
+  border-radius: 10px;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const StyledDropDown = styled.ul`
   list-style-type: none;
   position: absolute;
   top: 100%;
-  left: 0;
+  right: 0;
   width: 100%;
   flex-direction: column;
-  padding: 0;
-  margin: 0;
-  border-radius: 0 0 10px 10px;
   display: none;
+  margin: 0 auto;
   background: #fff;
+  box-shadow: ${({ theme }) => theme.shadow};
+  border-radius: 0 0 5px 5px;
 
   ${({ isDropDownActive, theme }) =>
     isDropDownActive &&
@@ -74,21 +80,18 @@ const StyledOption = styled.li`
 `;
 
 const StyledIcon = styled(Icon)`
-  position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%) !important;
   pointer-events: none;
+  margin-left: 10px;
 
   ${({ isDropDownActive, theme, kind }) =>
     isDropDownActive &&
     css`
-      transform: translateY(-50%) rotate(180deg) !important;
+      transform: rotate(180deg) !important;
       color: ${theme[kind]};
     `}
 `;
 
-const Select = ({ options, kind, maxLength, ...props }) => {
+const Select = ({ options, kind, ...props }) => {
   const wrapper = useRef();
   const [isDropDownActive, setDropDownActive] = useState(false);
   const [activeOption, setActiveOption] = useState(0);
@@ -101,15 +104,18 @@ const Select = ({ options, kind, maxLength, ...props }) => {
   useOutsideClick(wrapper, () => setDropDownActive(false));
 
   return (
-    <StyledWrapper ref={wrapper} {...props}>
-      <StyledSelectedOption
-        onClick={handleSelectClick}
+    <StyledWrapper
+      ref={wrapper}
+      isDropDownActive={isDropDownActive}
+      onClick={handleSelectClick}
+      {...props}
+    >
+      <StyledSelectedOption>{options[activeOption]}</StyledSelectedOption>
+      <StyledIcon
+        icon={angleLine}
+        kind={kind}
         isDropDownActive={isDropDownActive}
-      >
-        {maxLength && options[activeOption].length > maxLength
-          ? `${options[activeOption].substring(0, maxLength)}...`
-          : options[activeOption]}
-      </StyledSelectedOption>
+      />
       <StyledDropDown isDropDownActive={isDropDownActive}>
         {options.map((item, index) => (
           <StyledOption
@@ -122,11 +128,6 @@ const Select = ({ options, kind, maxLength, ...props }) => {
           </StyledOption>
         ))}
       </StyledDropDown>
-      <StyledIcon
-        icon={angleLine}
-        isDropDownActive={isDropDownActive}
-        kind={kind}
-      />
     </StyledWrapper>
   );
 };
@@ -134,12 +135,10 @@ const Select = ({ options, kind, maxLength, ...props }) => {
 Select.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string).isRequired,
   kind: PropTypes.oneOf([primary, secondary]),
-  maxLength: PropTypes.number,
 };
 
 Select.defaultProps = {
   kind: primary,
-  maxLength: null,
 };
 
 export default Select;

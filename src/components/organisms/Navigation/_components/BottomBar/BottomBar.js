@@ -3,12 +3,17 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import TextWithIcon from "../TextWithIcon/TextWithIcon";
 import DropDown from "./DropDown/DropDown";
+import Link from "../StyledLink/StyledLink";
 
 const StyledWrapper = styled.nav`
   width: 100vw;
   height: 45px;
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
   padding: 0 12px;
+
+  @media (max-width: 1752px) {
+    height: 50px;
+  }
 `;
 
 const StyledListWrapper = styled.ul`
@@ -21,12 +26,9 @@ const StyledListWrapper = styled.ul`
 `;
 
 const StyledListItem = styled.li`
-  padding: 0 20px;
   height: 100%;
   border-left: 1px solid transparent;
   border-right: 1px solid transparent;
-  display: flex;
-  align-items: center;
   user-select: none;
   position: relative;
   color: ${({ theme }) => theme.darkGray};
@@ -56,6 +58,17 @@ const StyledListItem = styled.li`
   }
 `;
 
+const StyledListItemLink = styled(Link)`
+  height: 100%;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 1300px) {
+    padding: 0 40px;
+  }
+`;
+
 const BottomBar = ({ categories, isDropDownActive, setDropDownActive }) => {
   const [activeOption, setActiveOption] = useState(0);
   const handleMouseOver = (index) => {
@@ -74,7 +87,9 @@ const BottomBar = ({ categories, isDropDownActive, setDropDownActive }) => {
               onMouseOver={() => handleMouseOver(index)}
               onMouseOut={handleMouseOut}
             >
-              <TextWithIcon icon={icon} text={name} secondary />
+              <StyledListItemLink to="/">
+                <TextWithIcon icon={icon} text={name} secondary />
+              </StyledListItemLink>
               <DropDown
                 title={name}
                 featuredProduct={featuredProduct}
@@ -82,6 +97,7 @@ const BottomBar = ({ categories, isDropDownActive, setDropDownActive }) => {
                 link="/"
                 isActive={isDropDownActive && activeOption === index}
                 reverse={index > 3}
+                mid={index === 3}
               />
             </StyledListItem>
           )

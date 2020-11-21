@@ -22,6 +22,10 @@ const StyledWrapper = styled.div`
   opacity: 0;
   pointer-events: none;
 
+  @media (max-width: 1300px) {
+    width: 500px;
+  }
+
   ${({ isActive }) =>
     isActive &&
     css`
@@ -36,6 +40,18 @@ const StyledWrapper = styled.div`
       left: unset;
       right: 0;
     `}
+
+  ${({ isMid, isActive }) =>
+    isMid &&
+    css`
+      left: 50%;
+      transform: scale(0) translateX(-50%);
+
+      ${isActive &&
+      css`
+        transform: scale(1) translateX(-50%);
+      `}
+    `}
 `;
 
 const StyledLeftColumn = styled.div`
@@ -48,18 +64,26 @@ const StyledRightColumn = styled.div`
 const StyledTitle = styled.div`
   ${({ theme }) => useFontSize(theme)};
   display: flex;
-  padding: 10px 20px;
+  padding: 15px 20px 10px;
   justify-content: space-between;
   color: ${({ theme }) => theme.darkGray};
 
   ${({ second }) =>
     second &&
     css`
-      padding: 10px 40px 10px 20px;
+      padding: 15px 40px 10px 20px;
     `}
 `;
 
-const StyledTitleText = styled.div``;
+const StyledTitleText = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (max-width: 1300px) {
+    width: 60%;
+  }
+`;
 
 const StyledLink = styled(Link)`
   color: ${({ theme }) => theme.gray};
@@ -74,7 +98,6 @@ const StyledItem = styled.li`
   ${({ theme }) => useFontSize(theme)};
   font-weight: 300;
   width: 100%;
-  padding: 7px 20px;
 
   ${({ second }) =>
     second &&
@@ -95,6 +118,21 @@ const StyledItem = styled.li`
     css`
       font-weight: 400;
     `}
+`;
+
+const StyledItemLink = styled(Link)`
+  width: 100%;
+  padding: 7px 20px 7px 0;
+  display: block;
+`;
+
+const StyledItemSpan = styled.span`
+  display: block;
+  width: 100%;
+  padding: 0 0 0 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const StyledInnerWrapper = styled.div`
@@ -150,6 +188,14 @@ const StyledPrice = styled.div`
 const StyledProductImg = styled.img`
   max-width: 230px;
   max-height: 180px;
+
+  @media (max-width: 1300px) {
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    max-height: 140px;
+    transform: translate(50%, 25%);
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -165,32 +211,34 @@ const DropDown = ({
   subcategories,
   isActive,
   reverse,
+  mid,
 }) => {
   const [activeOption, setActiveOption] = useState(-1);
 
   const handleItemMouseOver = (index) => setActiveOption(index);
 
   return (
-    <StyledWrapper isActive={isActive} isReverse={reverse}>
+    <StyledWrapper isActive={isActive} isReverse={reverse} isMid={mid}>
       <StyledLeftColumn>
         <StyledTitle>
           <StyledTitleText>{title}</StyledTitleText>
           <StyledLink to={link}>Wszystko</StyledLink>
         </StyledTitle>
         <StyledList>
-          <StyledItem
-            onMouseOver={() => handleItemMouseOver(-1)}
-            isActive={activeOption === -1}
-          >
-            Polecane
+          <StyledItem isActive={activeOption === -1}>
+            <StyledItemLink to="/">
+              <StyledItemSpan onMouseOver={() => handleItemMouseOver(-1)}>
+                Polecane
+              </StyledItemSpan>
+            </StyledItemLink>
           </StyledItem>
           {subcategories.map((item, index) => (
-            <StyledItem
-              key={index}
-              onMouseOver={() => handleItemMouseOver(index)}
-              isActive={activeOption === index}
-            >
-              {item.name}
+            <StyledItem key={index} isActive={activeOption === index}>
+              <StyledItemLink to="/">
+                <StyledItemSpan onMouseOver={() => handleItemMouseOver(index)}>
+                  {item.name}
+                </StyledItemSpan>
+              </StyledItemLink>
             </StyledItem>
           ))}
         </StyledList>
@@ -239,19 +287,28 @@ const DropDown = ({
                       .slice(0, 8)
                       .map((item, index) => (
                         <StyledItem second key={index}>
-                          {item}
+                          <StyledItemLink to="/">
+                            <StyledItemSpan>{item}</StyledItemSpan>
+                          </StyledItemLink>
                         </StyledItem>
                       ))}
                     <StyledItem second more>
-                      Więcej... (
-                      {subcategories[activeOption].subcategories.length - 9})
+                      <StyledItemLink to="">
+                        <StyledItemSpan>
+                          Więcej... (
+                          {subcategories[activeOption].subcategories.length - 9}
+                          )
+                        </StyledItemSpan>
+                      </StyledItemLink>
                     </StyledItem>
                   </>
                 ) : (
                   subcategories[activeOption].subcategories.map(
                     (item, index) => (
                       <StyledItem second key={index}>
-                        {item}
+                        <StyledItemLink to="">
+                          <StyledItemSpan>{item}</StyledItemSpan>
+                        </StyledItemLink>
                       </StyledItem>
                     )
                   )
@@ -276,10 +333,12 @@ DropDown.propTypes = {
   link: PropTypes.string.isRequired,
   isActive: PropTypes.bool.isRequired,
   reverse: PropTypes.bool,
+  mid: PropTypes.bool,
 };
 
 DropDown.defaultProps = {
   reverse: false,
+  mid: false,
 };
 
 export default DropDown;

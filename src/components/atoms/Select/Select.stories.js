@@ -18,11 +18,11 @@ export default {
 };
 
 export const withSelect = () => {
-  const type = select("Type", [primary, secondary], primary);
+  const kind = select("Kind", [primary, secondary], primary);
 
   return (
     <div style={{ width: "215px" }}>
-      <Select options={options} type={type} />
+      <Select options={options} kind={kind} />
     </div>
   );
 };
