@@ -6,7 +6,6 @@ import helpLine from "@iconify-icons/clarity/help-line";
 import heart from "@iconify-icons/clarity/heart-line";
 import user from "@iconify-icons/clarity/user-line";
 import basket from "@iconify-icons/clarity/shopping-bag-line";
-import { useWindowSize } from "@hooks/utils";
 import Link from "../StyledLink/StyledLink";
 import Search from "../Search/Search";
 import TextWithIcon from "../TextWithIcon/TextWithIcon";
@@ -55,9 +54,6 @@ const StyledTextWithIcon = styled(TextWithIcon)`
 `;
 
 const TopBar = () => {
-  const size = useWindowSize();
-  console.log(size);
-
   return (
     <StyledWrapper>
       <StyledLink to={routes.index}>
