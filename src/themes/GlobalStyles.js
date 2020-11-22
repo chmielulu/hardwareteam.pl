@@ -19,5 +19,6 @@ export default createGlobalStyle`
     margin: 0;
     width: 100vw;
     overflow-x: hidden;
+    min-height: 100vh;
   }
 `;

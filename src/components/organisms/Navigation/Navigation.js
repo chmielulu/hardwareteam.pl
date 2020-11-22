@@ -16,10 +16,10 @@ const StyledWrapper = styled.header`
   z-index: 2;
   background: #fff;
   width: 100vw;
-  overflow-x: hidden;
 
   @media (max-width: 1024px) {
     position: relative;
+    overflow-x: hidden;
   }
 `;
 
