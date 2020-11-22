@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Logo } from "@components/atoms";
 import routes from "@routes";
@@ -18,6 +19,21 @@ const StyledWrapper = styled.div`
   padding: 0 20px;
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
   justify-content: center;
+  background: #fff;
+
+  @media (max-width: 1024px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-bottom: 0;
+    box-shadow: 0px -7px 20px rgba(0, 0, 0, 0.25);
+    justify-content: flex-start;
+    z-index: 9999;
+  }
+
+  @media (max-width: 768px) {
+    height: 55px;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -53,21 +69,33 @@ const StyledTextWithIcon = styled(TextWithIcon)`
   }
 `;
 
-const TopBar = () => {
+const TopBar = ({ innerSizes }) => {
   return (
     <StyledWrapper>
       <StyledLink to={routes.index}>
-        <Logo />
+        <Logo
+          withoutText={innerSizes.width <= 1024}
+          size={innerSizes.width <= 768 && "35px"}
+        />
       </StyledLink>
-      <Search />
-      <TextWithIconsWrapper>
-        <StyledTextWithIcon icon={helpLine} text="Kontakt" />
-        <StyledTextWithIcon icon={heart} text="Listy zakupowe" />
-        <StyledTextWithIcon icon={user} text="Twoje konto" />
-        <StyledTextWithIcon icon={basket} text="Koszyk" />
-      </TextWithIconsWrapper>
+      <Search innerSizes={innerSizes} />
+      {innerSizes.width > 1024 && (
+        <TextWithIconsWrapper>
+          <StyledTextWithIcon icon={helpLine} text="Kontakt" />
+          <StyledTextWithIcon icon={heart} text="Listy zakupowe" />
+          <StyledTextWithIcon icon={user} text="Twoje konto" />
+          <StyledTextWithIcon icon={basket} text="Koszyk" />
+        </TextWithIconsWrapper>
+      )}
     </StyledWrapper>
   );
+};
+
+TopBar.propTypes = {
+  innerSizes: PropTypes.shape({
+    width: PropTypes.number,
+    height: PropTypes.number,
+  }).isRequired,
 };
 
 export default TopBar;

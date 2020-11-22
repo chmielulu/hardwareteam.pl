@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
+import { useWindowSize } from "@hooks/utils";
 import BottomBar from "./_components/BottomBar/BottomBar";
 import TopBar from "./_components/TopBar/TopBar";
 import dummyContent from "./_dummyContent";
+import MobileBar from "./_components/MobileBar/MobileBar";
 
 const StyledWrapper = styled.header`
   position: fixed;
@@ -13,6 +15,12 @@ const StyledWrapper = styled.header`
   box-shadow: ${({ theme }) => theme.shadow2};
   z-index: 2;
   background: #fff;
+  width: 100vw;
+  overflow-x: hidden;
+
+  @media (max-width: 1024px) {
+    position: relative;
+  }
 `;
 
 const Overlay = styled.div`
@@ -35,18 +43,22 @@ const Overlay = styled.div`
 
 function Navigation() {
   const [isDropDownActive, setDropDownActive] = useState(false);
+  const size = useWindowSize();
 
   return (
     <>
       <StyledWrapper>
-        <TopBar />
-        <BottomBar
-          categories={dummyContent}
-          isDropDownActive={isDropDownActive}
-          setDropDownActive={setDropDownActive}
-        />
+        <TopBar innerSizes={size} />
+        {size.width > 1024 && (
+          <BottomBar
+            categories={dummyContent}
+            isDropDownActive={isDropDownActive}
+            setDropDownActive={setDropDownActive}
+          />
+        )}
+        {size.width <= 1024 && <MobileBar categories={dummyContent} />}
       </StyledWrapper>
-      <Overlay isActive={isDropDownActive} />
+      {size.width > 1024 && <Overlay isActive={isDropDownActive} />}
     </>
   );
 }

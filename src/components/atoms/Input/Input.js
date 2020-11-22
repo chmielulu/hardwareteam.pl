@@ -51,8 +51,8 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
-const Input = ({ label, name, icon, kind, ...props }) => (
-  <StyledWrapper>
+const Input = ({ label, name, icon, kind, className, ...props }) => (
+  <StyledWrapper className={className}>
     <StyledLabel htmlFor={name}>{label}</StyledLabel>
     <StyledInput
       id={name}
@@ -71,11 +71,13 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   icon: PropTypes.object,
   kind: PropTypes.oneOf([primary, secondary]),
+  className: PropTypes.string,
 };
 
 Input.defaultProps = {
   icon: null,
   kind: primary,
+  className: "",
 };
 
 export default Input;

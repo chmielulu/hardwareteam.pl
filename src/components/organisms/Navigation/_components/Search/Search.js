@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Input, Select, Button } from "@components/atoms";
 import { secondary } from "@constants/kinds";
@@ -17,23 +18,38 @@ const options = [
 
 const StyledWrapper = styled.div`
   display: flex;
+
+  @media (max-width: 1024px) {
+    border-radius: 10px;
+    width: 90%;
+  }
 `;
 
 const StyledInput = styled(Input)`
   width: 500px;
-  border-radius: 10px 0 0 10px;
-  border: 1px solid ${({ theme }) => theme.gray};
 
-  :hover {
-    border: 1px solid ${({ theme }) => theme.secondary};
+  input {
+    border-radius: 10px 0 0 10px;
+    border: 1px solid ${({ theme }) => theme.gray};
   }
 
+  :hover input {
+    border: 1px solid ${({ theme }) => theme.secondary};
+  }
   @media (max-width: 1752px) {
     width: 300px;
   }
 
   @media (max-width: 1480px) {
     width: 250px;
+  }
+
+  @media (max-width: 1024px) {
+    input {
+      border-radius: 10px;
+    }
+
+    width: 100%;
   }
 `;
 
@@ -51,7 +67,7 @@ const StyledSelect = styled(Select)`
     min-width: 100%;
     width: unset;
     white-space: nowrap;
-    top: 100%;
+    top: calc(100% + 1px);
   }
 
   @media (max-width: 1752px) {
@@ -73,19 +89,30 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const Search = () => {
+const Search = ({ innerSizes }) => {
+  const name = "search";
+  const label = "Czego szukasz?";
+
   return (
     <StyledWrapper>
-      <StyledInput name="search" label="Czego szukasz?" kind={secondary} />
-      <StyledSelect
-        name="categories"
-        options={options}
-        kind={secondary}
-        maxLength={16}
-      />
-      <StyledButton kind={secondary}>Szukaj</StyledButton>
+      {innerSizes.width > 1024 ? (
+        <>
+          <StyledInput name={name} label={label} kind={secondary} />
+          <StyledSelect options={options} kind={secondary} maxLength={16} />
+          <StyledButton kind={secondary}>Szukaj</StyledButton>
+        </>
+      ) : (
+        <StyledInput name={name} label={label} kind={secondary} />
+      )}
     </StyledWrapper>
   );
+};
+
+Search.propTypes = {
+  innerSizes: PropTypes.shape({
+    width: PropTypes.number,
+    height: PropTypes.number,
+  }).isRequired,
 };
 
 export default Search;

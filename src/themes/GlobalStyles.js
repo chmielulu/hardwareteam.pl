@@ -17,5 +17,7 @@ export default createGlobalStyle`
   body {
     color: ${({ theme }) => theme.black};
     margin: 0;
+    width: 100vw;
+    overflow-x: hidden;
   }
 `;

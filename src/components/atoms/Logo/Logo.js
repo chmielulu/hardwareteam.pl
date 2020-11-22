@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
-import { l, allSizes } from "@constants/fontSizes";
+import { l } from "@constants/fontSizes";
 import logo from "@assets/images/logo.png";
 
 const StyledWrapper = styled.div`
@@ -11,7 +11,7 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledText = styled.h1`
-  ${({ theme, size }) => useFontSize(theme, size)}
+  ${({ theme }) => useFontSize(theme, l)}
   font-weight: 400;
 `;
 
@@ -19,23 +19,37 @@ const StyledImage = styled.img`
   width: 50px;
   height: auto;
   margin-right: 10px;
+
+  ${({ size }) =>
+    size &&
+    css`
+      width: ${size};
+    `}
+
+  ${({ withoutText }) =>
+    withoutText &&
+    css`
+      margin-right: 0;
+    `}
 `;
 
-const Logo = ({ size }) => {
+const Logo = ({ size, withoutText }) => {
   return (
     <StyledWrapper>
-      <StyledImage src={logo} />
-      <StyledText size={size}>Hardware Team</StyledText>
+      <StyledImage src={logo} size={size} withoutText={withoutText} />
+      {!withoutText && <StyledText size={size}>Hardware Team</StyledText>}
     </StyledWrapper>
   );
 };
 
 Logo.propTypes = {
-  size: PropTypes.oneOf(allSizes),
+  size: PropTypes.string,
+  withoutText: PropTypes.bool,
 };
 
 Logo.defaultProps = {
-  size: l,
+  size: null,
+  withoutText: false,
 };
 
 export default Logo;

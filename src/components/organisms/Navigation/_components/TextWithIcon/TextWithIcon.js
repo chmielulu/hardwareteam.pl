@@ -12,6 +12,13 @@ const StyledWrapper = styled.div`
 const StyledIcon = styled(Icon)`
   font-size: 3.5rem;
   margin-right: 10px;
+
+  ${({ tertiary }) =>
+    tertiary &&
+    css`
+      font-size: 2.5rem;
+      margin-right: 20px;
+    `}
 `;
 
 const StyledSecondIcon = styled(Icon)`
@@ -24,7 +31,23 @@ const StyledSecondIcon = styled(Icon)`
 `;
 
 const StyledText = styled.span`
-  ${({ theme }) => useFontSize(theme)};
+  ${({ tertiary, theme }) =>
+    !tertiary &&
+    css`
+      ${useFontSize(theme)};
+      @media (max-width: 1300px) {
+        display: none;
+      }
+    `}
+
+  ${({ secondary, tertiary }) =>
+    !secondary &&
+    !tertiary &&
+    css`
+      @media (max-width: 1480px) {
+        width: min-content;
+      }
+    `}
 
   ${({ secondary }) =>
     secondary &&
@@ -34,20 +57,14 @@ const StyledText = styled.span`
       }
     `}
 
-  ${({ secondary }) =>
-    !secondary &&
+  ${({ tertiary, theme }) =>
+    tertiary &&
     css`
-      @media (max-width: 1480px) {
-        width: min-content;
-      }
+      ${useFontSize(theme, "m", "l")};
     `}
-  
-  @media (max-width: 1300px) {
-    display: none;
-  }
 `;
 
-const TextWithIcon = ({ text, icon, secondary, ...props }) => {
+const TextWithIcon = ({ text, icon, secondary, tertiary, ...props }) => {
   const iReg = RegExp(" i ");
 
   const testText = (name) => {
@@ -62,24 +79,30 @@ const TextWithIcon = ({ text, icon, secondary, ...props }) => {
 
   return (
     <StyledWrapper {...props}>
-      {!secondary ? (
-        <StyledIcon icon={icon} />
-      ) : (
-        <StyledSecondIcon icon={icon} />
-      )}
-      <StyledText secondary={secondary}>{testText(text)}</StyledText>
+      {icon &&
+        (!secondary ? (
+          <StyledIcon icon={icon} tertiary={tertiary} />
+        ) : (
+          <StyledSecondIcon icon={icon} />
+        ))}
+      <StyledText secondary={secondary} tertiary={tertiary}>
+        {testText(text)}
+      </StyledText>
     </StyledWrapper>
   );
 };
 
 TextWithIcon.propTypes = {
   text: PropTypes.string.isRequired,
-  icon: PropTypes.object.isRequired,
+  icon: PropTypes.object,
   secondary: PropTypes.bool,
+  tertiary: PropTypes.bool,
 };
 
 TextWithIcon.defaultProps = {
   secondary: null,
+  tertiary: null,
+  icon: null,
 };
 
 export default TextWithIcon;

@@ -25,6 +25,7 @@ const StyledWrapper = styled.div`
     css`
       border-radius: 10px 10px 0 0;
       border-bottom: 0;
+      background: ${({ theme }) => theme.lighterGray};
     `}
 
   :hover {
