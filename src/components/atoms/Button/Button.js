@@ -7,7 +7,7 @@ import { rgba } from "polished";
 import { InlineIcon } from "@iconify/react";
 
 const StyledButton = styled.button`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   background: ${({ theme, kind }) =>
     kind === tertiary ? theme[secondary] : theme[kind]};
   border: 0;
@@ -45,6 +45,11 @@ const StyledButton = styled.button`
       padding: 15px 0;
       width: 100%;
     `}
+
+  @media (max-width: 1024px) {
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
 `;
 
 const StyledInlineIcon = styled(InlineIcon)`
@@ -60,8 +65,21 @@ const StyledInlineIcon = styled(InlineIcon)`
     `}
 `;
 
-const Button = ({ children, kind, icon, position, fullWidth, ...props }) => (
-  <StyledButton kind={kind} fullWidth={fullWidth} {...props}>
+const Button = ({
+  children,
+  kind,
+  icon,
+  position,
+  fullWidth,
+  className,
+  onClick,
+}) => (
+  <StyledButton
+    kind={kind}
+    fullWidth={fullWidth}
+    className={className}
+    onClick={onClick}
+  >
     {icon && <StyledInlineIcon icon={icon} position={position} />}
     {children}
   </StyledButton>
@@ -73,6 +91,8 @@ Button.propTypes = {
   icon: PropTypes.object,
   position: PropTypes.oneOf(["left", "right"]),
   fullWidth: PropTypes.bool,
+  className: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 Button.defaultProps = {
@@ -81,6 +101,8 @@ Button.defaultProps = {
   icon: null,
   position: "left",
   fullWidth: false,
+  className: undefined,
+  onClick: undefined,
 };
 
 export default Button;

@@ -75,7 +75,7 @@ const TopBar = ({ innerSizes }) => {
       <StyledLink to={routes.index}>
         <Logo
           withoutText={innerSizes.width <= 1024}
-          size={innerSizes.width <= 768 && "35px"}
+          size={innerSizes.width <= 768 ? "35px" : undefined}
         />
       </StyledLink>
       <Search innerSizes={innerSizes} />

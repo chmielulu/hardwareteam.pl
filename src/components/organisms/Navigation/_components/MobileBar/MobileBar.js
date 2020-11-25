@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
@@ -8,7 +8,6 @@ import basketIcon from "@iconify-icons/clarity/shopping-bag-line";
 import searchIcon from "@iconify-icons/clarity/search-line";
 import { Icon } from "@iconify/react";
 import { Logo } from "@components/atoms";
-import MobileNav from "./MobileNav/MobileNav";
 
 const StyledWrapper = styled.nav`
   ${({ theme }) => useFontSize(theme, "xl")}
@@ -63,39 +62,33 @@ const StyledIcon = styled(Icon)`
 
 const iconsArray = [searchIcon, basketIcon, heartIcon, userIcon];
 
-const MobileBar = ({ categories }) => {
-  const [activeOption, setActiveOption] = useState(-1);
-
-  const handleItemClick = (index) => setActiveOption(index);
-
-  return (
-    <>
-      <StyledWrapper>
-        <StyledList>
+const MobileBar = ({ activeOption, handleItemClick }) => (
+  <>
+    <StyledWrapper>
+      <StyledList>
+        <StyledItem
+          onClick={() => handleItemClick(-1)}
+          active={activeOption === -1}
+        >
+          <Logo withoutText size="35px" />
+        </StyledItem>
+        {iconsArray.map((icon, index) => (
           <StyledItem
-            onClick={() => handleItemClick(-1)}
-            active={activeOption === -1}
+            key={index}
+            onClick={() => handleItemClick(index)}
+            active={activeOption === index}
           >
-            <Logo withoutText size="35px" />
+            <StyledIcon icon={icon} />
           </StyledItem>
-          {iconsArray.map((icon, index) => (
-            <StyledItem
-              key={index}
-              onClick={() => handleItemClick(index)}
-              active={activeOption === index}
-            >
-              <StyledIcon icon={icon} />
-            </StyledItem>
-          ))}
-        </StyledList>
-      </StyledWrapper>
-      <MobileNav isActive={activeOption === 0} categories={categories} />
-    </>
-  );
-};
+        ))}
+      </StyledList>
+    </StyledWrapper>
+  </>
+);
 
 MobileBar.propTypes = {
-  categories: PropTypes.array.isRequired,
+  activeOption: PropTypes.number.isRequired,
+  handleItemClick: PropTypes.func.isRequired,
 };
 
 export default MobileBar;

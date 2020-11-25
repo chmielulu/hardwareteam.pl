@@ -5,6 +5,7 @@ import BottomBar from "./_components/BottomBar/BottomBar";
 import TopBar from "./_components/TopBar/TopBar";
 import dummyContent from "./_dummyContent";
 import MobileBar from "./_components/MobileBar/MobileBar";
+import MobileNav from "./_components/MobileNav/MobileNav";
 
 const StyledWrapper = styled.header`
   position: fixed;
@@ -19,7 +20,8 @@ const StyledWrapper = styled.header`
 
   @media (max-width: 1024px) {
     position: relative;
-    overflow-x: hidden;
+    overflow: hidden;
+    height: 100vh;
   }
 `;
 
@@ -41,9 +43,34 @@ const Overlay = styled.div`
     `}
 `;
 
+const MobileNavWrapper = styled.div`
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  padding: 85px 0 55px;
+  position: relative;
+  transform: translateX(100%);
+  transition: transform 0.4s ease-in-out;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  @media (max-width: 768px) {
+    padding: 55px 0;
+  }
+
+  ${({ isActive }) =>
+    isActive &&
+    css`
+      transform: translateX(0);
+    `}
+`;
+
 function Navigation() {
   const [isDropDownActive, setDropDownActive] = useState(false);
   const size = useWindowSize();
+
+  const [activeOption, setActiveOption] = useState(-1);
+  const handleItemClick = (index) => setActiveOption(index);
 
   return (
     <>
@@ -56,7 +83,21 @@ function Navigation() {
             setDropDownActive={setDropDownActive}
           />
         )}
-        {size.width <= 1024 && <MobileBar categories={dummyContent} />}
+        {size.width <= 1024 && (
+          <>
+            <MobileNavWrapper isActive={activeOption === 0}>
+              <MobileNav
+                isActive={activeOption === 0}
+                categories={dummyContent}
+              />
+            </MobileNavWrapper>
+            <MobileBar
+              categories={dummyContent}
+              activeOption={activeOption}
+              handleItemClick={handleItemClick}
+            />
+          </>
+        )}
       </StyledWrapper>
       {size.width > 1024 && <Overlay isActive={isDropDownActive} />}
     </>
