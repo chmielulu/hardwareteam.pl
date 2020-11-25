@@ -20,6 +20,10 @@ const StyledWrapper = styled.div`
   transform: translateX(100%);
   transition: transform 0.4s ease;
 
+  @media (min-width: 770px) {
+    padding: 85px 0 55px;
+  }
+
   ${({ isActive }) =>
     isActive &&
     css`
