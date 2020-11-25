@@ -51,7 +51,6 @@ const MobileNav = ({ isActive, categories }) => {
   const [secondActiveOption, setSecondActiveOption] = useState(0);
 
   const handleItemClick = (index, second = false) => {
-    console.log(categories[index]);
     if (!second) {
       setActiveOption(index);
       setDialogActive(true);
