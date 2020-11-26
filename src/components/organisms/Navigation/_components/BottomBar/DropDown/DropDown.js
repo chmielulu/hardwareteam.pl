@@ -285,10 +285,10 @@ const DropDown = ({
                   <>
                     {subcategories[activeOption].subcategories
                       .slice(0, 8)
-                      .map((item, index) => (
+                      .map(({ name }, index) => (
                         <StyledItem second key={index}>
                           <StyledItemLink to="/">
-                            <StyledItemSpan>{item}</StyledItemSpan>
+                            <StyledItemSpan>{name}</StyledItemSpan>
                           </StyledItemLink>
                         </StyledItem>
                       ))}
@@ -304,10 +304,10 @@ const DropDown = ({
                   </>
                 ) : (
                   subcategories[activeOption].subcategories.map(
-                    (item, index) => (
+                    ({ name }, index) => (
                       <StyledItem second key={index}>
                         <StyledItemLink to="">
-                          <StyledItemSpan>{item}</StyledItemSpan>
+                          <StyledItemSpan>{name}</StyledItemSpan>
                         </StyledItemLink>
                       </StyledItem>
                     )

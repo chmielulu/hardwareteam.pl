@@ -12,13 +12,19 @@ export default createGlobalStyle`
 
   html {
     font-size: 62.5%;
+    position: fixed;
+    height: 100%;
+    overflow: hidden;
   }
 
   body {
     color: ${({ theme }) => theme.black};
-    margin: 0;
     width: 100vw;
+    height: 100vh;
+    min-width: 300px;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
     overflow-x: hidden;
-    min-height: 100vh;
+    overflow-y: auto;
   }
 `;

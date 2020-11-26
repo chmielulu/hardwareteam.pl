@@ -10,18 +10,21 @@ import arrowIcon from "@iconify-icons/clarity/arrow-line";
 import TextWithIcon from "../../TextWithIcon/TextWithIcon";
 
 const StyledWrapper = styled.div`
-  position: absolute;
+  position: fixed;
+  top: 55px;
   left: 0;
-  top: 0;
-  height: 100%;
+  bottom: 55px;
   width: 100%;
-  padding: 55px 0;
-  background: #fff;
   transform: translateX(100%);
+  overflow: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #fff;
   transition: transform 0.4s ease;
+  z-index: 1000;
 
   @media (min-width: 770px) {
-    padding: 85px 0 55px;
+    top: 85px;
   }
 
   ${({ isActive }) =>
@@ -29,22 +32,6 @@ const StyledWrapper = styled.div`
     css`
       transform: translateX(0);
     `}
-
-  ::after {
-    content: "";
-    height: 55px;
-    width: 100%;
-    display: block;
-  }
-`;
-
-const StyledInnerWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  -webkit-overflow-scrolling: touch;
-  overflow: hidden;
-  overflow-y: auto;
-  position: relative;
 `;
 
 const StyledHeadlineWrapper = styled.div`
@@ -113,33 +100,31 @@ function Dialog({
 
   return (
     <StyledWrapper isActive={isActive}>
-      <StyledInnerWrapper>
-        <StyledHeadlineWrapper>
-          <StyledHeadlineIcon icon={arrowIcon} onClick={handleBackClick} />
-          <StyledHeadline>{name}</StyledHeadline>
-        </StyledHeadlineWrapper>
-        <StyledButtonWrapper>
-          <Button as={Link} to="/" kind={tertiary}>
-            Zobacz {name}
-          </Button>
-        </StyledButtonWrapper>
-        <StyledList>
-          {categories &&
-            categories.map((item, index) => (
-              <StyledItem
-                key={index}
-                onClick={
-                  handleItemClick && item.subcategories
-                    ? () => handleItemClick(index, true)
-                    : undefined
-                }
-              >
-                <TextWithIcon text={item.name} tertiary />
-                {item.subcategories && <StyledItemIcon icon={arrowIcon} />}
-              </StyledItem>
-            ))}
-        </StyledList>
-      </StyledInnerWrapper>
+      <StyledHeadlineWrapper>
+        <StyledHeadlineIcon icon={arrowIcon} onClick={handleBackClick} />
+        <StyledHeadline>{name}</StyledHeadline>
+      </StyledHeadlineWrapper>
+      <StyledButtonWrapper>
+        <Button as={Link} to="/" kind={tertiary}>
+          Zobacz {name}
+        </Button>
+      </StyledButtonWrapper>
+      <StyledList>
+        {categories &&
+          categories.map((item, index) => (
+            <StyledItem
+              key={index}
+              onClick={
+                handleItemClick && item.subcategories
+                  ? () => handleItemClick(index, true)
+                  : undefined
+              }
+            >
+              <TextWithIcon text={item.name} tertiary />
+              {item.subcategories && <StyledItemIcon icon={arrowIcon} />}
+            </StyledItem>
+          ))}
+      </StyledList>
     </StyledWrapper>
   );
 }

@@ -18,6 +18,7 @@ const StyledWrapper = styled.nav`
 `;
 
 const StyledList = styled.ul`
+  position: absolute;
   list-style-type: none;
   background: #fff;
   padding: 30px 25px;

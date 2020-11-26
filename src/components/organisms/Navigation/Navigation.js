@@ -44,14 +44,15 @@ const Overlay = styled.div`
 `;
 
 const MobileNavWrapper = styled.div`
-  overflow: hidden;
-  height: 100vh;
-  width: 100vw;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   padding: 85px 0 55px;
-  position: relative;
+  position: fixed;
   transform: translateX(100%);
   transition: transform 0.4s ease-in-out;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 
   @media (max-width: 768px) {
