@@ -15,6 +15,7 @@ const StyledWrapper = styled.nav`
   left: 0;
   position: fixed;
   width: 100%;
+  min-width: 260px;
   z-index: 9999;
 `;
 

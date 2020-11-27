@@ -21,10 +21,30 @@ export default createGlobalStyle`
     color: ${({ theme }) => theme.black};
     width: 100vw;
     height: 100vh;
-    min-width: 300px;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
     overflow-x: hidden;
     overflow-y: auto;
+    padding-top: 135px;
+
+    @media (max-width: 1024px) {
+      padding-top: 85px;
+      padding-bottom: 55px;
+    }
+
+    @media (max-width: 768px) {
+      padding-top: 55px;
+    }
+    
+    @media (max-width: 300px) {
+      overflow-x: scroll;
+    }
+  }
+
+  #root {
+    width: 100vw;
+    min-width: 300px;
+    height: 100%; 
+    overflow-y: scroll;
   }
 `;

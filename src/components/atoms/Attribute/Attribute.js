@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
 
 const StyledWrapper = styled.div`
-  ${({ theme }) => useFontSize(theme)};
+  ${({ theme }) => useFontSize(theme, "m", "l")};
   display: flex;
   align-items: center;
 `;

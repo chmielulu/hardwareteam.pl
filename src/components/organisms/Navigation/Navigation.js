@@ -19,9 +19,10 @@ const StyledWrapper = styled.header`
   width: 100vw;
 
   @media (max-width: 1024px) {
-    position: relative;
+    position: absolute;
     overflow: hidden;
     height: 100vh;
+    left: 100vw;
   }
 `;
 

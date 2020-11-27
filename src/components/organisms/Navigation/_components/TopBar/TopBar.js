@@ -13,6 +13,7 @@ import TextWithIcon from "../TextWithIcon/TextWithIcon";
 
 const StyledWrapper = styled.div`
   width: 100vw;
+  min-width: 260px;
   height: 85px;
   align-items: center;
   display: flex;

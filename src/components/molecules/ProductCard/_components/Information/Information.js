@@ -26,10 +26,14 @@ const StyledWrapper = styled.div`
 const StyledIcon = styled(Icon)`
   font-size: 2.5rem;
   margin-right: 10px;
+
+  @media (max-width: 1024px) {
+    font-size: 2rem;
+  }
 `;
 
 const StyledText = styled.span`
-  ${({ theme }) => useFontSize(theme)};
+  ${({ theme }) => useFontSize(theme, "m", "l")};
   font-weight: 300;
 `;
 
