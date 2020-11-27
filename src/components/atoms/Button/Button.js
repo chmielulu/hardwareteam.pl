@@ -8,8 +8,8 @@ import { InlineIcon } from "@iconify/react";
 
 const StyledButton = styled.button`
   ${({ theme }) => useFontSize(theme, "m", "l")}
-  background: ${({ theme, kind }) =>
-    kind === tertiary ? theme[secondary] : theme[kind]};
+  background: ${({ theme, $kind }) =>
+    $kind === tertiary ? theme[secondary] : theme[$kind]};
   border: 0;
   color: #fff;
   padding: 15px 25px;
@@ -21,12 +21,12 @@ const StyledButton = styled.button`
   justify-content: center;
 
   :focus {
-    box-shadow: 0 0 0 4px ${({ theme, kind }) =>
-      rgba(kind === tertiary ? theme[secondary] : theme[kind], 0.4)};
+    box-shadow: 0 0 0 4px ${({ theme, $kind }) =>
+      rgba($kind === tertiary ? theme[secondary] : theme[$kind], 0.4)};
   }
 
-  ${({ kind, theme }) =>
-    kind === tertiary &&
+  ${({ $kind, theme }) =>
+    $kind === tertiary &&
     css`
       background: transparent;
       border: 1.5px solid ${theme.secondary};
@@ -35,12 +35,12 @@ const StyledButton = styled.button`
 
       :focus {
         box-shadow: 0 0 0 2px
-          ${rgba(kind === tertiary ? theme[secondary] : theme[kind], 0.4)};
+          ${rgba($kind === tertiary ? theme[secondary] : theme[$kind], 0.4)};
       }
     `}
 
-  ${({ fullWidth }) =>
-    fullWidth &&
+  ${({ $fullWidth }) =>
+    $fullWidth &&
     css`
       padding: 15px 0;
       width: 100%;
@@ -56,8 +56,8 @@ const StyledInlineIcon = styled(InlineIcon)`
   font-size: 2.2rem;
   margin-right: 12px;
 
-  ${({ position }) =>
-    position === "right" &&
+  ${({ $position }) =>
+    $position === "right" &&
     css`
       margin-right: 0;
       margin-left: 10px;
@@ -71,16 +71,16 @@ const Button = ({
   icon,
   position,
   fullWidth,
-  className,
   onClick,
+  ...props
 }) => (
   <StyledButton
-    kind={kind}
-    fullWidth={fullWidth}
-    className={className}
+    $kind={kind}
+    $fullWidth={fullWidth}
     onClick={onClick}
+    {...props}
   >
-    {icon && <StyledInlineIcon icon={icon} position={position} />}
+    {icon && <StyledInlineIcon icon={icon} $position={position} />}
     {children}
   </StyledButton>
 );
@@ -88,7 +88,7 @@ const Button = ({
 Button.propTypes = {
   children: PropTypes.node,
   kind: PropTypes.oneOf([primary, secondary, tertiary]),
-  icon: PropTypes.object,
+  icon: PropTypes.any,
   position: PropTypes.oneOf(["left", "right"]),
   fullWidth: PropTypes.bool,
   className: PropTypes.string,

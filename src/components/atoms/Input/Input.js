@@ -25,12 +25,12 @@ const StyledInput = styled.input`
   transition: border 0.2s ease-in-out, color 0.2s ease-in-out;
 
   :focus {
-    border: 1.5px solid ${({ theme, kind }) => theme[kind]};
+    border: 1.5px solid ${({ theme, $kind }) => theme[$kind]};
     color: ${({ theme }) => theme.black};
   }
 
-  ${({ icon }) =>
-    icon &&
+  ${({ $icon }) =>
+    $icon &&
     css`
       padding: 10px 35px 10px 15px;
     `}
@@ -47,7 +47,7 @@ const StyledIcon = styled(Icon)`
   transition: color 0.2s ease-in-out;
 
   ${StyledInput}:focus + & {
-    color: ${({ theme, kind }) => theme[kind]};
+    color: ${({ theme, $kind }) => theme[$kind]};
   }
 `;
 
@@ -58,11 +58,11 @@ const Input = ({ label, name, icon, kind, className, ...props }) => (
       id={name}
       name={name}
       placeholder={label}
-      icon={icon}
-      kind={kind}
+      $icon={icon}
+      $kind={kind}
       {...props}
     />
-    {icon && <StyledIcon icon={icon} kind={kind} />}
+    {icon && <StyledIcon icon={icon} $kind={kind} />}
   </StyledWrapper>
 );
 

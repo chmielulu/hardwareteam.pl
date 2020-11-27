@@ -16,10 +16,19 @@
 
   html {
     font-size: 62.5%;
+    position: fixed;
+    height: 100%;
+    overflow: hidden;
   }
 
   body {
     color: #2d2d2d;
-    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    min-width: 300px;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 </style>

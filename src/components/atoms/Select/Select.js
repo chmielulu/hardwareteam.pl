@@ -20,8 +20,8 @@ const StyledWrapper = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  ${({ isDropDownActive }) =>
-    isDropDownActive &&
+  ${({ $isDropDownActive }) =>
+    $isDropDownActive &&
     css`
       border-radius: 10px 10px 0 0;
       border-bottom: 0;
@@ -55,8 +55,8 @@ const StyledDropDown = styled.ul`
   box-shadow: ${({ theme }) => theme.shadow};
   border-radius: 0 0 5px 5px;
 
-  ${({ isDropDownActive, theme }) =>
-    isDropDownActive &&
+  ${({ $isDropDownActive, theme }) =>
+    $isDropDownActive &&
     css`
       display: flex;
       border: 1px solid ${theme.gray};
@@ -69,14 +69,14 @@ const StyledOption = styled.li`
   user-select: none;
 
   :hover {
-    background: ${({ isSelected, theme, kind }) =>
-      !isSelected && rgba(theme[kind], 0.1)};
+    background: ${({ $isSelected, theme, $kind }) =>
+      !$isSelected && rgba(theme[$kind], 0.1)};
   }
 
-  ${({ isSelected, theme, kind }) =>
-    isSelected &&
+  ${({ $isSelected, theme, $kind }) =>
+    $isSelected &&
     css`
-      background: ${theme[kind]};
+      background: ${theme[$kind]};
       color: #fff;
     `}
 `;
@@ -85,11 +85,11 @@ const StyledIcon = styled(Icon)`
   pointer-events: none;
   margin-left: 10px;
 
-  ${({ isDropDownActive, theme, kind }) =>
-    isDropDownActive &&
+  ${({ $isDropDownActive, theme, $kind }) =>
+    $isDropDownActive &&
     css`
       transform: rotate(180deg) !important;
-      color: ${theme[kind]};
+      color: ${theme[$kind]};
     `}
 `;
 
@@ -108,23 +108,23 @@ const Select = ({ options, kind, ...props }) => {
   return (
     <StyledWrapper
       ref={wrapper}
-      isDropDownActive={isDropDownActive}
+      $isDropDownActive={isDropDownActive}
       onClick={handleSelectClick}
       {...props}
     >
       <StyledSelectedOption>{options[activeOption]}</StyledSelectedOption>
       <StyledIcon
         icon={angleLine}
-        kind={kind}
-        isDropDownActive={isDropDownActive}
+        $kind={kind}
+        $isDropDownActive={isDropDownActive}
       />
-      <StyledDropDown isDropDownActive={isDropDownActive}>
+      <StyledDropDown $isDropDownActive={isDropDownActive}>
         {options.map((item, index) => (
           <StyledOption
             key={index}
-            isSelected={index === activeOption}
+            $isSelected={index === activeOption}
             onClick={() => handleOptionClick(index)}
-            kind={kind}
+            $kind={kind}
           >
             {item}
           </StyledOption>
