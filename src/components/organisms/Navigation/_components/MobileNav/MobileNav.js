@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
@@ -25,7 +25,7 @@ const StyledList = styled.ul`
   width: 100%;
   height: 100%;
   overflow: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 `;
 
@@ -48,18 +48,18 @@ const StyledIcon = styled(Icon)`
 const MobileNav = ({ isActive, categories }) => {
   const [isDialogActive, setDialogActive] = useState(false);
   const [isSecondDialogActive, setSecondDialogActive] = useState(false);
-  const [activeList, setActiveList] = useState(null);
-  const [activeSublist, setActiveSublist] = useState(null);
+  const [activeOption, setActiveOption] = useState(0);
+  const [secondActiveOption, setSecondActiveOption] = useState(0);
 
-  const handleItemClick = (index, second = false) => {
+  const handleItemClick = useCallback((index, second = false) => {
     if (!second) {
-      setActiveList(categories[index]);
+      setActiveOption(index);
       setDialogActive(true);
     } else {
-      setActiveSublist(activeList.subcategories[index]);
+      setSecondActiveOption(index);
       setSecondDialogActive(true);
     }
-  };
+  }, []);
 
   const handleBackClick = (second = null) => {
     if (!second) {
@@ -74,14 +74,7 @@ const MobileNav = ({ isActive, categories }) => {
       setDialogActive(false);
       setSecondDialogActive(false);
     }
-  });
-
-  useLayoutEffect(() => {
-    setActiveList(categories[0]);
-    if (activeList) {
-      setActiveSublist(activeList.subcategories[0]);
-    }
-  }, []);
+  }, [isActive]);
 
   return (
     <>
@@ -95,23 +88,22 @@ const MobileNav = ({ isActive, categories }) => {
           ))}
         </StyledList>
       </StyledWrapper>
-      {activeList && (
-        <Dialog
-          isActive={isDialogActive}
-          categories={activeList.subcategories}
-          name={activeList.name}
-          handleBackClick={() => handleBackClick()}
-          handleItemClick={handleItemClick}
-        />
-      )}
-      {activeSublist && (
-        <Dialog
-          isActive={isSecondDialogActive}
-          categories={activeSublist.subcategories}
-          name={activeSublist.name}
-          handleBackClick={() => handleBackClick(true)}
-        />
-      )}
+      <Dialog
+        isActive={isDialogActive}
+        categories={categories[activeOption].subcategories}
+        name={categories[activeOption].name}
+        handleBackClick={() => handleBackClick()}
+        handleItemClick={handleItemClick}
+      />
+      <Dialog
+        isActive={isSecondDialogActive}
+        categories={
+          categories[activeOption].subcategories[secondActiveOption]
+            .subcategories
+        }
+        name={categories[activeOption].subcategories[secondActiveOption].name}
+        handleBackClick={() => handleBackClick(true)}
+      />
     </>
   );
 };
