@@ -12,20 +12,27 @@ export default createGlobalStyle`
 
   html {
     font-size: 62.5%;
-    position: fixed;
-    height: 100%;
-    overflow: hidden;
   }
 
   body {
-    color: ${({ theme }) => theme.black};
     width: 100vw;
-    height: 100vh;
+    overflow-x: hidden;
+    color: ${({ theme }) => theme.black};
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
-    overflow-x: hidden;
-    overflow-y: auto;
+  }
+
+  .main-wrapper {
+    width: 100vw;
+    min-width: 300px;
+    min-height: 100%; 
+    position: relative;
     padding-top: 135px;
+    overflow-x: hidden;
+    
+    @media (max-width: 300px) {
+      overflow-x: scroll;
+    }
 
     @media (max-width: 1024px) {
       padding-top: 85px;
@@ -35,16 +42,5 @@ export default createGlobalStyle`
     @media (max-width: 768px) {
       padding-top: 55px;
     }
-    
-    @media (max-width: 300px) {
-      overflow-x: scroll;
-    }
-  }
-
-  #root {
-    width: 100vw;
-    min-width: 300px;
-    height: 100%; 
-    overflow-y: scroll;
   }
 `;

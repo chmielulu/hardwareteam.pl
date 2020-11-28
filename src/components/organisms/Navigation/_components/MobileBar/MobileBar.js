@@ -17,6 +17,7 @@ const StyledWrapper = styled.nav`
   width: 100%;
   min-width: 260px;
   z-index: 9999;
+  pointer-events: all;
 `;
 
 const StyledList = styled.ul`

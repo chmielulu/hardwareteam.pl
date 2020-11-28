@@ -26,9 +26,11 @@ const Root = () => (
   <MainTemplate>
     <Router>
       <Navigation />
-      <Wrapper>
-        <ProductCard />
-      </Wrapper>
+      <div className="main-wrapper">
+        <Wrapper>
+          <ProductCard />
+        </Wrapper>
+      </div>
     </Router>
   </MainTemplate>
 );

@@ -32,6 +32,7 @@ const StyledButton = styled.button`
       border: 1.5px solid ${theme.secondary};
       color: ${theme.secondary};
       font-weight: 300;
+      text-decoration: none;
 
       :focus {
         box-shadow: 0 0 0 2px

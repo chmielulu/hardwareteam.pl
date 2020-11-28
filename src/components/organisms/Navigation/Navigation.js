@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
 import { useWindowSize } from "@hooks/utils";
 import BottomBar from "./_components/BottomBar/BottomBar";
@@ -15,14 +15,13 @@ const StyledWrapper = styled.header`
   flex-direction: column;
   box-shadow: ${({ theme }) => theme.shadow2};
   z-index: 2;
-  background: #fff;
   width: 100vw;
 
   @media (max-width: 1024px) {
     position: absolute;
     overflow: hidden;
     height: 100vh;
-    left: 100vw;
+    pointer-events: none;
   }
 `;
 
@@ -36,11 +35,13 @@ const Overlay = styled.div`
   opacity: 0;
   position: fixed;
   transition: opacity 0.2s ease-in-out;
+  pointer-events: none;
 
   ${({ isActive }) =>
     isActive &&
     css`
       opacity: 0.4;
+      pointer-events: all;
     `}
 `;
 
@@ -63,6 +64,7 @@ const MobileNavWrapper = styled.div`
   ${({ isActive }) =>
     isActive &&
     css`
+      pointer-events: all;
       transform: translateX(0);
     `}
 `;
@@ -73,6 +75,13 @@ function Navigation() {
 
   const [activeOption, setActiveOption] = useState(-1);
   const handleItemClick = (index) => setActiveOption(index);
+
+  useEffect(() => {
+    const bodyStyle = document.body.style;
+
+    if (activeOption === 0) bodyStyle.overflow = "hidden";
+    else bodyStyle.overflow = "";
+  });
 
   return (
     <>
