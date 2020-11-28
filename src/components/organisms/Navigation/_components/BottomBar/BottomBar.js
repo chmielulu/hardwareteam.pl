@@ -10,6 +10,7 @@ const StyledWrapper = styled.nav`
   height: 45px;
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
   padding: 0 12px;
+  background: #fff;
 
   @media (max-width: 1752px) {
     height: 50px;
