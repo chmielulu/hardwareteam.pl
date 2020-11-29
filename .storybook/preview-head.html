@@ -16,19 +16,41 @@
 
   html {
     font-size: 62.5%;
-    position: fixed;
-    height: 100%;
-    overflow: hidden;
   }
 
   body {
-    color: #2d2d2d;
     width: 100vw;
-    height: 100vh;
-    min-width: 300px;
+    overflow-x: hidden;
+    color: #2d2d2d;
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
+  }
+
+  .main-wrapper {
+    width: 100vw;
+    min-width: 300px;
+    min-height: 100%;
+    position: relative;
+    padding-top: 135px;
     overflow-x: hidden;
-    overflow-y: auto;
+  }
+
+  @media (max-width: 300px) {
+    .main-wrapper {
+      overflow-x: scroll;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .main-wrapper {
+      padding-top: 55px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .main-wrapper {
+      padding-top: 85px;
+      padding-bottom: 55px;
+    }
   }
 </style>

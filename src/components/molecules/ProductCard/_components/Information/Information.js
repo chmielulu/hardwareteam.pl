@@ -2,21 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Icon from "@iconify/react";
-import clockIcon from "@iconify/icons-clarity/clock-line";
 import { useFontSize } from "@hooks/styled-components";
-import truckIcon from "@iconify/icons-clarity/truck-line";
-
-const kindNames = ["time", "delivery"];
-const allKinds = {
-  [kindNames[0]]: {
-    icon: clockIcon,
-    text: "U ciebie już jutro",
-  },
-  [kindNames[1]]: {
-    icon: truckIcon,
-    text: "Dostawa gratis",
-  },
-};
+import allKinds, { kinds as kindNames } from "./kinds";
 
 const StyledWrapper = styled.div`
   display: flex;

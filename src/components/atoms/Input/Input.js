@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { Icon } from "@iconify/react";
@@ -51,20 +51,43 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
-const Input = ({ label, name, icon, kind, className, ...props }) => (
-  <StyledWrapper className={className}>
-    <StyledLabel htmlFor={name}>{label}</StyledLabel>
-    <StyledInput
-      id={name}
-      name={name}
-      placeholder={label}
-      $icon={icon}
-      $kind={kind}
-      {...props}
-    />
-    {icon && <StyledIcon icon={icon} $kind={kind} />}
-  </StyledWrapper>
-);
+const Input = ({
+  label,
+  name,
+  icon,
+  kind,
+  className,
+  value,
+  onChange,
+  ...props
+}) => {
+  const [inputValue, setValue] = useState();
+
+  const handleInputChange = ({ target: { value } }) => {
+    if (onChange) {
+      onChange(value);
+    } else {
+      setValue(value);
+    }
+  };
+
+  return (
+    <StyledWrapper className={className}>
+      <StyledLabel htmlFor={name}>{label}</StyledLabel>
+      <StyledInput
+        id={name}
+        name={name}
+        placeholder={label}
+        $icon={icon}
+        $kind={kind}
+        value={value || inputValue}
+        onChange={handleInputChange}
+        {...props}
+      />
+      {icon && <StyledIcon icon={icon} $kind={kind} />}
+    </StyledWrapper>
+  );
+};
 
 Input.propTypes = {
   label: PropTypes.string.isRequired,
@@ -72,12 +95,16 @@ Input.propTypes = {
   icon: PropTypes.object,
   kind: PropTypes.oneOf([primary, secondary]),
   className: PropTypes.string,
+  onChange: PropTypes.func,
+  value: PropTypes.string,
 };
 
 Input.defaultProps = {
   icon: null,
   kind: primary,
   className: "",
+  onChange: null,
+  value: null,
 };
 
 export default Input;

@@ -12,7 +12,7 @@ const useOutsideClick = (ref, fn) => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [ref]);
+  }, [ref, fn]);
 };
 
 export default useOutsideClick;

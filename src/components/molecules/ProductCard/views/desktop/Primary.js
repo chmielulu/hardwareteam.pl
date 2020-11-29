@@ -1,9 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
 import { Award, Attribute, Score, Button } from "@components/atoms";
 import basketIcon from "@iconify/icons-clarity/shopping-cart-line";
-import huaweiImg from "@assets/images/huaweiPhone.png";
+import { useSortedAwards } from "@hooks/utils";
 import ComparedButton from "../../_components/ComparedButton/ComparedButton";
 import Information from "../../_components/Information/Information";
 
@@ -24,6 +25,11 @@ const StyledHeadline = styled.h3`
   color: ${({ theme }) => theme.darkGray};
   margin: 0;
   margin-bottom: 40px;
+  width: 80%;
+  max-height: 85px;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const StyledInnerWrapper = styled.div`
@@ -40,6 +46,7 @@ const StyledFirstColumn = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   margin-right: 100px;
 
   @media (max-width: 1420px) {
@@ -54,7 +61,7 @@ const StyledFirstColumn = styled.div`
 const StyledSecondColumn = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   padding-bottom: 10px;
 `;
 
@@ -63,10 +70,12 @@ const StyledThirdColumn = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 175px;
 `;
 
 const StyledPhoto = styled.img`
   max-height: 225px;
+  max-width: 245px;
   margin-bottom: 25px;
 `;
 
@@ -74,6 +83,7 @@ const StyledAwardsWrapper = styled.div`
   display: flex;
   max-width: 360px;
   flex-wrap: wrap;
+  margin-bottom: auto;
 
   @media (max-width: 1420px) {
     max-width: unset;
@@ -101,13 +111,16 @@ const StyledAttribute = styled(Attribute)`
 `;
 
 const StyledScoreWrapper = styled.div`
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  justify-content: flex-end;
 `;
 
 const StyledScore = styled(Score)`
   width: 110px;
   margin-right: 10px;
+  position: relative;
+  flex-grow: 2;
 `;
 
 const StyledReviewsCounter = styled.span`
@@ -119,6 +132,9 @@ const StyledPrice = styled.div`
   ${({ theme }) => useFontSize(theme, "xl")};
   font-weight: 500;
   margin: 20px 0;
+  display: inline-flex;
+  justify-content: flex-end;
+  max-width: 100%;
 `;
 
 const StyledInformationsWrapper = styled.div``;
@@ -127,47 +143,55 @@ const StyledInformation = styled(Information)`
   margin-bottom: 10px;
 `;
 
-const Primary = () => {
+const Primary = ({
+  name,
+  img,
+  attributes,
+  score,
+  reviewsCount,
+  price,
+  informations,
+  awards,
+}) => {
+  const sortedAwards = useSortedAwards(awards);
   return (
     <StyledWrapper>
-      <StyledHeadline>
-        Smartfon Huawei Y6P 64GB Dual SIM Fioletowy
-      </StyledHeadline>
+      <StyledHeadline>{name}</StyledHeadline>
       <StyledInnerWrapper>
         <StyledFirstColumn>
-          <StyledPhoto
-            src={huaweiImg}
-            alt="Smartfon Huawei Y6P 64GB Dual SIM Fioletowy"
-          />
+          <StyledPhoto src={img} alt={name} />
           <ComparedButton />
         </StyledFirstColumn>
         <StyledSecondColumn>
-          <StyledAwardsWrapper>
-            <StyledAward kind="valueForMoney" />
-            <StyledAward kind="bestseller" />
-            <StyledAward kind="recommendable" />
-          </StyledAwardsWrapper>
+          {awards && (
+            <StyledAwardsWrapper>
+              {sortedAwards.map((kind, index) => (
+                <StyledAward kind={kind} key={index} />
+              ))}
+            </StyledAwardsWrapper>
+          )}
           <StyledAttributesWrapper>
-            <StyledAttribute name="Ekran" value="6,3" />
-            <StyledAttribute
-              name="Procesor"
-              value="MediaTek MT6762R Helio P22"
-            />
-            <StyledAttribute name="Pamięć RAM" value="3GB" />
-            <StyledAttribute name="Pamięć wbudowana" value="64GB" />
-            <StyledAttribute name="System" value="Android 10" />
+            {attributes.map(({ name, value }, index) => (
+              <StyledAttribute name={name} value={value} key={index} />
+            ))}
           </StyledAttributesWrapper>
         </StyledSecondColumn>
         <StyledThirdColumn>
           <div>
             <StyledScoreWrapper>
-              <StyledScore score={5} />
-              <StyledReviewsCounter>(2)</StyledReviewsCounter>
+              <StyledScore score={score} />
+              <StyledReviewsCounter>({reviewsCount})</StyledReviewsCounter>
             </StyledScoreWrapper>
-            <StyledPrice>559,00 zł</StyledPrice>
+            <StyledPrice>
+              {new Intl.NumberFormat("pl-PL", {
+                style: "currency",
+                currency: "PLN",
+              }).format(price)}
+            </StyledPrice>
             <StyledInformationsWrapper>
-              <StyledInformation kind="time" />
-              <StyledInformation kind="delivery" />
+              {informations.map((kind, index) => (
+                <StyledInformation kind={kind} key={index} />
+              ))}
             </StyledInformationsWrapper>
           </div>
           <Button icon={basketIcon}>Do koszyka</Button>

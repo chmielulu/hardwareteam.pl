@@ -8,6 +8,9 @@ import Award from "./Award/Award";
 import Attribute from "./Attribute/Attribute";
 import Radio from "./Radio/Radio";
 import Score from "./Score/Score";
+import SlideControl from "./SlideControl/SlideControl";
+import Locator from "./Locator/Locator";
+import BackButton from "./BackButton/BackButton";
 
 export {
   Attribute,
@@ -20,4 +23,7 @@ export {
   Radio,
   Score,
   Select,
+  SlideControl,
+  Locator,
+  BackButton,
 };

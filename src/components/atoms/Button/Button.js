@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
 import { primary, secondary, tertiary } from "@constants/kinds";
-import { rgba } from "polished";
 import { InlineIcon } from "@iconify/react";
 
 const StyledButton = styled.button`
@@ -20,11 +19,6 @@ const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
 
-  :focus {
-    box-shadow: 0 0 0 4px ${({ theme, $kind }) =>
-      rgba($kind === tertiary ? theme[secondary] : theme[$kind], 0.4)};
-  }
-
   ${({ $kind, theme }) =>
     $kind === tertiary &&
     css`
@@ -33,11 +27,6 @@ const StyledButton = styled.button`
       color: ${theme.secondary};
       font-weight: 300;
       text-decoration: none;
-
-      :focus {
-        box-shadow: 0 0 0 2px
-          ${rgba($kind === tertiary ? theme[secondary] : theme[$kind], 0.4)};
-      }
     `}
 
   ${({ $fullWidth }) =>

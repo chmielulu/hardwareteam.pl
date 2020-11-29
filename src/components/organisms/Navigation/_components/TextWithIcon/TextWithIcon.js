@@ -13,8 +13,8 @@ const StyledIcon = styled(Icon)`
   font-size: 3.5rem;
   margin-right: 10px;
 
-  ${({ tertiary }) =>
-    tertiary &&
+  ${({ $tertiary }) =>
+    $tertiary &&
     css`
       font-size: 2.5rem;
       margin-right: 20px;
@@ -31,8 +31,8 @@ const StyledSecondIcon = styled(Icon)`
 `;
 
 const StyledText = styled.span`
-  ${({ tertiary, theme }) =>
-    !tertiary &&
+  ${({ $tertiary, theme }) =>
+    !$tertiary &&
     css`
       ${useFontSize(theme)};
       @media (max-width: 1300px) {
@@ -40,8 +40,8 @@ const StyledText = styled.span`
       }
     `}
 
-  ${({ secondary, tertiary }) =>
-    !secondary &&
+  ${({ $secondary, tertiary }) =>
+    !$secondary &&
     !tertiary &&
     css`
       @media (max-width: 1480px) {
@@ -49,16 +49,16 @@ const StyledText = styled.span`
       }
     `}
 
-  ${({ secondary }) =>
-    secondary &&
+  ${({ $secondary }) =>
+    $secondary &&
     css`
       @media (max-width: 1752px) {
         width: min-content;
       }
     `}
 
-  ${({ tertiary, theme }) =>
-    tertiary &&
+  ${({ $tertiary, theme }) =>
+    $tertiary &&
     css`
       ${useFontSize(theme, "m", "l")};
     `}
@@ -81,11 +81,11 @@ const TextWithIcon = ({ text, icon, secondary, tertiary, ...props }) => {
     <StyledWrapper {...props}>
       {icon &&
         (!secondary ? (
-          <StyledIcon icon={icon} tertiary={tertiary} />
+          <StyledIcon icon={icon} $tertiary={tertiary} />
         ) : (
           <StyledSecondIcon icon={icon} />
         ))}
-      <StyledText secondary={secondary} tertiary={tertiary}>
+      <StyledText $secondary={secondary} $tertiary={tertiary}>
         {testText(text)}
       </StyledText>
     </StyledWrapper>

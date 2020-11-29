@@ -17,25 +17,30 @@ export default {
     icon: certificateIcon,
     color: "#402C72",
     text: "Godny polecenia",
+    priority: 0,
   },
   [kinds[1]]: {
     icon: tagIcon,
-    color: "#B5AF2E",
+    color: "#716B0A",
     text: "Bestseller",
+    priority: 1,
   },
   [kinds[2]]: {
     icon: treeIcon,
-    color: "#34AC4F",
+    color: "#01791C",
     text: "Przyjazny dla środowiska",
+    priority: 3,
   },
   [kinds[3]]: {
     icon: accessibilityIcon,
     color: "#A8368F",
     text: "Dostosowany dla osób niepełnosprawnych",
+    priority: 4,
   },
   [kinds[4]]: {
     icon: piggyIcon,
     color: "#1A5EC6",
     text: "Stosunek jakości do ceny",
+    priority: 2,
   },
 };

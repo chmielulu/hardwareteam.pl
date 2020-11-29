@@ -1,15 +1,16 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
 import { Award, Attribute, Score, Button } from "@components/atoms";
 import basketIcon from "@iconify/icons-clarity/shopping-cart-line";
-import huaweiImg from "@assets/images/huaweiPhone.png";
 import Information from "../../_components/Information/Information";
 
 const StyledWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
   padding: 40px 15px 20px;
   width: 100%;
+  min-width: 300px;
 `;
 
 const StyledAwardsWrapper = styled.div`
@@ -86,33 +87,46 @@ const StyledInformation = styled(Information)`
   margin-bottom: 10px;
 `;
 
-const Primary = () => {
+const Primary = ({
+  name,
+  img,
+  attributes,
+  score,
+  reviewsCount,
+  price,
+  informations,
+  awards,
+}) => {
   return (
     <StyledWrapper>
       <StyledAwardsWrapper>
-        <StyledAward kind="valueForMoney" />
-        <StyledAward kind="bestseller" />
-        <StyledAward kind="recommendable" />
+        {awards.map((kind, index) => (
+          <StyledAward kind={kind} key={index} />
+        ))}
       </StyledAwardsWrapper>
-      <StyledHeadline>
-        Smartfon Huawei Y6P 64GB Dual SIM Fioletowy
-      </StyledHeadline>
+      <StyledHeadline>{name}</StyledHeadline>
       <StyledScoreWrapper>
-        <StyledScore score={5} />
-        <StyledReviewsCounter>(2)</StyledReviewsCounter>
+        <StyledScore score={score} />
+        <StyledReviewsCounter>({reviewsCount})</StyledReviewsCounter>
       </StyledScoreWrapper>
       <StyledPhotoWrapper>
-        <StyledPhoto src={huaweiImg} />
+        <StyledPhoto src={img} alt={name} />
       </StyledPhotoWrapper>
-      <StyledPrice>559,00 zł</StyledPrice>
+      <StyledPrice>
+        {new Intl.NumberFormat("pl-PL", {
+          style: "currency",
+          currency: "PLN",
+        }).format(price)}
+      </StyledPrice>
       <StyledAttributesWrapper>
-        <StyledAttribute name="Ekran" value="6,3" />
-        <StyledAttribute name="Procesor" value="MediaTek MT6762R Helio P22" />
-        <StyledAttribute name="Pamięć RAM" value="3GB" />
+        {attributes.map(({ name, value }, index) => (
+          <StyledAttribute name={name} value={value} key={index} />
+        ))}
       </StyledAttributesWrapper>
       <StyledInformationsWrapper>
-        <StyledInformation kind="time" />
-        <StyledInformation kind="delivery" />
+        {informations.map((kind, index) => (
+          <StyledInformation kind={kind} key={index} />
+        ))}
       </StyledInformationsWrapper>
       <Button fullWidth icon={basketIcon}>
         Do koszyka
