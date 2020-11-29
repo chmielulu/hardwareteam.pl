@@ -11,6 +11,7 @@ import Score from "./Score/Score";
 import SlideControl from "./SlideControl/SlideControl";
 import Locator from "./Locator/Locator";
 import BackButton from "./BackButton/BackButton";
+import Pagination from "./Pagination/Pagination";
 
 export {
   Attribute,
@@ -26,4 +27,5 @@ export {
   SlideControl,
   Locator,
   BackButton,
+  Pagination,
 };
