@@ -4,6 +4,7 @@ import MainTemplate from "@templates/MainTemplate";
 import Navigation from "@components/organisms/Navigation/Navigation";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ProductCard } from "@components/molecules";
+import productImg from "@assets/images/huaweiPhone.png";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -28,7 +29,22 @@ const Root = () => (
       <Navigation />
       <div className="main-wrapper">
         <Wrapper>
-          <ProductCard />
+          <ProductCard
+            awards={["recommendable", "bestseller", "valueForMoney"]}
+            name="Smartfon Huawei Y6P 64GB Dual SIM Fioletowy"
+            img={productImg}
+            attributes={[
+              { name: "Ekran", value: '6,3"' },
+              { name: "Procesor", value: "MediaTek MT6762R Helio P22" },
+              { name: "Pamięć RAM", value: "3GB" },
+              { name: "Pamięć wbudowana", value: "64GB" },
+              { name: "System", value: "Android 10" },
+            ]}
+            score={5}
+            reviewsCount={20}
+            price={3000}
+            informations={["time", "delivery"]}
+          />
         </Wrapper>
       </div>
     </Router>

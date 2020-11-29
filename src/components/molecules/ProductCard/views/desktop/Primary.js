@@ -83,7 +83,6 @@ const StyledAwardsWrapper = styled.div`
   display: flex;
   max-width: 360px;
   flex-wrap: wrap;
-  margin-bottom: auto;
 
   @media (max-width: 1420px) {
     max-width: unset;
