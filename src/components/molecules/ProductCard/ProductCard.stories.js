@@ -7,8 +7,10 @@ import {
   number,
   files,
   optionsKnob as options,
+  select,
 } from "@storybook/addon-knobs";
 import productImg from "@assets/images/huaweiPhone.png";
+import { StoryRouter } from "storybook-react-router";
 import ProductCard from "./ProductCard";
 
 const Wrapper = styled.div`
@@ -30,7 +32,14 @@ const Wrapper = styled.div`
 
 export default {
   title: "molecules/ProductCard",
-  decorators: [withKnobs],
+  decorators: [
+    withKnobs,
+    (Story) => (
+      <StoryRouter>
+        <Story />
+      </StoryRouter>
+    ),
+  ],
 };
 
 export const withProductCard = () => {
@@ -68,6 +77,8 @@ export const withProductCard = () => {
     ["recommendable", "bestseller", "valueForMoney"],
     { display: "check" }
   );
+  const discount = number("Discount", null);
+  const kind = select("Kind", ["primary", "secondary", "tertiary"], "primary");
 
   return (
     <Wrapper>
@@ -80,6 +91,8 @@ export const withProductCard = () => {
         price={price}
         informations={informations}
         awards={awards}
+        discount={discount}
+        kind={kind}
       />
     </Wrapper>
   );

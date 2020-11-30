@@ -4,7 +4,8 @@ import styled from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
 import { Award, Attribute, Score, Button } from "@components/atoms";
 import basketIcon from "@iconify/icons-clarity/shopping-cart-line";
-import Information from "../../_components/Information/Information";
+import Information from "../../../_components/Information/Information";
+import formatPrice from "../../../utils/formatPrice";
 
 const StyledWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
@@ -64,7 +65,15 @@ const StyledPrice = styled.div`
   margin-bottom: 10px;
   display: flex;
   width: 100%;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const StyledDiscount = styled.div`
+  ${({ theme }) => useFontSize(theme, "m")};
+  font-weight: 400;
+  text-decoration: line-through;
+  color: ${({ theme }) => theme.gray};
 `;
 
 const StyledAttributesWrapper = styled.div`
@@ -96,6 +105,7 @@ const Primary = ({
   price,
   informations,
   awards,
+  discount,
 }) => {
   return (
     <StyledWrapper>
@@ -113,10 +123,8 @@ const Primary = ({
         <StyledPhoto src={img} alt={name} />
       </StyledPhotoWrapper>
       <StyledPrice>
-        {new Intl.NumberFormat("pl-PL", {
-          style: "currency",
-          currency: "PLN",
-        }).format(price)}
+        {discount && <StyledDiscount>{formatPrice(discount)}</StyledDiscount>}
+        {formatPrice(price)}
       </StyledPrice>
       <StyledAttributesWrapper>
         {attributes.map(({ name, value }, index) => (

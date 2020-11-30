@@ -4,9 +4,11 @@ import styled from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
 import { Award, Attribute, Score, Button } from "@components/atoms";
 import basketIcon from "@iconify/icons-clarity/shopping-cart-line";
-import { useSortedAwards } from "@hooks/utils";
+import { useSortedAwards, useWindowSize } from "@hooks/utils";
+import MobilePrimary from "./mobile/Primary";
 import ComparedButton from "../../_components/ComparedButton/ComparedButton";
 import Information from "../../_components/Information/Information";
+import formatPrice from "../../utils/formatPrice";
 
 const StyledWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
@@ -131,9 +133,17 @@ const StyledPrice = styled.div`
   ${({ theme }) => useFontSize(theme, "xl")};
   font-weight: 500;
   margin: 20px 0;
-  display: inline-flex;
-  justify-content: flex-end;
+  display: flex-end;
+  justify-content: inline-flex;
   max-width: 100%;
+  flex-direction: column;
+`;
+
+const StyledDiscount = styled.div`
+  ${({ theme }) => useFontSize(theme, "m")};
+  font-weight: 400;
+  text-decoration: line-through;
+  color: ${({ theme }) => theme.gray};
 `;
 
 const StyledInformationsWrapper = styled.div``;
@@ -151,8 +161,12 @@ const Primary = ({
   price,
   informations,
   awards,
+  discount,
 }) => {
   const sortedAwards = useSortedAwards(awards);
+  const { width } = useWindowSize();
+
+  if (width <= 1024) return <MobilePrimary />;
   return (
     <StyledWrapper>
       <StyledHeadline>{name}</StyledHeadline>
@@ -182,10 +196,10 @@ const Primary = ({
               <StyledReviewsCounter>({reviewsCount})</StyledReviewsCounter>
             </StyledScoreWrapper>
             <StyledPrice>
-              {new Intl.NumberFormat("pl-PL", {
-                style: "currency",
-                currency: "PLN",
-              }).format(price)}
+              {discount && (
+                <StyledDiscount>{formatPrice(discount)}</StyledDiscount>
+              )}
+              {formatPrice(price)}
             </StyledPrice>
             <StyledInformationsWrapper>
               {informations.map((kind, index) => (

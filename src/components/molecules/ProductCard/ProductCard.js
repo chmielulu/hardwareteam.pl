@@ -1,9 +1,9 @@
+/* eslint-disable import/no-duplicates */
 import React from "react";
 import PropTypes from "prop-types";
-import { useWindowSize } from "@hooks/utils";
 import { kinds as awardKinds } from "@components/atoms/Award/kinds";
-import PrimaryView from "./views/desktop/Primary";
-import PrimaryMobileView from "./views/mobile/Primary";
+import PrimaryView from "./views/Primary/Primary";
+import SecondaryView from "./views/Secondary/Secondary";
 import { kinds as informationKinds } from "./_components/Information/kinds";
 
 const ProductCard = ({
@@ -15,8 +15,11 @@ const ProductCard = ({
   price,
   informations,
   awards,
+  discount,
+  kind,
 }) => {
-  const { width } = useWindowSize();
+  const productLink = "/";
+
   const allProps = {
     name,
     img,
@@ -26,14 +29,18 @@ const ProductCard = ({
     price,
     informations,
     awards,
+    discount,
+    productLink,
   };
 
-  if (width >= 1024) {
-    return <PrimaryView {...allProps} />;
-  }
-
-  return <PrimaryMobileView {...allProps} />;
+  return getView(kind, allProps);
 };
+
+function getView(kind, allProps) {
+  if (kind === "primary") return <PrimaryView {...allProps} />;
+  if (kind === "secondary") return <SecondaryView {...allProps} />;
+  return null;
+}
 
 ProductCard.propTypes = {
   name: PropTypes.string.isRequired,
@@ -49,6 +56,13 @@ ProductCard.propTypes = {
   price: PropTypes.number.isRequired,
   informations: PropTypes.arrayOf(PropTypes.oneOf(informationKinds)).isRequired,
   awards: PropTypes.arrayOf(PropTypes.oneOf(awardKinds)).isRequired,
+  discount: PropTypes.number,
+  kind: PropTypes.oneOf(["primary", "secondary", "tertiary"]),
+};
+
+ProductCard.defaultProps = {
+  discount: null,
+  kind: "primary",
 };
 
 export default ProductCard;
