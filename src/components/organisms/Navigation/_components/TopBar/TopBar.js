@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Logo } from "@components/atoms";
 import routes from "@routes";
-import helpLine from "@iconify-icons/clarity/help-line";
-import heart from "@iconify-icons/clarity/heart-line";
-import user from "@iconify-icons/clarity/user-line";
-import basket from "@iconify-icons/clarity/shopping-bag-line";
+import helpIcon from "@iconify-icons/clarity/help-line";
+import heartIcon from "@iconify-icons/clarity/heart-line";
+import userIcon from "@iconify-icons/clarity/user-line";
+import basketIcon from "@iconify-icons/clarity/shopping-bag-line";
 import Link from "../StyledLink/StyledLink";
 import Search from "../Search/Search";
 import TextWithIcon from "../TextWithIcon/TextWithIcon";
+import PopUp from "./PopUp/PopUp";
 
 const StyledWrapper = styled.div`
   width: 100vw;
@@ -47,27 +48,60 @@ const StyledLink = styled(Link)`
 `;
 
 const TextWithIconsWrapper = styled.div`
-  margin-left: 40px;
+  margin-left: 30px;
   display: flex;
 
   @media (max-width: 1480px) {
-    margin-left: 20px;
+    margin-left: 10px;
   }
 
   @media (max-width: 1300px) {
-    margin-left: 30px;
+    margin-left: 20px;
   }
 `;
 
 const StyledTextWithIcon = styled(TextWithIcon)`
-  margin-right: 20px;
+  padding: 0 10px;
 
   :last-of-type {
-    margin-right: 0;
+    padding-right: 0;
+  }
+
+  :first-of-type {
+    padding-left: 0;
   }
 
   @media (max-width: 1300px) {
-    margin-right: 30px;
+    padding: 0 15px;
+  }
+`;
+
+const StyledPopUp = styled(PopUp)`
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+`;
+
+const PopUpWrapper = styled.div`
+  position: relative;
+  padding: 10px 10px;
+
+  @media (max-width: 1300px) {
+    padding: 5px 15px;
+    svg {
+      margin: 0;
+    }
+  }
+
+  & ${StyledTextWithIcon} {
+    padding: 0;
+    position: relative;
+    z-index: 5;
+  }
+
+  :hover ${StyledPopUp} {
+    opacity: 1;
+    pointer-events: unset;
   }
 `;
 
@@ -83,10 +117,13 @@ const TopBar = ({ innerSizes }) => {
       <Search innerSizes={innerSizes} />
       {innerSizes.width > 1024 && (
         <TextWithIconsWrapper>
-          <StyledTextWithIcon icon={helpLine} text="Kontakt" />
-          <StyledTextWithIcon icon={heart} text="Listy zakupowe" />
-          <StyledTextWithIcon icon={user} text="Twoje konto" />
-          <StyledTextWithIcon icon={basket} text="Koszyk" />
+          <PopUpWrapper>
+            <StyledTextWithIcon icon={helpIcon} text="Kontakt" />
+            <StyledPopUp />
+          </PopUpWrapper>
+          <StyledTextWithIcon icon={heartIcon} text="Listy zakupowe" />
+          <StyledTextWithIcon icon={userIcon} text="Twoje konto" />
+          <StyledTextWithIcon icon={basketIcon} text="Koszyk" />
         </TextWithIconsWrapper>
       )}
     </StyledWrapper>
