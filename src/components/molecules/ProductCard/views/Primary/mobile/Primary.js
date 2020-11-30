@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
+import { useSortedAwards } from "@hooks/utils";
 import { Award, Attribute, Score, Button } from "@components/atoms";
 import basketIcon from "@iconify/icons-clarity/shopping-cart-line";
 import Information from "../../../_components/Information/Information";
@@ -107,13 +108,17 @@ const Primary = ({
   awards,
   discount,
 }) => {
+  const sortedAwards = useSortedAwards(awards);
+
   return (
     <StyledWrapper>
-      <StyledAwardsWrapper>
-        {awards.map((kind, index) => (
-          <StyledAward kind={kind} key={index} />
-        ))}
-      </StyledAwardsWrapper>
+      {awards && (
+        <StyledAwardsWrapper>
+          {sortedAwards.slice(0, 3).map((kind, index) => (
+            <StyledAward kind={kind} key={index} />
+          ))}
+        </StyledAwardsWrapper>
+      )}
       <StyledHeadline>{name}</StyledHeadline>
       <StyledScoreWrapper>
         <StyledScore score={score} />
@@ -127,7 +132,7 @@ const Primary = ({
         {formatPrice(price)}
       </StyledPrice>
       <StyledAttributesWrapper>
-        {attributes.map(({ name, value }, index) => (
+        {attributes.slice(0, 5).map(({ name, value }, index) => (
           <StyledAttribute name={name} value={value} key={index} />
         ))}
       </StyledAttributesWrapper>

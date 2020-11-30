@@ -8,6 +8,7 @@ import {
   files,
   optionsKnob as options,
   select,
+  boolean,
 } from "@storybook/addon-knobs";
 import productImg from "@assets/images/huaweiPhone.png";
 import { StoryRouter } from "storybook-react-router";
@@ -77,8 +78,9 @@ export const withProductCard = () => {
     ["recommendable", "bestseller", "valueForMoney"],
     { display: "check" }
   );
-  const discount = number("Discount", null);
+  const discount = number("Discount", undefined);
   const kind = select("Kind", ["primary", "secondary", "tertiary"], "primary");
+  const big = boolean("Big", false);
 
   return (
     <Wrapper>
@@ -93,6 +95,8 @@ export const withProductCard = () => {
         awards={awards}
         discount={discount}
         kind={kind}
+        big={big}
+        render={() => <span>Hell0 world</span>}
       />
     </Wrapper>
   );

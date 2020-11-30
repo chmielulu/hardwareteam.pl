@@ -166,7 +166,20 @@ const Primary = ({
   const sortedAwards = useSortedAwards(awards);
   const { width } = useWindowSize();
 
-  if (width <= 1024) return <MobilePrimary />;
+  if (width <= 1024)
+    return (
+      <MobilePrimary
+        name={name}
+        img={img}
+        attributes={attributes}
+        score={score}
+        reviewsCount={reviewsCount}
+        price={price}
+        informations={informations}
+        awards={awards}
+        discount={discount}
+      />
+    );
   return (
     <StyledWrapper>
       <StyledHeadline>{name}</StyledHeadline>
@@ -178,13 +191,13 @@ const Primary = ({
         <StyledSecondColumn>
           {awards && (
             <StyledAwardsWrapper>
-              {sortedAwards.map((kind, index) => (
+              {sortedAwards.slice(0, 3).map((kind, index) => (
                 <StyledAward kind={kind} key={index} />
               ))}
             </StyledAwardsWrapper>
           )}
           <StyledAttributesWrapper>
-            {attributes.map(({ name, value }, index) => (
+            {attributes.slice(0, 5).map(({ name, value }, index) => (
               <StyledAttribute name={name} value={value} key={index} />
             ))}
           </StyledAttributesWrapper>

@@ -1,9 +1,9 @@
-/* eslint-disable import/no-duplicates */
 import React from "react";
 import PropTypes from "prop-types";
 import { kinds as awardKinds } from "@components/atoms/Award/kinds";
 import PrimaryView from "./views/Primary/Primary";
 import SecondaryView from "./views/Secondary/Secondary";
+import TertiaryView from "./views/Tertiary/Tertiary";
 import { kinds as informationKinds } from "./_components/Information/kinds";
 
 const ProductCard = ({
@@ -17,6 +17,8 @@ const ProductCard = ({
   awards,
   discount,
   kind,
+  render,
+  big,
 }) => {
   const productLink = "/";
 
@@ -33,12 +35,19 @@ const ProductCard = ({
     productLink,
   };
 
-  return getView(kind, allProps);
+  return getView({
+    kind,
+    allProps,
+    render,
+    big,
+  });
 };
 
-function getView(kind, allProps) {
+function getView({ kind, allProps, render = undefined, big } = {}) {
   if (kind === "primary") return <PrimaryView {...allProps} />;
   if (kind === "secondary") return <SecondaryView {...allProps} />;
+  if (kind === "tertiary")
+    return <TertiaryView render={render} big={big} {...allProps} />;
   return null;
 }
 
@@ -58,11 +67,15 @@ ProductCard.propTypes = {
   awards: PropTypes.arrayOf(PropTypes.oneOf(awardKinds)).isRequired,
   discount: PropTypes.number,
   kind: PropTypes.oneOf(["primary", "secondary", "tertiary"]),
+  render: PropTypes.func,
+  big: PropTypes.bool,
 };
 
 ProductCard.defaultProps = {
   discount: null,
   kind: "primary",
+  render: undefined,
+  big: false,
 };
 
 export default ProductCard;
