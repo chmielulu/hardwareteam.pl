@@ -12,6 +12,8 @@ import SlideControl from "./SlideControl/SlideControl";
 import Locator from "./Locator/Locator";
 import BackButton from "./BackButton/BackButton";
 import Pagination from "./Pagination/Pagination";
+import Slider from "./Slider/Slider";
+import Progress from "./Progress/Progress";
 
 export {
   Attribute,
@@ -28,4 +30,6 @@ export {
   Locator,
   BackButton,
   Pagination,
+  Slider,
+  Progress,
 };

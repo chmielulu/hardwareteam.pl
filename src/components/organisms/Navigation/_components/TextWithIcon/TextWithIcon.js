@@ -61,6 +61,7 @@ const StyledText = styled.span`
     $tertiary &&
     css`
       ${useFontSize(theme, "m", "l")};
+      white-space: nowrap;
     `}
 `;
 
