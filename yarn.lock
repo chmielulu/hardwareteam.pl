@@ -1396,10 +1396,10 @@
   resolved "https://registry.yarnpkg.com/@iconify-icons/clarity/-/clarity-1.0.0.tgz#d8df88c79ec5e04b644766856d0bcdf286ae3cfd"
   integrity sha512-9MHIq0us13FSNWz+2z8DpTvmxaB+5DxWapK3Ix/GqwG+3Xol67XX7o1fd4R7znlNCMD1mZJe3+mS+yCFvMobZw==
 
-"@iconify/icons-bi@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@iconify/icons-bi/-/icons-bi-1.0.6.tgz#e4c788d81767fa7d9a1959cfdcba3f0925e529f0"
-  integrity sha512-0I/qawqj68W7T80srg0KxxsjgFnmAXsc2Y5lCJnz4y/tHCWFS0qy3q/habBfQtrmiXVKNul98nd2/fXy87iSww==
+"@iconify/icons-bi@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@iconify/icons-bi/-/icons-bi-1.1.0.tgz#f1fa17625fe1c4800f0083adcbd295ec2c5d1294"
+  integrity sha512-1YcKuayjyEanBmrpflgW+m4RMQP2PbXJQgTctcha47KLhN5i9tjejEGBpBlrIJ+137HQje8iZ5TJxVT5Nab/hw==
 
 "@iconify/icons-bx@^1.1.0":
   version "1.1.0"

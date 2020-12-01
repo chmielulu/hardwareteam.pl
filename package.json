@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@iconify-icons/clarity": "^1.0.0",
-    "@iconify/icons-bi": "^1.0.6",
+    "@iconify/icons-bi": "^1.1.0",
     "@iconify/icons-bx": "^1.1.0",
     "@iconify/icons-cil": "^1.0.4",
     "@iconify/icons-clarity": "^1.0.0",
