@@ -18,6 +18,7 @@ const StyledButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
 
   ${({ $kind, theme }) =>
     $kind === tertiary &&
@@ -26,7 +27,6 @@ const StyledButton = styled.button`
       border: 1.5px solid ${theme.secondary};
       color: ${theme.secondary};
       font-weight: 300;
-      text-decoration: none;
     `}
 
   ${({ $fullWidth }) =>
