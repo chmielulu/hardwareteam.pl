@@ -45,6 +45,8 @@ const StyledLink = styled(Link)`
 const StyledImg = styled.img`
   max-width: 200px;
   max-height: 260px;
+  margin: auto;
+  display: block;
 
   @media (max-width: 1024px) {
     max-width: 160px;
