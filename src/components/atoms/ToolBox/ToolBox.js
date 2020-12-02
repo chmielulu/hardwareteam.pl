@@ -105,12 +105,12 @@ const ToolBox = ({ content }) => {
   useOutsideClick(wrapper, () => setActive(false));
 
   return (
-    <StyledWrapper aria-expanded="false" ref={wrapper}>
+    <StyledWrapper aria-expanded={isActive.toString()} ref={wrapper}>
       <StyledButton $isActive={isActive} onClick={handleButtonClick}>
         <Icon icon={toolBoxIcon} />
       </StyledButton>
 
-      <StyledPopUp aria-hidden="true" $isActive={isActive}>
+      <StyledPopUp aria-hidden={(!isActive).toString()} $isActive={isActive}>
         <StyledList>
           {content.map(({ name, icon, action, link, color }, index) => (
             <StyledItem key={index}>
