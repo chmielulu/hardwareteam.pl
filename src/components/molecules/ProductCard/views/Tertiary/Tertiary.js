@@ -32,14 +32,14 @@ const StyledImg = styled.img`
       max-height: 230px;
 
       @media (max-width: 1024px) {
-        max-width: ${useFluidSize(85, 160, 361, 1024)};
-        max-height: ${useFluidSize(90, 230, 361, 1024)};
+        max-width: ${useFluidSize({ min: 85, max: 160 })};
+        max-height: ${useFluidSize({ min: 90, max: 230 })};
       }
     `}
 
   @media (max-width: 1024px) {
-    max-width: ${useFluidSize(85, 100, 361, 1024)};
-    max-height: ${useFluidSize(90, 150, 361, 1024)};
+    max-width: ${useFluidSize({ min: 85, max: 100 })};
+    max-height: ${useFluidSize({ min: 90, max: 150 })};
   }
 
   @media (max-width: 360px) {

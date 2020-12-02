@@ -54,8 +54,8 @@ const StyledIndex = styled.div`
     `}
 
   @media (max-width: 1024px) {
-    width: ${useFluidSize(18, 30)};
-    height: ${useFluidSize(18, 30)};
+    width: ${useFluidSize({ min: 18, max: 30 })};
+    height: ${useFluidSize({ min: 18, max: 30 })};
   }
 
   @media (max-width: 360px) {
@@ -68,7 +68,7 @@ const StyledIcon = styled(Icon)`
   font-size: 3rem;
 
   @media (max-width: 1024px) {
-    font-size: ${useFluidSize(`3rem`, 1.8)};
+    font-size: ${useFluidSize({ min: 1.8, max: 3, unit: "rem" })};
   }
 
   @media (max-width: 360px) {
@@ -109,8 +109,8 @@ const StyledSpacer = styled.div`
   margin: 0 30px;
 
   @media (max-width: 1024px) {
-    width: ${useFluidSize(15, 100)};
-    margin: 0 ${useFluidSize(7, 30)};
+    width: ${useFluidSize({ min: 15, max: 100 })};
+    margin: 0 ${useFluidSize({ min: 7, max: 30 })};
   }
 
   @media (max-width: 360px) {

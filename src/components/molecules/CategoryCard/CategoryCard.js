@@ -24,8 +24,8 @@ const StyledImg = styled.img`
   max-height: 201px;
 
   @media (max-width: 1024px) {
-    max-width: ${useFluidSize(50, 200)};
-    max-height: ${useFluidSize(45, 165)};
+    max-width: ${useFluidSize({ min: 50, max: 200 })};
+    max-height: ${useFluidSize({ min: 45, max: 165 })};
   }
 
   @media (max-width: 360px) {

@@ -12,7 +12,10 @@ const StyledWrapper = styled.article`
   width: 350px;
 
   @media (max-width: 1024px) {
-    width: ${useFluidSize(236, 350, 361, 1024)};
+    width: ${useFluidSize({
+      min: 236,
+      max: 350,
+    })};
   }
 
   @media (max-width: 360px) {
@@ -37,7 +40,7 @@ const StyledImageWrapper = styled.div`
   margin-bottom: 15px;
 
   @media (max-width: 1024px) {
-    height: ${useFluidSize(144, 220, 361, 1024)};
+    height: ${useFluidSize({ min: 144, max: 220 })};
   }
 
   @media (max-width: 360px) {
