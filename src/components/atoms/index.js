@@ -15,6 +15,7 @@ import Pagination from "./Pagination/Pagination";
 import Slider from "./Slider/Slider";
 import Progress from "./Progress/Progress";
 import ToolBox from "./ToolBox/ToolBox";
+import Spinner from "./Spinner/Spinner";
 
 export {
   Attribute,
@@ -34,4 +35,5 @@ export {
   Slider,
   Progress,
   ToolBox,
+  Spinner,
 };
