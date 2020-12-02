@@ -1,7 +1,17 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import loadingIcon from "@iconify/icons-mdi-light/loading";
 import Icon from "@iconify/react";
+
+const rotate = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+`;
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -14,6 +24,7 @@ const StyledWrapper = styled.div`
 
 const StyledSpinner = styled(Icon)`
   font-size: 4rem;
+  animation: ${rotate} 2s linear infinite;
 `;
 
 const Spinner = () => (

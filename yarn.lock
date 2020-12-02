@@ -1421,6 +1421,11 @@
   resolved "https://registry.yarnpkg.com/@iconify/icons-logos/-/icons-logos-1.1.0.tgz#72636ce7f5795f643a88378dd1ee6b8308641de7"
   integrity sha512-CoyK/SLM3vpESPdxUvXFWWXE21lM5cc5f/e/FKI0dkTiUwb4AMqxKYcxFx5xIJ+TRmEmoK7eVfilzwxIls/NNQ==
 
+"@iconify/icons-mdi-light@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@iconify/icons-mdi-light/-/icons-mdi-light-1.1.0.tgz#6555398866065686d89d77f986c395fe97f12364"
+  integrity sha512-HXOx7aCh9jHra50GZ5lcYIgPZXgqSVEKZl/AGhZPBOjqdGO7Wz6XdajckVNNiU/vMc3EPl4IF8gx31OZ88Bdmg==
+
 "@iconify/react@^1.1.3":
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/@iconify/react/-/react-1.1.3.tgz#ebe4d3e5f5dea23cd6a9634acd7a0a25c7414a59"
@@ -12369,6 +12374,11 @@ react-html-attributes@^1.4.2:
   dependencies:
     html-element-attributes "^1.0.0"
 
+react-image@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/react-image/-/react-image-4.0.3.tgz#6fa722877660b67295298a914bff1ed87ad2cf83"
+  integrity sha512-19MUK9u1qaw9xys8XEsVkSpVhHctEBUeYFvrLTe1PN+4w5Co13AN2WA7xtBshPM6SthsOj77SlDrEAeOaJpf7g==
+
 react-input-autosize@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.2.tgz#fcaa7020568ec206bc04be36f4eb68e647c4d8c2"
@@ -12582,7 +12592,7 @@ react-textarea-autosize@^8.1.1:
     use-composed-ref "^1.0.0"
     use-latest "^1.0.0"
 
-react-transition-group@^4.3.0:
+react-transition-group@^4.3.0, react-transition-group@^4.4.1:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.1.tgz#63868f9325a38ea5ee9535d828327f85773345c9"
   integrity sha512-Djqr7OQ2aPUiYurhPalTrVy9ddmFCCzwhqQmtN+J3+3DzLO209Fdr70QrN8Z3DsglWql6iY1lDWAfpFiBtuKGw==
