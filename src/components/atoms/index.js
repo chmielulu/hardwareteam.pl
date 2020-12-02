@@ -14,6 +14,7 @@ import BackButton from "./BackButton/BackButton";
 import Pagination from "./Pagination/Pagination";
 import Slider from "./Slider/Slider";
 import Progress from "./Progress/Progress";
+import ToolBox from "./ToolBox/ToolBox";
 
 export {
   Attribute,
@@ -32,4 +33,5 @@ export {
   Pagination,
   Slider,
   Progress,
+  ToolBox,
 };
