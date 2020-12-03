@@ -11,6 +11,7 @@ module.exports = function override(config) {
     "@assets": "src/assets/",
     "@routes": "src/routes/",
     "@custom": "src/custom/",
+    "@utils": "src/utils/",
   })(config);
 
   return config;

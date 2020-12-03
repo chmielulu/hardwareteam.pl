@@ -18,7 +18,7 @@ const ProductCard = ({
   discount,
   kind,
   render,
-  big,
+  size,
 }) => {
   const productLink = "/";
 
@@ -39,15 +39,15 @@ const ProductCard = ({
     kind,
     allProps,
     render,
-    big,
+    size,
   });
 };
 
-function getView({ kind, allProps, render = undefined, big } = {}) {
+function getView({ kind, allProps, render = undefined, size } = {}) {
   if (kind === "primary") return <PrimaryView {...allProps} />;
-  if (kind === "secondary") return <SecondaryView {...allProps} />;
+  if (kind === "secondary") return <SecondaryView size={size} {...allProps} />;
   if (kind === "tertiary")
-    return <TertiaryView render={render} big={big} {...allProps} />;
+    return <TertiaryView render={render} size={size} {...allProps} />;
   return null;
 }
 
@@ -59,23 +59,29 @@ ProductCard.propTypes = {
       name: PropTypes.string,
       value: PropTypes.string,
     })
-  ).isRequired,
-  score: PropTypes.number.isRequired,
-  reviewsCount: PropTypes.number.isRequired,
-  price: PropTypes.number.isRequired,
-  informations: PropTypes.arrayOf(PropTypes.oneOf(informationKinds)).isRequired,
-  awards: PropTypes.arrayOf(PropTypes.oneOf(awardKinds)).isRequired,
+  ),
+  score: PropTypes.number,
+  reviewsCount: PropTypes.number,
+  price: PropTypes.number,
+  informations: PropTypes.arrayOf(PropTypes.oneOf(informationKinds)),
+  awards: PropTypes.arrayOf(PropTypes.oneOf(awardKinds)),
   discount: PropTypes.number,
   kind: PropTypes.oneOf(["primary", "secondary", "tertiary"]),
   render: PropTypes.func,
-  big: PropTypes.bool,
+  size: PropTypes.oneOf(["big", "normal", "small"]),
 };
 
 ProductCard.defaultProps = {
   discount: null,
   kind: "primary",
   render: undefined,
-  big: false,
+  big: "normal",
+  informations: null,
+  awards: null,
+  price: null,
+  reviewsCount: null,
+  score: null,
+  attributes: null,
 };
 
 export default ProductCard;

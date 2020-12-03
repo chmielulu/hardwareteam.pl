@@ -5,10 +5,10 @@ import { useFontSize } from "@hooks/styled-components";
 import { Award, Attribute, Score, Button } from "@components/atoms";
 import basketIcon from "@iconify/icons-clarity/shopping-cart-line";
 import { useSortedAwards, useWindowSize } from "@hooks/utils";
+import formatPrice from "@utils/formatPrice";
 import MobilePrimary from "./mobile/Primary";
 import ComparedButton from "../../_components/ComparedButton/ComparedButton";
 import Information from "../../_components/Information/Information";
-import formatPrice from "../../utils/formatPrice";
 
 const StyledWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};

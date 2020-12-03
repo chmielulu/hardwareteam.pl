@@ -35,7 +35,7 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const StyledTitle = styled.p`
+const StyledTitle = styled.h2`
   ${({ theme }) => useFontSize(theme, "xl", "xxl")};
   font-weight: 300;
   margin-bottom: 30px;
@@ -49,7 +49,7 @@ const StyledListWrapper = styled.div`
   }
 `;
 
-const StyledSecondTitle = styled.p`
+const StyledSecondTitle = styled.h3`
   ${({ theme }) => useFontSize(theme, "m", "xl")};
   margin-bottom: 15px;
 `;

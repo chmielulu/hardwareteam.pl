@@ -24,8 +24,8 @@ const StyledIcon = styled(Icon)`
   transform: rotate(-90deg) !important;
 `;
 
-const BackButton = ({ to, children }) => (
-  <StyledLink to={to}>
+const BackButton = ({ to, children, onClick }) => (
+  <StyledLink to={to} onClick={onClick}>
     <StyledIcon icon={arrowIcon} />
     {children}
   </StyledLink>
@@ -34,6 +34,11 @@ const BackButton = ({ to, children }) => (
 BackButton.propTypes = {
   to: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
+};
+
+BackButton.defaultProps = {
+  onClick: undefined,
 };
 
 export default BackButton;

@@ -105,7 +105,7 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
-const StyledTitle = styled.span`
+const StyledTitle = styled.h3`
   ${({ theme }) => useFontSize(theme, "l", "xl")};
   font-weight: 300;
 `;

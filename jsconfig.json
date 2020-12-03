@@ -10,7 +10,8 @@
       "@constants/*": ["./src/constants/*"],
       "@assets/*": ["./src/assets/*"],
       "@routes/*": ["./src/routes/*"],
-      "@custom/*": ["./src/custom/*"]
+      "@custom/*": ["./src/custom/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "exclude": ["node_modules", "build"]

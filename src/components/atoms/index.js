@@ -16,6 +16,7 @@ import Slider from "./Slider/Slider";
 import Progress from "./Progress/Progress";
 import ToolBox from "./ToolBox/ToolBox";
 import Spinner from "./Spinner/Spinner";
+import ArrowButton from "./ArrowButton/ArrowButton";
 
 export {
   Attribute,
@@ -36,4 +37,5 @@ export {
   Progress,
   ToolBox,
   Spinner,
+  ArrowButton,
 };

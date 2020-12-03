@@ -10,8 +10,8 @@ const StyledWrapper = styled.div`
 const StyledImgColumn = styled.div`
   margin-right: 25px;
 
-  ${({ $big }) =>
-    $big &&
+  ${({ $size }) =>
+    $size === "big" &&
     css`
       margin-right: 15px;
     `}
@@ -25,8 +25,8 @@ const StyledImg = styled.img`
   max-width: 100px;
   max-height: 150px;
 
-  ${({ $big }) =>
-    $big &&
+  ${({ $size }) =>
+    $size === "big" &&
     css`
       max-width: 160px;
       max-height: 230px;
@@ -55,8 +55,8 @@ const StyledName = styled.h3`
   font-weight: 300;
   margin-top: 10px;
 
-  ${({ $big, theme }) =>
-    $big &&
+  ${({ $size, theme }) =>
+    $size === "big" &&
     css`
       ${useFontSize(theme, "l")}
       margin-top: 5px;
@@ -65,20 +65,20 @@ const StyledName = styled.h3`
 `;
 
 const StyledRenderWrapper = styled.div`
-  margin-top: 18px;
+  margin-top: 10px;
 
   @media (max-width: 1024px) {
-    margin-top: 12px;
+    margin-top: 5px;
   }
 `;
 
-const Tertiary = ({ name, img, render, className, big }) => (
+const Tertiary = ({ name, img, render, className, size }) => (
   <StyledWrapper className={className}>
-    <StyledImgColumn $big={big}>
-      <StyledImg src={img} alt={name} $big={big} />
+    <StyledImgColumn $size={size}>
+      <StyledImg src={img} alt={name} $size={size} />
     </StyledImgColumn>
     <StyledContentColumn>
-      <StyledName $big={big}>{name}</StyledName>
+      <StyledName $size={size}>{name}</StyledName>
       <StyledRenderWrapper>{render && render()}</StyledRenderWrapper>
     </StyledContentColumn>
   </StyledWrapper>
