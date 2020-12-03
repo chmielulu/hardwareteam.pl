@@ -24,7 +24,7 @@ const StyledButton = styled.button`
     $kind === tertiary &&
     css`
       background: transparent;
-      border: 1.5px solid ${theme.secondary};
+      border: 1px solid ${theme.secondary};
       color: ${theme.secondary};
       font-weight: 300;
     `}
@@ -53,6 +53,12 @@ const StyledInlineIcon = styled(InlineIcon)`
       margin-left: 10px;
       order: 1;
     `}
+
+  ${({ $rotateIcon }) =>
+    $rotateIcon &&
+    css`
+      transform: ${`rotate(${$rotateIcon}deg)!important`};
+    `}
 `;
 
 const Button = ({
@@ -62,6 +68,7 @@ const Button = ({
   position,
   fullWidth,
   onClick,
+  rotateIcon,
   ...props
 }) => (
   <StyledButton
@@ -70,7 +77,13 @@ const Button = ({
     onClick={onClick}
     {...props}
   >
-    {icon && <StyledInlineIcon icon={icon} $position={position} />}
+    {icon && (
+      <StyledInlineIcon
+        icon={icon}
+        $position={position}
+        $rotateIcon={rotateIcon}
+      />
+    )}
     {children}
   </StyledButton>
 );
@@ -83,6 +96,7 @@ Button.propTypes = {
   fullWidth: PropTypes.bool,
   className: PropTypes.string,
   onClick: PropTypes.func,
+  rotateIcon: PropTypes.number,
 };
 
 Button.defaultProps = {
@@ -93,6 +107,7 @@ Button.defaultProps = {
   fullWidth: false,
   className: undefined,
   onClick: undefined,
+  rotateIcon: null,
 };
 
 export default Button;
