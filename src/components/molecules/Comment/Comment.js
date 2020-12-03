@@ -8,6 +8,7 @@ import thumpsUpIcon from "@iconify/icons-clarity/thumbs-up-line";
 import thumpsDownIcon from "@iconify/icons-clarity/thumbs-down-line";
 import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import { useWindowSize } from "@hooks/utils";
+import SimpleReactLightbox from "@custom/SimpleReactLightbox";
 import Confirmed from "./_components/Confirmed/Confirmed";
 import getTimeFromNow from "./utils/getTimeFromNow";
 
@@ -123,6 +124,7 @@ const StyledImg = styled.img`
   object-fit: cover;
   border-radius: 10px;
   margin-right: 15px;
+  cursor: pointer;
 
   :last-of-type {
     margin-right: 0;
@@ -233,9 +235,16 @@ const Comment = ({
         </StyledInformations>
         {images && width > 1024 && (
           <StyledImgWrapper>
-            {images.map((image, index) => (
-              <StyledImg src={image} alt="" key={index} />
-            ))}
+            <SimpleReactLightbox>
+              {images.map((image, index) => (
+                <StyledImg
+                  src={image}
+                  alt=""
+                  key={index}
+                  data-attribute="SRL"
+                />
+              ))}
+            </SimpleReactLightbox>
           </StyledImgWrapper>
         )}
         <StyledContent>{content}</StyledContent>
