@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import styled, { css } from "styled-components";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import { Score } from "@components/atoms";
 import { Link } from "react-router-dom";
 import formatPrice from "@utils/formatPrice";
@@ -24,13 +24,6 @@ const StyledWrapper = styled.div`
     box-shadow: 0px 2px 25px -13px rgba(0, 0, 0, 0.25);
   }
 
-  ${({ $size }) =>
-    $size === "small" &&
-    css`
-      width: 200px;
-      height: 290px;
-    `}
-
   @media (max-width: 1024px) {
     width: 190px;
     min-height: 320px;
@@ -42,6 +35,22 @@ const StyledWrapper = styled.div`
       box-shadow: 0px 2px 25px -13px rgba(0, 0, 0, 0);
     }
   }
+
+  ${({ $size }) =>
+    $size === "small" &&
+    css`
+      width: 200px;
+      height: 290px;
+
+      @media (max-width: 1024px) {
+        height: ${useFluidSize({ min: 260, max: 290 })};
+        min-height: unset;
+      }
+
+      @media (max-width: 360px) {
+        height: 240px;
+      }
+    `}
 `;
 
 const StyledLink = styled(Link)`
@@ -66,6 +75,16 @@ const StyledImg = styled.img`
     css`
       max-width: 135px;
       max-height: 110px;
+
+      @media (max-width: 1024px) {
+        max-width: ${useFluidSize({ min: 80, max: 135 })};
+        max-height: ${useFluidSize({ min: 100, max: 110 })};
+      }
+
+      @media (max-width: 360px) {
+        max-width: 80px;
+        max-height: 100px;
+      }
     `}
 `;
 

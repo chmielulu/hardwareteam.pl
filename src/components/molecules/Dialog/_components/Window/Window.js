@@ -16,24 +16,32 @@ const StyledWrapper = styled.div`
   pointer-events: none;
   left: 0;
   top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
 
   ${({ $isActive }) =>
     $isActive &&
     css`
       pointer-events: all;
     `}
+
+  @media (max-width: 1024px) {
+    padding: 0;
+    height: unset;
+    min-height: 100vh;
+  }
 `;
 
 const StyledWindow = styled.div`
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, 50vh) scale(0.8);
+  transform: translateY(100vh) scale(0.8);
   background: #fff;
   box-shadow: 0px 0px 29px -8px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.5s ease-in-out;
+  max-height: 100%;
 
   ${({ $width }) =>
     $width &&
@@ -42,25 +50,26 @@ const StyledWindow = styled.div`
     `}
 
   &.window-enter {
-    transform: translate(-50%, 50vh) scale(0.8);
+    transform: translateY(100vh) scale(0.8);
   }
 
   &.window-enter-done {
-    transform: translate(-50%, -50%) scale(1);
+    transform: translateY(0) scale(1);
   }
 
   &.window-exit {
-    transform: translate(-50%, 50vh) scale(0.8);
+    transform: translateY(100vh) scale(0.8);
   }
 
   @media (max-width: 1024px) {
     width: 100%;
-    height: 100%;
+    min-height: 100vh;
     left: 0;
     top: 0;
     transform: translateX(-100vw);
     border-radius: 0;
     min-width: 280px;
+    max-height: unset;
 
     &.window-enter {
       transform: translateX(-100vw);
@@ -111,6 +120,16 @@ const StyledTitle = styled.h3`
 `;
 
 const StyledContentWrapper = styled.div`
+  max-height: calc(100vh - 140px);
+  position: relative;
+  overflow-y: auto;
+
+  @media (max-width: 1024px) {
+    max-height: unset;
+  }
+`;
+
+const StyledContent = styled.div`
   position: relative;
 `;
 
@@ -119,9 +138,12 @@ const Overlay = styled.div`
   height: 100%;
   background: #000;
   opacity: 0;
-  position: relative;
+  position: absolute;
+  left: 0;
+  top: 0;
   z-index: -1;
   transition: opacity 0.5s ease-in-out;
+  overflow-y: auto;
 
   ${({ $isActive }) =>
     $isActive &&
@@ -149,7 +171,9 @@ const Window = ({ children, isActive, title, onClose, width }) => {
               onClick={onClose}
             />
           </StyledWindowTitleBar>
-          <StyledContentWrapper>{children}</StyledContentWrapper>
+          <StyledContentWrapper>
+            <StyledContent>{children}</StyledContent>
+          </StyledContentWrapper>
         </StyledWindow>
       </CSSTransition>
       <Overlay $isActive={isActive} />

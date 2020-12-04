@@ -52,6 +52,7 @@ const StyledListWrapper = styled.div`
 const StyledSecondTitle = styled.h3`
   ${({ theme }) => useFontSize(theme, "m", "xl")};
   margin-bottom: 15px;
+  font-weight: 400;
 `;
 
 const StyledList = styled.ul`

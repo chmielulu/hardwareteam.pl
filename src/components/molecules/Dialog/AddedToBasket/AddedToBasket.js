@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { ProductCard } from "@components/molecules";
@@ -10,8 +10,11 @@ import basketIcon from "@iconify/icons-clarity/shopping-cart-line";
 import arrowIcon from "@iconify/icons-clarity/circle-arrow-line";
 import { Link } from "react-router-dom";
 import { useFontSize } from "@hooks/styled-components";
-import { useSlider } from "@hooks/utils";
+import SwiperCore, { Navigation } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
 import Window from "../_components/Window/Window";
+
+SwiperCore.use([Navigation]);
 
 const StyledWrapper = styled.div``;
 
@@ -51,17 +54,10 @@ const StyledRecommendedProductsWrapper = styled.div`
   margin: auto;
 `;
 
-const StyledRecommendedProductsView = styled.div`
-  display: inline-flex;
-  flex-shrink: none;
-  transition: trasform 0.2s ease-in-out;
-`;
-
-const StyledRecommendedProductContainer = styled.div`
-  margin-right: 10px;
-
-  :last-of-type {
-    margin-right: 0;
+const StyledSwiper = styled(Swiper)`
+  .swiper-wrapper {
+    display: inline-flex;
+    flex-shrink: none;
   }
 `;
 
@@ -80,6 +76,9 @@ const StyledBasketCounterWrapper = styled.div`
 
 const StyledBasketIconWrapper = styled.div`
   position: relative;
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 const StyledBasketIcon = styled(Icon)`
@@ -106,6 +105,10 @@ const StyledSummaryText = styled.p`
   margin-left: 25px;
   width: 180px;
   margin-top: -7px;
+
+  @media (max-width: 1024px) {
+    margin-left: 0;
+  }
 `;
 
 const StyledBasketPrice = styled.p`
@@ -153,18 +156,7 @@ const AddedToBasket = ({
   isActive,
   onClose,
 }) => {
-  const productsWrapper = useRef();
-  const productsView = useRef();
-  const {
-    handleNextSlide,
-    handlePrevSlide,
-    activeSlide,
-    slidesCount,
-  } = useSlider({
-    wrapper: productsWrapper,
-    view: productsView,
-    isActive,
-  });
+  const [position, setPosition] = useState(0);
 
   return (
     <Window
@@ -191,11 +183,22 @@ const AddedToBasket = ({
         </StyledProductWrapper>
 
         <StyledTitle>Rekomendowane Akcesoria</StyledTitle>
-        <StyledRecommendedProductsWrapper ref={productsWrapper}>
-          <StyledRecommendedProductsView ref={productsView}>
+        <StyledRecommendedProductsWrapper>
+          <StyledSwiper
+            spaceBetween={10}
+            slidesPerView="auto"
+            freeMode="true"
+            navigation={{
+              nextEl: ".swiper-next-button",
+              prevEl: ".swiper-prev-button",
+            }}
+            onReachEnd={() => setPosition(2)}
+            onReachBeginning={() => setPosition(0)}
+            onFromEdge={() => setPosition(1)}
+          >
             {recommendedProducts.map(
               ({ name, price, discount, score, reviewsCount, img }, index) => (
-                <StyledRecommendedProductContainer key={index}>
+                <SwiperSlide key={index}>
                   <ProductCard
                     name={name}
                     price={price}
@@ -206,18 +209,18 @@ const AddedToBasket = ({
                     img={img}
                     size="small"
                   />
-                </StyledRecommendedProductContainer>
+                </SwiperSlide>
               )
             )}
-          </StyledRecommendedProductsView>
+          </StyledSwiper>
           <StyledNextButton
-            onClick={handleNextSlide}
-            $isActive={activeSlide !== slidesCount - 1}
+            className="swiper-next-button"
+            $isActive={position !== 2}
           />
           <StyledPrevButton
-            onClick={handlePrevSlide}
             rotate={-90}
-            $isActive={activeSlide !== 0}
+            $isActive={position !== 0}
+            className="swiper-prev-button"
           />
         </StyledRecommendedProductsWrapper>
 

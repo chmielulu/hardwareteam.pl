@@ -33,6 +33,7 @@
     "react-visibility-sensor": "^5.1.1",
     "simple-react-lightbox": "^3.3.4-2",
     "styled-components": "^5.2.1",
+    "swiper": "^6.3.5",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
