@@ -117,6 +117,9 @@ const StyledIcon = styled(Icon)`
 const StyledTitle = styled.h3`
   ${({ theme }) => useFontSize(theme, "l", "xl")};
   font-weight: 300;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const StyledContentWrapper = styled.div`

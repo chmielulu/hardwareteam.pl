@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { useFontSize } from "@hooks/styled-components";
 import SwiperCore, { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useWindowSize } from "@hooks/utils";
 import Window from "../_components/Window/Window";
 
 SwiperCore.use([Navigation]);
@@ -24,6 +25,11 @@ const StyledProductWrapper = styled.div`
   display: flex;
   justify-content: center;
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
+
+  @media (max-width: 1024px) {
+    padding: 30px 30px;
+    justify-content: flex-start;
+  }
 `;
 
 const StyledProductInformations = styled.div`
@@ -41,7 +47,7 @@ const StyledProductCount = styled.div`
 `;
 
 const StyledTitle = styled.h2`
-  ${({ theme }) => useFontSize(theme, "l")}
+  ${({ theme }) => useFontSize(theme, "l", "xl")}
   margin: 20px 0 30px;
   padding-left: 30px;
   font-weight: 300;
@@ -127,6 +133,10 @@ const StyledPaginationWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   border-top: 1px solid ${({ theme }) => theme.lightGray};
+
+  @media (max-width: 1024px) {
+    margin-top: auto;
+  }
 `;
 
 const StyledArrowButton = styled(ArrowButton)`
@@ -140,6 +150,10 @@ const StyledArrowButton = styled(ArrowButton)`
     css`
       display: block;
     `}
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 const StyledNextButton = styled(StyledArrowButton)`
@@ -157,6 +171,7 @@ const AddedToBasket = ({
   onClose,
 }) => {
   const [position, setPosition] = useState(0);
+  const { width } = useWindowSize();
 
   return (
     <Window
@@ -195,6 +210,7 @@ const AddedToBasket = ({
             onReachEnd={() => setPosition(2)}
             onReachBeginning={() => setPosition(0)}
             onFromEdge={() => setPosition(1)}
+            updateOnWindowResize
           >
             {recommendedProducts.map(
               ({ name, price, discount, score, reviewsCount, img }, index) => (
@@ -243,21 +259,24 @@ const AddedToBasket = ({
         </StyledSummary>
 
         <StyledPaginationWrapper>
-          <BackButton
-            onClick={(e) => {
-              e.preventDefault();
-              onClose();
-            }}
-            to="/"
-          >
-            Wróć do zakupów
-          </BackButton>
+          {width > 1024 && (
+            <BackButton
+              onClick={(e) => {
+                e.preventDefault();
+                onClose();
+              }}
+              to="/"
+            >
+              Wróć do zakupów
+            </BackButton>
+          )}
           <Button
             as={Link}
             to="/"
             icon={arrowIcon}
             position="right"
             rotateIcon={90}
+            fullWidth={width <= 1024}
           >
             Przejdź do koszyka
           </Button>
