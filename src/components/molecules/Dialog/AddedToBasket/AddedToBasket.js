@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { ProductCard } from "@components/molecules";
@@ -10,7 +10,7 @@ import basketIcon from "@iconify/icons-clarity/shopping-cart-line";
 import arrowIcon from "@iconify/icons-clarity/circle-arrow-line";
 import { Link } from "react-router-dom";
 import { useFontSize } from "@hooks/styled-components";
-import gsap from "gsap";
+import { useSlider } from "@hooks/utils";
 import Window from "../_components/Window/Window";
 
 const StyledWrapper = styled.div``;
@@ -153,68 +153,18 @@ const AddedToBasket = ({
   isActive,
   onClose,
 }) => {
-  const [transformMultipliersState, setTransformMultipliersState] = useState();
-  const [transformWidthState, setTransformWidthState] = useState(0);
-  const [activeView, setActiveView] = useState(0);
-
   const productsWrapper = useRef();
   const productsView = useRef();
-
-  const handleNextView = () => {
-    if (activeView === transformMultipliersState.length - 1) {
-      setActiveView(0);
-    } else {
-      setActiveView(activeView + 1);
-    }
-  };
-
-  const handlePrevView = () => {
-    if (activeView === 0) {
-      setActiveView(transformMultipliersState.length - 1);
-    } else {
-      setActiveView(activeView - 1);
-    }
-  };
-
-  useEffect(() => {
-    if (
-      productsWrapper.current &&
-      productsView.current &&
-      !transformMultipliersState
-    ) {
-      const transformValues = [];
-      const productsWrapperWidth = productsWrapper.current.getBoundingClientRect()
-        .width;
-      const productViewChildren = productsView.current.children;
-      const productsViewWidth =
-        productViewChildren[0].getBoundingClientRect().width *
-        productViewChildren.length;
-      let divider = productsViewWidth / productsWrapperWidth;
-
-      let buffer = 0.0;
-      transformValues.push(0);
-      for (;;) {
-        if (divider >= 1) {
-          buffer += 1;
-          transformValues.push(buffer);
-          divider -= 1;
-        } else {
-          break;
-        }
-      }
-      setTransformMultipliersState(transformValues);
-      setTransformWidthState(productsWrapperWidth);
-    }
-  }, [isActive, transformMultipliersState]);
-
-  useEffect(() => {
-    if (transformMultipliersState) {
-      gsap.to(productsView.current, {
-        x: -transformWidthState * transformMultipliersState[activeView],
-        duration: 0.2,
-      });
-    }
-  }, [activeView, transformMultipliersState, transformWidthState]);
+  const {
+    handleNextSlide,
+    handlePrevSlide,
+    activeSlide,
+    slidesCount,
+  } = useSlider({
+    wrapper: productsWrapper,
+    view: productsView,
+    isActive,
+  });
 
   return (
     <Window
@@ -240,9 +190,7 @@ const AddedToBasket = ({
           />
         </StyledProductWrapper>
 
-        <StyledTitle onClick={handleNextView}>
-          Rekomendowane Akcesoria
-        </StyledTitle>
+        <StyledTitle>Rekomendowane Akcesoria</StyledTitle>
         <StyledRecommendedProductsWrapper ref={productsWrapper}>
           <StyledRecommendedProductsView ref={productsView}>
             {recommendedProducts.map(
@@ -263,17 +211,13 @@ const AddedToBasket = ({
             )}
           </StyledRecommendedProductsView>
           <StyledNextButton
-            onClick={handleNextView}
-            $isActive={
-              transformMultipliersState
-                ? activeView !== transformMultipliersState.length - 1
-                : false
-            }
+            onClick={handleNextSlide}
+            $isActive={activeSlide !== slidesCount - 1}
           />
           <StyledPrevButton
-            onClick={handlePrevView}
+            onClick={handlePrevSlide}
             rotate={-90}
-            $isActive={transformMultipliersState ? activeView !== 0 : false}
+            $isActive={activeSlide !== 0}
           />
         </StyledRecommendedProductsWrapper>
 
@@ -283,7 +227,7 @@ const AddedToBasket = ({
               <StyledBasketIcon icon={basketIcon} />
               <StyledBasketProductCount>1</StyledBasketProductCount>
             </StyledBasketIconWrapper>
-            <StyledSummaryText onClick={handlePrevView}>
+            <StyledSummaryText>
               W koszyku łącznie masz 1 produkt
             </StyledSummaryText>
           </StyledBasketCounterWrapper>

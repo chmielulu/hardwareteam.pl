@@ -7,7 +7,7 @@ export default {
     price: 559,
     count: 1,
   },
-  recommendedProducts: [...Array(6).keys()].map(() => ({
+  recommendedProducts: [...Array(8).keys()].map(() => ({
     name: "Smartfon Huawei Y6P 64GB Dual SIM Fioletowy",
     img: huaweiImg,
     price: 559,
