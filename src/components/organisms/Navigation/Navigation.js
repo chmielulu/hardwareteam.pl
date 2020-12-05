@@ -15,7 +15,7 @@ const StyledWrapper = styled.header`
   flex-direction: column;
   box-shadow: ${({ theme }) => theme.shadow2};
   z-index: 2;
-  width: 100vw;
+  width: 100%;
 
   @media (max-width: 1024px) {
     position: absolute;

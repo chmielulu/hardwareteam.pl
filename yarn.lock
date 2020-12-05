@@ -1378,6 +1378,11 @@
   resolved "https://registry.yarnpkg.com/@iconify/icons-clarity/-/icons-clarity-1.1.0.tgz#72834d2366cf6be22c5516fafe5710b96aeed916"
   integrity sha512-k++l+TvTu4i7D0lJRHztzVghqeSK4cEsoRdNljQGbOmLXkNhLxUynC+HdqTSPekTS1JtucRoFjHan06U+goGsA==
 
+"@iconify/icons-entypo-social@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@iconify/icons-entypo-social/-/icons-entypo-social-1.1.0.tgz#00143ca2bff3e5f0109730e1a2a3e3af988920a3"
+  integrity sha512-pFzZ95KqOIUhRLaZQul4ED8Uhk5DwaG2RPbCmzfU487SJbYAzZSo1SKKE7DonUl7dcXQpYC1WeEkXn3iP5xxXA==
+
 "@iconify/icons-logos@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@iconify/icons-logos/-/icons-logos-1.1.0.tgz#72636ce7f5795f643a88378dd1ee6b8308641de7"

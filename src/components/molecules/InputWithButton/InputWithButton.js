@@ -31,8 +31,8 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const InputWithButton = ({ name, label, children }) => (
-  <StyledWrapper>
+const InputWithButton = ({ name, label, children, ...props }) => (
+  <StyledWrapper {...props}>
     <StyledInput name={name} label={label} kind="secondary" />
     <StyledButton kind="secondary">{children}</StyledButton>
   </StyledWrapper>

@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import MainTemplate from "@templates/MainTemplate";
-import Navigation from "@components/organisms/Navigation/Navigation";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ProductCard } from "@components/molecules";
+import { Navigation, Footer } from "@components/organisms";
 import productImg from "@assets/images/huaweiPhone.png";
+import dummyContent from "@components/organisms/Footer/dummyContent";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -46,6 +47,11 @@ const Root = () => (
             informations={["time", "delivery"]}
           />
         </Wrapper>
+
+        <Footer
+          brands={dummyContent.brands}
+          copyrightImages={dummyContent.copyrightImages}
+        />
       </div>
     </Router>
   </MainTemplate>

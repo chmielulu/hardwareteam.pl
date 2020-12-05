@@ -1,3 +1,4 @@
 import Navigation from "./Navigation/Navigation";
+import Footer from "./Footer/Footer";
 
-export default { Navigation };
+export { Navigation, Footer };

@@ -13,7 +13,7 @@ import TextWithIcon from "../TextWithIcon/TextWithIcon";
 import PopUp from "./PopUp/PopUp";
 
 const StyledWrapper = styled.div`
-  width: 100vw;
+  width: 100%;
   min-width: 260px;
   height: 85px;
   align-items: center;

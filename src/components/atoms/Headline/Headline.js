@@ -2,7 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
-import { allSizes, l as defaultSize } from "@constants/fontSizes";
+import {
+  allSizes,
+  l as defaultSize,
+  xl as defaultMobileFontSize,
+} from "@constants/fontSizes";
 import { allKinds, primary, secondary, tertiary } from "@constants/kinds";
 
 const StyledHeadline = styled.h1`
@@ -64,10 +68,18 @@ const StyledHeadline = styled.h1`
       padding: 0;
     }
   `}
+
+  @media (max-width: 1024px) {
+    padding: 15px 0 15px 5px;
+  }
 `;
 
-const Headline = ({ kind, fontSize, children }) => (
-  <StyledHeadline $kind={kind} $fontSize={fontSize}>
+const Headline = ({ kind, fontSize, mobileFontSize, children }) => (
+  <StyledHeadline
+    $kind={kind}
+    $fontSize={fontSize}
+    $mobileFontSize={mobileFontSize}
+  >
     {children}
   </StyledHeadline>
 );
@@ -75,12 +87,14 @@ const Headline = ({ kind, fontSize, children }) => (
 Headline.propTypes = {
   kind: PropTypes.oneOf(allKinds),
   fontSize: PropTypes.oneOf(allSizes),
+  mobileFontSize: PropTypes.oneOf(allSizes),
   children: PropTypes.node.isRequired,
 };
 
 Headline.defaultProps = {
   kind: primary,
   fontSize: defaultSize,
+  mobileFontSize: defaultMobileFontSize,
 };
 
 export default Headline;

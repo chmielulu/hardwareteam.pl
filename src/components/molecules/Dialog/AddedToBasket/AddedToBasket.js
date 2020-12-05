@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { ProductCard } from "@components/molecules";
-import { Button, BackButton, ArrowButton } from "@components/atoms";
+import { Button, BackButton, CustomSwiper } from "@components/atoms";
 import { secondary, tertiary } from "@constants/kinds";
 import formatPrice from "@utils/formatPrice";
 import Icon from "@iconify/react";
@@ -10,12 +10,8 @@ import basketIcon from "@iconify/icons-clarity/shopping-cart-line";
 import arrowIcon from "@iconify/icons-clarity/circle-arrow-line";
 import { Link } from "react-router-dom";
 import { useFontSize } from "@hooks/styled-components";
-import SwiperCore, { Navigation } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
 import { useWindowSize } from "@hooks/utils";
 import Window from "../_components/Window/Window";
-
-SwiperCore.use([Navigation]);
 
 const StyledWrapper = styled.div``;
 
@@ -58,13 +54,6 @@ const StyledRecommendedProductsWrapper = styled.div`
   overflow: hidden;
   position: relative;
   margin: auto;
-`;
-
-const StyledSwiper = styled(Swiper)`
-  .swiper-wrapper {
-    display: inline-flex;
-    flex-shrink: none;
-  }
 `;
 
 const StyledSummary = styled.div`
@@ -139,38 +128,12 @@ const StyledPaginationWrapper = styled.div`
   }
 `;
 
-const StyledArrowButton = styled(ArrowButton)`
-  position: absolute;
-  transform: translateY(-50%);
-  top: 50%;
-  display: none;
-
-  ${({ $isActive }) =>
-    $isActive &&
-    css`
-      display: block;
-    `}
-
-  @media (max-width: 1024px) {
-    display: none;
-  }
-`;
-
-const StyledNextButton = styled(StyledArrowButton)`
-  right: 5px;
-`;
-
-const StyledPrevButton = styled(StyledArrowButton)`
-  left: 5px;
-`;
-
 const AddedToBasket = ({
   addedProduct,
   recommendedProducts,
   isActive,
   onClose,
 }) => {
-  const [position, setPosition] = useState(0);
   const { width } = useWindowSize();
 
   return (
@@ -199,45 +162,23 @@ const AddedToBasket = ({
 
         <StyledTitle>Rekomendowane Akcesoria</StyledTitle>
         <StyledRecommendedProductsWrapper>
-          <StyledSwiper
-            spaceBetween={10}
-            slidesPerView="auto"
-            freeMode="true"
-            navigation={{
-              nextEl: ".swiper-next-button",
-              prevEl: ".swiper-prev-button",
-            }}
-            onReachEnd={() => setPosition(2)}
-            onReachBeginning={() => setPosition(0)}
-            onFromEdge={() => setPosition(1)}
-            updateOnWindowResize
-          >
+          <CustomSwiper>
             {recommendedProducts.map(
               ({ name, price, discount, score, reviewsCount, img }, index) => (
-                <SwiperSlide key={index}>
-                  <ProductCard
-                    name={name}
-                    price={price}
-                    discount={discount}
-                    score={score}
-                    reviewsCount={reviewsCount}
-                    kind={secondary}
-                    img={img}
-                    size="small"
-                  />
-                </SwiperSlide>
+                <ProductCard
+                  name={name}
+                  price={price}
+                  discount={discount}
+                  score={score}
+                  reviewsCount={reviewsCount}
+                  kind={secondary}
+                  img={img}
+                  size="small"
+                  key={index}
+                />
               )
             )}
-          </StyledSwiper>
-          <StyledNextButton
-            className="swiper-next-button"
-            $isActive={position !== 2}
-          />
-          <StyledPrevButton
-            rotate={-90}
-            $isActive={position !== 0}
-            className="swiper-prev-button"
-          />
+          </CustomSwiper>
         </StyledRecommendedProductsWrapper>
 
         <StyledSummary>
