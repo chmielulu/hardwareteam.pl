@@ -15,9 +15,10 @@ const StyledWrapper = styled.div`
   border-radius: 10px;
   box-shadow: 0px 2px 25px -13px rgba(0, 0, 0, 0);
   width: 270px;
-  height: 420px;
+  height: 380px;
   transition: border-radius 0.2s ease, box-shadow 0.2s ease;
   position: relative;
+  overflow: hidden;
 
   :hover {
     border: 1px solid ${({ theme }) => theme.lightGray};
@@ -26,7 +27,7 @@ const StyledWrapper = styled.div`
 
   @media (max-width: 1024px) {
     width: 190px;
-    min-height: 320px;
+    height: 320px;
     padding: 20px 15px;
     height: unset;
 
@@ -56,34 +57,40 @@ const StyledWrapper = styled.div`
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: inherit;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 `;
 
+const StyledInnerWrapper = styled.div``;
+
 const StyledImg = styled.img`
-  max-width: 200px;
-  max-height: 260px;
-  margin: auto;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin: 0 auto;
   display: block;
 
   @media (max-width: 1024px) {
-    max-width: 160px;
-    max-height: 185px;
+    width: 160px;
+    height: 160px;
   }
 
   ${({ $size }) =>
     $size === "small" &&
     css`
-      max-width: 135px;
-      max-height: 110px;
+      width: 135px;
+      height: 135px;
 
       @media (max-width: 1024px) {
-        max-width: ${useFluidSize({ min: 80, max: 135 })};
-        max-height: ${useFluidSize({ min: 100, max: 110 })};
+        width: ${useFluidSize({ min: 80, max: 135 })};
+        height: ${useFluidSize({ min: 80, max: 135 })};
       }
 
       @media (max-width: 360px) {
-        max-width: 80px;
-        max-height: 100px;
+        width: 80px;
+        height: 80px;
       }
     `}
 `;
@@ -116,6 +123,13 @@ const StyledName = styled.h3`
   ${({ theme }) => useFontSize(theme)};
   font-weight: 300;
   margin-bottom: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  visibility: visible;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
 
   @media (max-width: 1024px) {
     ${({ theme }) => useFontSize(theme, "m", "l")}
@@ -162,21 +176,25 @@ const Secondary = ({
   productLink,
   size,
 }) => {
-  const shortenName = useShortenText(name, size === "small" ? 30 : name.length);
+  const shortenName = useShortenText(name, size === "small" ? 30 : 50);
 
   return (
     <StyledWrapper $size={size}>
       <StyledLink to={productLink}>
         <StyledImg src={img} alt={name} $size={size} />
-        <StyledPrice $size={size}>
-          {formatPrice(price)}
-          {discount && <StyledDiscount>{formatPrice(discount)}</StyledDiscount>}
-        </StyledPrice>
-        <StyledName $size={size}>{shortenName}</StyledName>
-        <StyledScoreWrapper>
-          <StyledScore score={score} />
-          <StyledReviewsCounter>({reviewsCount})</StyledReviewsCounter>
-        </StyledScoreWrapper>
+        <StyledInnerWrapper>
+          <StyledPrice $size={size}>
+            {formatPrice(price)}
+            {discount && (
+              <StyledDiscount>{formatPrice(discount)}</StyledDiscount>
+            )}
+          </StyledPrice>
+          <StyledName $size={size}>{shortenName}</StyledName>
+          <StyledScoreWrapper>
+            <StyledScore score={score} />
+            <StyledReviewsCounter>({reviewsCount})</StyledReviewsCounter>
+          </StyledScoreWrapper>
+        </StyledInnerWrapper>
       </StyledLink>
       <StyledBasketButton />
     </StyledWrapper>

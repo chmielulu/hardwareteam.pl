@@ -50,6 +50,8 @@ const CustomSwiper = ({
   freeMode,
   withNavigation,
   breakpoints,
+  suffix,
+  loop,
   children,
 }) => {
   const [position, setPosition] = useState(0);
@@ -62,15 +64,18 @@ const CustomSwiper = ({
         freeMode={freeMode}
         navigation={
           withNavigation
-            ? { nextEl: ".swiper-next-button", prevEl: ".swiper-prev-button" }
+            ? {
+                nextEl: `.swiper-next-button${suffix}`,
+                prevEl: `.swiper-prev-button${suffix}`,
+              }
             : undefined
         }
         onReachEnd={() => setPosition(2)}
         onReachBeginning={() => setPosition(0)}
         onFromEdge={() => setPosition(1)}
-        onSwiper={() => setPosition(-1)}
         updateOnWindowResize
         breakpoints={breakpoints}
+        loop={loop}
       >
         {children.map((child, index) => (
           <SwiperSlide key={index}>{child}</SwiperSlide>
@@ -79,13 +84,13 @@ const CustomSwiper = ({
       {withNavigation && (
         <>
           <StyledNextButton
-            className="swiper-next-button"
+            className={`swiper-next-button${suffix}`}
             $isActive={position !== 2 && position !== -1}
           />
           <StyledPrevButton
             rotate={-90}
             $isActive={position !== 0 && position !== -1}
-            className="swiper-prev-button"
+            className={`swiper-prev-button${suffix}`}
           />
         </>
       )}
@@ -100,6 +105,8 @@ CustomSwiper.propTypes = {
   withNavigation: PropTypes.bool,
   children: PropTypes.arrayOf(PropTypes.node).isRequired,
   breakpoints: PropTypes.object,
+  suffix: PropTypes.any,
+  loop: PropTypes.bool,
 };
 
 CustomSwiper.defaultProps = {
@@ -108,6 +115,8 @@ CustomSwiper.defaultProps = {
   freeMode: true,
   withNavigation: true,
   breakpoints: undefined,
+  suffix: "",
+  loop: false,
 };
 
 export default CustomSwiper;

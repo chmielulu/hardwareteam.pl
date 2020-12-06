@@ -26,7 +26,7 @@ export default createGlobalStyle`
     min-width: 300px;
     min-height: 100%; 
     position: relative;
-    padding-top: 135px;
+    padding-top: 130px;
     overflow-x: hidden;
     
     @media (max-width: 300px) {

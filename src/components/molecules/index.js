@@ -3,6 +3,8 @@ import InputWithButton from "./InputWithButton/InputWithButton";
 import ArticleCard from "./ArticleCard/ArticleCard";
 import PromotionCard from "./PromotionCard/PromotionCard";
 import OrderProcess from "./OrderProcess/OrderProcess";
+import CustomSwiper from "./CustomSwiper/CustomSwiper";
+import HotShot from "./HotShot/HotShot";
 
 export {
   ProductCard,
@@ -10,4 +12,6 @@ export {
   ArticleCard,
   PromotionCard,
   OrderProcess,
+  CustomSwiper,
+  HotShot,
 };

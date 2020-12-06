@@ -17,7 +17,6 @@ import Progress from "./Progress/Progress";
 import ToolBox from "./ToolBox/ToolBox";
 import Spinner from "./Spinner/Spinner";
 import ArrowButton from "./ArrowButton/ArrowButton";
-import CustomSwiper from "./CustomSwiper/CustomSwiper";
 
 export {
   Attribute,
@@ -39,5 +38,4 @@ export {
   ToolBox,
   Spinner,
   ArrowButton,
-  CustomSwiper,
 };

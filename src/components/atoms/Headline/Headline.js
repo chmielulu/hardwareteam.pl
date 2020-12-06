@@ -13,7 +13,7 @@ const StyledHeadline = styled.h1`
   ${({ theme, $fontSize }) => useFontSize(theme, $fontSize)};
   font-weight: 400;
   position: relative;
-  padding: 20px 0 20px 10px;
+  padding: 0 0 20px 10px;
 
   ::before,
   ::after {

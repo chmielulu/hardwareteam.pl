@@ -14,7 +14,7 @@ const StyledWrapper = styled.header`
   display: flex;
   flex-direction: column;
   box-shadow: ${({ theme }) => theme.shadow2};
-  z-index: 2;
+  z-index: 1000;
   width: 100%;
 
   @media (max-width: 1024px) {
@@ -30,7 +30,7 @@ const Overlay = styled.div`
   height: 100%;
   left: 0;
   top: 0;
-  z-index: 1;
+  z-index: 999;
   background: #000;
   opacity: 0;
   position: fixed;

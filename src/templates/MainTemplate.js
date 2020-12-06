@@ -1,16 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ThemeProvider } from "styled-components";
-import { theme } from "@themes/theme";
-import GlobalStyles from "@themes/GlobalStyles";
+import { Navigation, Footer } from "@components/organisms";
+import dummyFooterContent from "@components/organisms/Footer/dummyContent";
+import BasicTemplate from "./BasicTemplate";
 
 const MainTemplate = ({ children }) => (
-  <>
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
+  <BasicTemplate>
+    <Navigation />
+    <main className="main-wrapper">
       {children}
-    </ThemeProvider>
-  </>
+      <Footer
+        brands={dummyFooterContent.brands}
+        copyrightImages={dummyFooterContent.copyrightImages}
+      />
+    </main>
+  </BasicTemplate>
 );
 
 MainTemplate.propTypes = {

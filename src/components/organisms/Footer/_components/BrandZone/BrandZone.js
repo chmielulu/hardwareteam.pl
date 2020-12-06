@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { Headline, CustomSwiper } from "@components/atoms";
+import { Headline } from "@components/atoms";
+import { CustomSwiper } from "@components/molecules";
 import { Link } from "react-router-dom";
 import { useFluidSize } from "@hooks/styled-components";
 

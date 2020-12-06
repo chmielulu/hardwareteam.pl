@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import { ProductCard } from "@components/molecules";
-import { Button, BackButton, CustomSwiper } from "@components/atoms";
+import { ProductCard, CustomSwiper } from "@components/molecules";
+import { Button, BackButton } from "@components/atoms";
 import { secondary, tertiary } from "@constants/kinds";
 import formatPrice from "@utils/formatPrice";
 import Icon from "@iconify/react";

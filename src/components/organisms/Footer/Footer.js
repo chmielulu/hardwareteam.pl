@@ -11,6 +11,7 @@ const StyledWrapper = styled.footer`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 100px;
 
   @media (max-width: 1024px) {
     width: 90%;
