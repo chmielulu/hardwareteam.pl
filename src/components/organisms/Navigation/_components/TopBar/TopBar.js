@@ -45,6 +45,9 @@ const StyledLink = styled(Link)`
 
   @media (max-width: 1480px) {
     margin-right: 20px;
+  }
+
+  @media (max-width: 1024px) {
     min-width: unset;
   }
 `;

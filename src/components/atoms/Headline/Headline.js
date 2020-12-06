@@ -10,7 +10,8 @@ import {
 import { allKinds, primary, secondary, tertiary } from "@constants/kinds";
 
 const StyledHeadline = styled.h1`
-  ${({ theme, $fontSize }) => useFontSize(theme, $fontSize)};
+  ${({ theme, $fontSize, $mobileFontSize }) =>
+    useFontSize(theme, $fontSize, $mobileFontSize)};
   font-weight: 400;
   position: relative;
   padding: 0 0 20px 10px;

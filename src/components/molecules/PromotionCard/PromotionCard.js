@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { Button } from "@components/atoms";
 import { Link } from "react-router-dom";
-import { useFontSize } from "@hooks/styled-components";
+import { useFluidSize, useFontSize } from "@hooks/styled-components";
 
 const StyledWrapper = styled.div`
   width: 520px;
@@ -71,6 +71,15 @@ const StyledWrapper = styled.div`
         width: 550px;
       }
     `}
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    height: ${useFluidSize({ min: 200, max: 550 })};
+
+    ::before {
+      display: none;
+    }
+  }
 `;
 
 const StyledBackground = styled.img`
@@ -88,6 +97,10 @@ const StyledBackground = styled.img`
     css`
       transform: scale(1) !important;
     `}
+
+  @media (max-width: 1024px) {
+    transform: scale(1) !important;
+  }
 `;
 
 const StyledInnerWrapper = styled.div`
@@ -126,7 +139,7 @@ const StyledInnerWrapper = styled.div`
 `;
 
 const StyledDiscount = styled.span`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "xs")}
   font-weight: 300;
   color: ${({ theme }) => theme.secondary};
 
@@ -141,18 +154,22 @@ const StyledDiscount = styled.span`
       font-weight: 500;
       order: 2;
       margin-top: 20px;
+
+      @media (max-width: 1024px) {
+        margin-top: 5px;
+      }
     `}
 `;
 
 const StyledTitle = styled.span`
-  ${({ theme }) => useFontSize(theme, "l")}
+  ${({ theme }) => useFontSize(theme, "l", "xl")}
   font-weight: 300;
   margin-top: 7px;
 
   ${({ $secondary }) =>
     $secondary &&
     css`
-      ${({ theme }) => useFontSize(theme, "xxl")}
+      ${({ theme }) => useFontSize(theme, "xxl", "xl")}
       color: #fff;
       font-weight: 400;
       order: 1;
@@ -164,6 +181,10 @@ const StyledTitle = styled.span`
         display: block;
       }
     `}
+
+  @media (max-width: 1024px) {
+    ${({ theme }) => useFontSize(theme, "xxl", "xl")}
+  }
 `;
 
 const StyledBrandName = styled.span`
@@ -193,6 +214,10 @@ const StyledButton = styled(Button)`
       margin-top: 25px;
       padding: 13px 25px;
     `}
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 const PromotionCard = ({ img, name, brandName, discount, link, secondary }) => {

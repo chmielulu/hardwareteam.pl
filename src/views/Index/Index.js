@@ -9,6 +9,7 @@ import {
   ArticleCard,
 } from "@components/molecules";
 import hotShotContent from "@components/molecules/HotShot/dummyContent";
+import { useWindowSize } from "@hooks/utils";
 import Promotion from "./_components/Promotion/Promotion";
 import WhyUs from "./_components/WhyUs/WhyUs";
 import { recommendedProducts, news } from "./_dummyContent/dummyContent";
@@ -19,6 +20,10 @@ const StyledFirstSectionWrapper = styled.div`
   max-width: 1500px;
   display: flex;
   margin: auto;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;
 
 const StyledHotShot = styled(HotShot)`
@@ -27,6 +32,11 @@ const StyledHotShot = styled(HotShot)`
 
   @media (max-width: 1250px) {
     margin-right: 25px;
+  }
+
+  @media (max-width: 1024px) {
+    margin: auto;
+    margin-bottom: 30px;
   }
 `;
 
@@ -58,6 +68,8 @@ const StyledSection = styled.section`
 `;
 
 const Index = () => {
+  const { width } = useWindowSize();
+
   return (
     <MainTemplate>
       <Promotion />
@@ -66,7 +78,10 @@ const Index = () => {
         <StyledHotShot {...hotShotContent} />
         <StyledFirstSection>
           <Headline as="h2">Popularne w tym tygodniu</Headline>
-          {recommendedProducts.map((item, index) => (
+          {(width <= 1024
+            ? [recommendedProducts[0].concat(recommendedProducts[1])]
+            : recommendedProducts
+          ).map((item, index) => (
             <StyledSliderWrapper key={index}>
               <CustomSwiper suffix={index}>
                 {item.map((props, index) => (

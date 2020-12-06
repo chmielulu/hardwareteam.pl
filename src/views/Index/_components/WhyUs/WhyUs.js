@@ -14,6 +14,14 @@ const StyledWrapper = styled.div`
   border: 1px solid ${({ theme }) => theme.lightGray};
   border-radius: 10px;
   justify-content: center;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    border-left: 0;
+    border-right: 0;
+    margin: 0 auto 50px;
+    border-radius: 0;
+  }
 `;
 
 const StyledItem = styled.div`
