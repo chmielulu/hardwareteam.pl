@@ -41,9 +41,11 @@ const StyledWrapper = styled.div`
 
 const StyledLink = styled(Link)`
   margin-right: 40px;
+  min-width: 229px;
 
   @media (max-width: 1480px) {
     margin-right: 20px;
+    min-width: unset;
   }
 `;
 

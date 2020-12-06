@@ -34,6 +34,20 @@ const StyledWrapper = styled.div`
     opacity: 1;
   }
 
+  @media (max-width: 1550px) {
+    width: 400px;
+    height: 235px;
+
+    ::before {
+      width: 200px;
+      height: 200px;
+    }
+
+    :hover::before {
+      transform: translate(170%, 90%) scale(1) skewX(0);
+    }
+  }
+
   ${({ $secondary }) =>
     $secondary &&
     css`
@@ -42,6 +56,19 @@ const StyledWrapper = styled.div`
 
       ::before {
         display: none;
+      }
+
+      @media (max-width: 1800px) {
+        width: 900px;
+      }
+
+      @media (max-width: 1550px) {
+        width: 700px;
+        height: 500px;
+      }
+
+      @media (max-width: 1200px) {
+        width: 550px;
       }
     `}
 `;
@@ -75,10 +102,26 @@ const StyledInnerWrapper = styled.div`
   justify-content: center;
   z-index: 10;
 
+  @media (max-width: 1550px) {
+    width: 80%;
+  }
+
   ${({ $secondary }) =>
     $secondary &&
     css`
       padding-left: 120px;
+
+      @media (max-width: 1800px) {
+        padding-left: 60px;
+      }
+
+      @media (max-width: 1550px) {
+        width: 70%;
+      }
+
+      @media (max-width: 1200px) {
+        width: 85%;
+      }
     `}
 `;
 

@@ -15,8 +15,8 @@ import { recommendedProducts, news } from "./_dummyContent/dummyContent";
 import SecondPromotion from "./_components/SecondPromotion/SecondPromotion";
 
 const StyledFirstSectionWrapper = styled.div`
-  width: 80%;
-  max-width: 1600px;
+  width: 90%;
+  max-width: 1500px;
   display: flex;
   margin: auto;
 `;
@@ -24,13 +24,17 @@ const StyledFirstSectionWrapper = styled.div`
 const StyledHotShot = styled(HotShot)`
   margin-right: 50px;
   justify-content: space-around;
+
+  @media (max-width: 1250px) {
+    margin-right: 25px;
+  }
 `;
 
 const StyledFirstSection = styled.section`
-  flex-grow: 1;
+  flex: 1;
+  overflow: auto;
   display: flex;
   flex-direction: column;
-  max-width: 1000px;
 `;
 
 const StyledSliderWrapper = styled.div`
@@ -47,8 +51,8 @@ const StyledSliderWrapper = styled.div`
 `;
 
 const StyledSection = styled.section`
-  width: 80%;
-  max-width: 1600px;
+  width: 90%;
+  max-width: 1500px;
   margin: auto;
   margin-top: 50px;
 `;

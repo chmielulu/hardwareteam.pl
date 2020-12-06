@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 import { useFluidSize } from "@hooks/styled-components";
 
 const StyledWrapper = styled.div`
-  width: 80%;
-  max-width: 1600px;
+  width: 90%;
+  max-width: 1500px;
 
   @media (max-width: 1024px) {
     width: 100%;

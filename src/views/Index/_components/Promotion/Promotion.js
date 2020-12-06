@@ -21,6 +21,28 @@ const StyledSlider = styled.div`
   overflow: hidden;
   margin-right: 30px;
   box-shadow: ${({ theme }) => theme.shadow};
+
+  button.swiper-next-button {
+    right: 20px !important;
+  }
+
+  button.swiper-prev-button {
+    left: 20px !important;
+  }
+
+  @media (max-width: 1800px) {
+    max-width: 900px;
+  }
+
+  @media (max-width: 1550px) {
+    max-width: 700px;
+    height: 500px;
+  }
+
+  @media (max-width: 1200px) {
+    width: 550px;
+    margin-right: 20px;
+  }
 `;
 
 const StyledOthersWrapper = styled.div`

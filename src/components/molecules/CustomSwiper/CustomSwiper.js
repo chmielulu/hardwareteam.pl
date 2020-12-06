@@ -62,14 +62,10 @@ const CustomSwiper = ({
         spaceBetween={spaceBetween}
         slidesPerView={slidesPerView}
         freeMode={freeMode}
-        navigation={
-          withNavigation
-            ? {
-                nextEl: `.swiper-next-button${suffix}`,
-                prevEl: `.swiper-prev-button${suffix}`,
-              }
-            : undefined
-        }
+        navigation={{
+          nextEl: `.swiper-next-button${suffix}`,
+          prevEl: `.swiper-prev-button${suffix}`,
+        }}
         onReachEnd={() => setPosition(2)}
         onReachBeginning={() => setPosition(0)}
         onFromEdge={() => setPosition(1)}
