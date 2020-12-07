@@ -10,6 +10,7 @@ import {
   SocialButton,
   BackButton,
   Logo,
+  Spinner,
 } from "@components/atoms";
 import { Link } from "react-router-dom";
 import { useFluidSize, useFontSize } from "@hooks/styled-components";
@@ -268,7 +269,7 @@ const AuthTemplate = ({
         </StyledLeftColumn>
         {width > 1024 && (
           <StyledRightColumn>
-            <StyledImg src={background} alt="" />
+            <StyledImg src={background} alt="" loader={<Spinner />} />
           </StyledRightColumn>
         )}
       </StyledWrapper>
