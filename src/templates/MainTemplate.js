@@ -7,13 +7,13 @@ import BasicTemplate from "./BasicTemplate";
 const MainTemplate = ({ children }) => (
   <BasicTemplate>
     <Navigation />
-    <main className="main-wrapper">
-      {children}
+    <div className="main-wrapper">
+      <main>{children}</main>
       <Footer
         brands={dummyFooterContent.brands}
         copyrightImages={dummyFooterContent.copyrightImages}
       />
-    </main>
+    </div>
   </BasicTemplate>
 );
 

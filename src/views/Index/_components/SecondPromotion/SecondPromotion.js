@@ -24,6 +24,7 @@ const StyledWrapper = styled.div`
     width: 90%;
     margin: auto;
     height: unset;
+    margin-top: 20px;
 
     .swiper-container {
       width: 100%;
@@ -49,7 +50,6 @@ const StyledWrapper = styled.div`
     }
   }
 `;
-
 const SecondPromotion = () => {
   const { width } = useWindowSize();
 
@@ -57,6 +57,7 @@ const SecondPromotion = () => {
     <StyledWrapper>
       <CustomSwiper
         spaceBetween={width <= 1024 ? 0 : 40}
+        slidesPerView={width <= 1024 ? 1 : undefined}
         freeMode={width > 1024}
       >
         {secondPromotion.map((props, index) => (

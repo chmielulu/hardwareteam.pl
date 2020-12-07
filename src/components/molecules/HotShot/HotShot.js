@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Progress } from "@components/atoms";
 import formatPrice from "@utils/formatPrice";
-import { useFontSize } from "@hooks/styled-components";
+import { useFluidSize, useFontSize } from "@hooks/styled-components";
 import { useCounter } from "@hooks/utils";
 
 const StyledWrapper = styled.div`
@@ -15,6 +15,19 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 1024px) {
+    width: 90%;
+    max-width: 400px;
+    padding: ${`${useFluidSize({ min: 15, max: 30 })} ${useFluidSize({
+      min: 30,
+      max: 50,
+    })}`};
+  }
+
+  @media (max-width: 360px) {
+    padding: 15px 30px;
+  }
 `;
 
 const StyledHeader = styled.div`
@@ -38,12 +51,23 @@ const StyledSave = styled.div`
   background: #fff;
   box-shadow: ${({ theme }) => theme.shadow2};
   border-radius: 10px;
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 300;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 10px 30px;
+
+  @media (max-width: 1024px) {
+    padding: ${`${useFluidSize({ min: 8, max: 10 })} ${useFluidSize({
+      min: 15,
+      max: 30,
+    })}`};
+  }
+
+  @media (max-width: 360px) {
+    padding: 8px 15px;
+  }
 `;
 
 const StyledSavePrice = styled.span`
@@ -56,6 +80,10 @@ const StyledInnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media (max-width: 1024px) {
+    width: ${useFluidSize({ min: 200, max: 280 })};
+  }
 `;
 
 const StyledImg = styled.img`
@@ -63,11 +91,15 @@ const StyledImg = styled.img`
   height: 350px;
   object-fit: cover;
   border-radius: 10px;
+
+  @media (max-width: 1024px) {
+    height: ${useFluidSize({ min: 240, max: 350 })};
+  }
 `;
 
 const StyledName = styled.h3`
   font-weight: 300;
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   max-width: 100%;
   text-align: center;
   margin-top: 20px;
@@ -82,7 +114,7 @@ const StyledPrice = styled.span`
 `;
 
 const StyledDiscount = styled.span`
-  ${({ theme }) => useFontSize(theme, "xl")}
+  ${({ theme }) => useFontSize(theme, "xl", "xxl")}
   font-weight: 500;
 `;
 
@@ -99,7 +131,7 @@ const StyledProgress = styled(Progress)`
 `;
 
 const StyledCountWrapper = styled.div`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m")}
   margin-top: 10px;
   width: 100%;
   display: flex;
@@ -120,22 +152,26 @@ const StyledTimeWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   margin-top: 30px;
+
+  @media (max-width: 1024px) {
+    margin-top: 20px;
+  }
 `;
 
 const StyledTimeItem = styled.div`
   display: flex;
-  ${({ theme }) => useFontSize(theme, "s")}
+  ${({ theme }) => useFontSize(theme, "s", "l")}
   font-weight: 300;
   flex-direction: column;
   align-items: center;
 `;
 
 const StyledTime = styled.span`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
 `;
 
 const StyledSpacer = styled.span`
-  ${({ theme }) => useFontSize(theme, "l")}
+  ${({ theme }) => useFontSize(theme, "l", "xxl")}
   margin: 0 10px;
 `;
 

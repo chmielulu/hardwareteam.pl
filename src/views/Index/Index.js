@@ -10,6 +10,7 @@ import {
 } from "@components/molecules";
 import hotShotContent from "@components/molecules/HotShot/dummyContent";
 import { useWindowSize } from "@hooks/utils";
+import { useFluidSize } from "@hooks/styled-components";
 import Promotion from "./_components/Promotion/Promotion";
 import WhyUs from "./_components/WhyUs/WhyUs";
 import { recommendedProducts, news } from "./_dummyContent/dummyContent";
@@ -58,6 +59,11 @@ const StyledSliderWrapper = styled.div`
     display: flex;
     align-items: flex-start;
   }
+
+  @media (max-width: 1024px) {
+    margin-top: 20px;
+    padding: 0 10px;
+  }
 `;
 
 const StyledSection = styled.section`
@@ -65,6 +71,14 @@ const StyledSection = styled.section`
   max-width: 1500px;
   margin: auto;
   margin-top: 50px;
+
+  @media (max-width: 1024px) {
+    margin-top: ${useFluidSize({ min: 30, max: 50 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 30px;
+  }
 `;
 
 const Index = () => {

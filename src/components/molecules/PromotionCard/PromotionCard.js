@@ -135,6 +135,10 @@ const StyledInnerWrapper = styled.div`
       @media (max-width: 1200px) {
         width: 85%;
       }
+
+      @media (max-width: 1024px) {
+        padding-left: 30px;
+      }
     `}
 `;
 

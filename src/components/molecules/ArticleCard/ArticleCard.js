@@ -46,7 +46,7 @@ const StyledImageWrapper = styled.div`
   }
 
   @media (max-width: 360px) {
-    height: 220px;
+    height: 144px;
   }
 `;
 

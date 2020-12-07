@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Icon from "@iconify/react";
-import { useFontSize } from "@hooks/styled-components";
+import { useFluidSize, useFontSize } from "@hooks/styled-components";
 import { CustomSwiper } from "@components/molecules";
 import { whyUs } from "../../_dummyContent/dummyContent";
 
@@ -21,6 +21,13 @@ const StyledWrapper = styled.div`
     border-right: 0;
     margin: 0 auto 50px;
     border-radius: 0;
+    padding: ${useFluidSize({ min: 15, max: 30 })} 5%;
+    margin: 0 auto ${useFluidSize({ min: 20, max: 50 })} auto;
+  }
+
+  @media (max-width: 360px) {
+    padding: 15px 5%;
+    margin: 0 auto 20px auto;
   }
 `;
 
@@ -29,6 +36,10 @@ const StyledItem = styled.div`
   flex-shrink: 0;
   justify-content: center;
   min-width: 245px;
+
+  @media (max-width: 1024px) {
+    min-width: unset;
+  }
 `;
 
 const StyledItemText = styled.p`
@@ -46,7 +57,7 @@ const StyledItemHeadline = styled.span`
 `;
 
 const StyledItemContent = styled.span`
-  ${({ theme }) => useFontSize(theme)};
+  ${({ theme }) => useFontSize(theme, "m", "l")};
   font-weight: 500;
   white-space: nowrap;
 `;
@@ -56,6 +67,16 @@ const StyledIcon = styled(Icon)`
   color: ${({ theme }) => theme.secondary};
   margin-right: 10px;
   flex-grow: 1;
+
+  @media (max-width: 1024px) {
+    font-size: ${useFluidSize({ min: 3, max: 4, unit: "rem" })};
+    margin-right: ${useFluidSize({ min: 5, max: 10 })};
+  }
+
+  @media (max-width: 360px) {
+    font-size: 3rem;
+    margin-right: 5px;
+  }
 `;
 
 const WhyUs = () => {

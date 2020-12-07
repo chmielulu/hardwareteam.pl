@@ -15,7 +15,7 @@ const StyledWrapper = styled.footer`
 
   @media (max-width: 1024px) {
     width: 90%;
-    margin: auto;
+    margin: 30px auto;
   }
 `;
 

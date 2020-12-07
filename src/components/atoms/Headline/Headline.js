@@ -71,7 +71,7 @@ const StyledHeadline = styled.h1`
   `}
 
   @media (max-width: 1024px) {
-    padding: 15px 0 15px 5px;
+    padding: 0 0 15px 5px;
   }
 `;
 
