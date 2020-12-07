@@ -13,10 +13,10 @@ const Root = () => (
         <Route exact path={routes.index}>
           <Index />
         </Route>
-        <Route exact path={routes.login}>
+        <Route path={routes.login}>
           <Login />
         </Route>
-        <Route exact path={routes.register}>
+        <Route path={routes.register}>
           <Register />
         </Route>
         <Route>

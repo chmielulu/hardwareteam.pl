@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const { alias } = require("react-app-rewire-alias");
 
 module.exports = function override(config) {
@@ -13,6 +14,14 @@ module.exports = function override(config) {
     "@custom": "src/custom/",
     "@utils": "src/utils/",
   })(config);
+
+  config.output = {
+    publicPath: "/",
+  };
+
+  config.devServer = {
+    historyApiFallback: true,
+  };
 
   return config;
 };
