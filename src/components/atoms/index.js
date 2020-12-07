@@ -17,6 +17,7 @@ import Progress from "./Progress/Progress";
 import ToolBox from "./ToolBox/ToolBox";
 import Spinner from "./Spinner/Spinner";
 import ArrowButton from "./ArrowButton/ArrowButton";
+import SocialButton from "./SocialButton/SocialButton";
 
 export {
   Attribute,
@@ -38,4 +39,5 @@ export {
   ToolBox,
   Spinner,
   ArrowButton,
+  SocialButton,
 };

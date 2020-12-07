@@ -7,7 +7,7 @@ import arrowIcon from "@iconify/icons-clarity/circle-arrow-line";
 import { useFontSize } from "@hooks/styled-components";
 
 const StyledLink = styled(Link)`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   color: inherit;
   text-decoration: none;
   display: flex;
@@ -24,8 +24,8 @@ const StyledIcon = styled(Icon)`
   transform: rotate(-90deg) !important;
 `;
 
-const BackButton = ({ to, children, onClick }) => (
-  <StyledLink to={to} onClick={onClick}>
+const BackButton = ({ to, children, onClick, ...props }) => (
+  <StyledLink to={to} onClick={onClick} {...props}>
     <StyledIcon icon={arrowIcon} />
     {children}
   </StyledLink>

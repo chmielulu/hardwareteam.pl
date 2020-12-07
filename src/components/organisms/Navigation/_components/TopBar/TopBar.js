@@ -55,6 +55,7 @@ const StyledLink = styled(Link)`
 const TextWithIconsWrapper = styled.div`
   margin-left: 30px;
   display: flex;
+  align-items: center;
 
   @media (max-width: 1480px) {
     margin-left: 10px;
@@ -65,26 +66,24 @@ const TextWithIconsWrapper = styled.div`
   }
 `;
 
-const StyledTextWithIcon = styled(TextWithIcon)`
+const StyledPopUp = styled(PopUp)`
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+`;
+
+const StyledSecondLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
   padding: 0 10px;
 
   :last-of-type {
     padding-right: 0;
   }
 
-  :first-of-type {
-    padding-left: 0;
-  }
-
   @media (max-width: 1300px) {
     padding: 0 15px;
   }
-`;
-
-const StyledPopUp = styled(PopUp)`
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s ease;
 `;
 
 const PopUpWrapper = styled.div`
@@ -98,7 +97,7 @@ const PopUpWrapper = styled.div`
     }
   }
 
-  & ${StyledTextWithIcon} {
+  & ${StyledSecondLink} {
     padding: 0;
     position: relative;
     z-index: 5;
@@ -123,12 +122,18 @@ const TopBar = ({ innerSizes }) => {
       {innerSizes.width > 1024 && (
         <TextWithIconsWrapper>
           <PopUpWrapper>
-            <StyledTextWithIcon icon={helpIcon} text="Kontakt" />
+            <TextWithIcon icon={helpIcon} text="Kontakt" />
             <StyledPopUp />
           </PopUpWrapper>
-          <StyledTextWithIcon icon={heartIcon} text="Listy zakupowe" />
-          <StyledTextWithIcon icon={userIcon} text="Twoje konto" />
-          <StyledTextWithIcon icon={basketIcon} text="Koszyk" />
+          <StyledSecondLink to={routes.index}>
+            <TextWithIcon icon={heartIcon} text="Listy zakupowe" />
+          </StyledSecondLink>
+          <StyledSecondLink to={routes.login}>
+            <TextWithIcon icon={userIcon} text="Twoje konto" />
+          </StyledSecondLink>
+          <StyledSecondLink to={routes.index}>
+            <TextWithIcon icon={basketIcon} text="Koszyk" />
+          </StyledSecondLink>
         </TextWithIconsWrapper>
       )}
     </StyledWrapper>

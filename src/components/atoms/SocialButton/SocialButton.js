@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import Icon from "@iconify/react";
-import { useFontSize } from "@hooks/styled-components";
+import { useFluidSize, useFontSize } from "@hooks/styled-components";
 import kind, { kinds as allKinds } from "./kinds";
 
 const StyledWrapper = styled.button`
@@ -26,6 +26,14 @@ const StyledWrapper = styled.button`
       border-radius: unset;
       font-weight: 400;
     `}
+
+  @media (max-width: 1024px) {
+    padding: 13px ${useFluidSize({ min: 20, max: 40 })};
+  }
+
+  @media (max-width: 360px) {
+    padding: 13px 20px;
+  }
 `;
 
 const StyledIcon = styled(Icon)`
@@ -41,11 +49,11 @@ const StyledIcon = styled(Icon)`
     `}
 `;
 
-const SocialButton = ({ kind: kindName, secondary }) => {
+const SocialButton = ({ kind: kindName, secondary, ...props }) => {
   const { icon, secondIcon, text, color } = kind[kindName];
 
   return (
-    <StyledWrapper $secondary={secondary}>
+    <StyledWrapper $secondary={secondary} {...props}>
       <StyledIcon
         icon={secondary ? secondIcon || icon : icon}
         $color={color}

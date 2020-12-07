@@ -1,11 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { useFluidSize, useFontSize } from "@hooks/styled-components";
+import extractLink from "@utils/extractLink";
 
 const StyledWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const StyledInnerWrapper = styled.div`
+  position: relative;
+  min-width: 35px;
   width: 35px;
   height: 20px;
-  position: relative;
+  margin-right: 10px;
+
+  @media (max-width: 1024px) {
+    min-width: ${useFluidSize({ min: 30, max: 35 })};
+    width: ${useFluidSize({ min: 30, max: 35 })};
+    height: ${useFluidSize({ min: 15, max: 20 })};
+  }
+
+  @media (max-width: 360px) {
+    min-width: 30px;
+    width: 30px;
+    height: 15px;
+  }
 `;
 
 const StyledInput = styled.input`
@@ -20,8 +41,16 @@ const StyledInput = styled.input`
   cursor: pointer;
 `;
 
-const StyledHideLabel = styled.label`
-  display: none;
+const StyledLabel = styled.label`
+  ${({ theme }) => useFontSize(theme, "m", "l")}
+  cursor: pointer;
+  user-select: none;
+
+  ${({ $hide }) =>
+    $hide &&
+    css`
+      display: none;
+    `}
 `;
 
 const StyledWheel = styled.div`
@@ -34,6 +63,16 @@ const StyledWheel = styled.div`
   left: 2px;
   transform: translateY(-50%);
   transition: transform 0.2s ease-in-out;
+
+  @media (max-width: 1024px) {
+    width: ${useFluidSize({ min: 12, max: 16 })};
+    height: ${useFluidSize({ min: 12, max: 16 })};
+  }
+
+  @media (max-width: 360px) {
+    width: 12px;
+    height: 12px;
+  }
 `;
 
 const StyledBackground = styled.div`
@@ -53,20 +92,30 @@ const StyledBackground = styled.div`
   }
 `;
 
-const SlideControl = ({ name, id, label }) => (
-  <StyledWrapper>
-    <StyledHideLabel htmlFor={id}>{label}</StyledHideLabel>
-    <StyledInput name={name} id={id} type="checkbox" />
-    <StyledBackground>
-      <StyledWheel />
-    </StyledBackground>
+const SlideControl = ({ name, label, hideLabel, link, ...props }) => (
+  <StyledWrapper {...props}>
+    <StyledInnerWrapper>
+      <StyledInput name={name} id={name} type="checkbox" />
+      <StyledBackground>
+        <StyledWheel />
+      </StyledBackground>
+    </StyledInnerWrapper>
+    <StyledLabel htmlFor={name} $hide={hideLabel}>
+      {link ? extractLink(label, { link }) : label}
+    </StyledLabel>
   </StyledWrapper>
 );
 
 SlideControl.propTypes = {
   name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  hideLabel: PropTypes.bool,
+  link: PropTypes.string,
+};
+
+SlideControl.defaultProps = {
+  hideLabel: false,
+  link: null,
 };
 
 export default SlideControl;

@@ -42,4 +42,10 @@ export default createGlobalStyle`
       padding-top: 55px;
     }
   }
+
+  main {
+    width: 100%;
+    overflow-x:hidden;
+    position: relative;
+  }
 `;

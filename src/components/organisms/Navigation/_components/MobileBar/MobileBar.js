@@ -8,6 +8,8 @@ import basketIcon from "@iconify-icons/clarity/shopping-bag-line";
 import searchIcon from "@iconify-icons/clarity/search-line";
 import { Icon } from "@iconify/react";
 import { Logo } from "@components/atoms";
+import { Link } from "react-router-dom";
+import routes from "@routes/";
 
 const StyledWrapper = styled.nav`
   ${({ theme }) => useFontSize(theme, "xl")}
@@ -58,11 +60,26 @@ const StyledItem = styled.li`
     `}
 `;
 
+const StyledLink = styled(Link)`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  text-decoration: none;
+`;
+
 const StyledIcon = styled(Icon)`
   font-size: 2.8rem;
 `;
 
-const iconsArray = [searchIcon, basketIcon, heartIcon, userIcon];
+const itemsArray = [
+  { icon: searchIcon },
+  { icon: basketIcon, link: routes.index },
+  { icon: heartIcon, link: routes.index },
+  { icon: userIcon, link: routes.login },
+];
 
 const MobileBar = ({ activeOption, handleItemClick }) => (
   <>
@@ -72,15 +89,19 @@ const MobileBar = ({ activeOption, handleItemClick }) => (
           onClick={() => handleItemClick(-1)}
           active={activeOption === -1}
         >
-          <Logo withoutText size="35px" />
+          <StyledLink to={routes.index}>
+            <Logo withoutText size="35px" />
+          </StyledLink>
         </StyledItem>
-        {iconsArray.map((icon, index) => (
+        {itemsArray.map(({ icon, link }, index) => (
           <StyledItem
             key={index}
             onClick={() => handleItemClick(index)}
             active={activeOption === index}
           >
-            <StyledIcon icon={icon} />
+            <StyledLink to={link || undefined} as={!link ? "div" : undefined}>
+              <StyledIcon icon={icon} />
+            </StyledLink>
           </StyledItem>
         ))}
       </StyledList>

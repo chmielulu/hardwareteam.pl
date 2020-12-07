@@ -19,10 +19,11 @@ const StyledWrapper = styled.div`
 
 const StyledInnerWrapper = styled.div`
   display: flex;
-  overflow: hidden;
 
   @media (max-width: 1024px) {
     background: transparent;
+    overflow: hidden;
+
     padding: 30px 0;
   }
 `;
