@@ -19,6 +19,7 @@ const ProductCard = ({
   kind,
   render,
   size,
+  ...props
 }) => {
   const productLink = "/";
 
@@ -33,6 +34,7 @@ const ProductCard = ({
     awards,
     discount,
     productLink,
+    props,
   };
 
   return getView({

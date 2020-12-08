@@ -162,6 +162,7 @@ const Primary = ({
   informations,
   awards,
   discount,
+  props,
 }) => {
   const sortedAwards = useSortedAwards(awards);
   const { width } = useWindowSize();
@@ -181,7 +182,7 @@ const Primary = ({
       />
     );
   return (
-    <StyledWrapper>
+    <StyledWrapper {...props}>
       <StyledHeadline>{name}</StyledHeadline>
       <StyledInnerWrapper>
         <StyledFirstColumn>

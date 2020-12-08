@@ -9,4 +9,5 @@ export default {
   category: "/kategoria/:categoryId",
   notFound: "/404",
   article: articles,
+  products: "/kategoria/:categoryId/:subCategoryId",
 };

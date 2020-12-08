@@ -38,7 +38,7 @@ const StyledImg = styled(Img)`
 `;
 
 const StyledParagraph = styled.p`
-  ${({ theme }) => useFontSize(theme, "m", "l")}
+  font-size: 16px;
   font-weight: 300;
   line-height: 1.5;
   margin-top: 10px;
