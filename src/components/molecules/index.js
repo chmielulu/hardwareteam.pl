@@ -6,6 +6,8 @@ import OrderProcess from "./OrderProcess/OrderProcess";
 import CustomSwiper from "./CustomSwiper/CustomSwiper";
 import HotShot from "./HotShot/HotShot";
 import CategoryCard from "./CategoryCard/CategoryCard";
+import Comment from "./Comment/Comment";
+import Wysiwyg from "./Wysiwyg/Wysiwyg";
 
 export {
   ProductCard,
@@ -16,4 +18,6 @@ export {
   CustomSwiper,
   HotShot,
   CategoryCard,
+  Comment,
+  Wysiwyg,
 };

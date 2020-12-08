@@ -249,7 +249,7 @@ const PromotionCard = ({ img, name, brandName, discount, link, secondary }) => {
 
 PromotionCard.propTypes = {
   img: PropTypes.any.isRequired,
-  name: PropTypes.isRequired,
+  name: PropTypes.string.isRequired,
   brandName: PropTypes.string.isRequired,
   discount: PropTypes.number.isRequired,
   link: PropTypes.string.isRequired,

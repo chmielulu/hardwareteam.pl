@@ -12,6 +12,7 @@ import LoginView from "./Login/Login";
 import RegisterView from "./Register/Register";
 import CategoryView from "./Category/Category";
 import View404 from "./404/404";
+import ArticleView from "./Article/Article";
 
 const Root = () => (
   <BasicTemplate>
@@ -28,6 +29,9 @@ const Root = () => (
         </Route>
         <Route exact path={routes.category}>
           <CategoryView />
+        </Route>
+        <Route exact path={routes.article}>
+          <ArticleView />
         </Route>
         <Route path={routes.notFound}>
           <View404 />

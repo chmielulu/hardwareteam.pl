@@ -104,6 +104,7 @@ const MobileNav = ({ isActive, categories }) => {
         }
         name={categories[activeOption].subcategories[secondActiveOption].name}
         handleBackClick={() => handleBackClick(true)}
+        link="/"
       />
     </>
   );

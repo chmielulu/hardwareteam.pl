@@ -16,7 +16,6 @@ export default createGlobalStyle`
 
   body {
     max-width: 100vw;
-    overflow-x: hidden;
     color: ${({ theme }) => theme.black};
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
@@ -25,9 +24,7 @@ export default createGlobalStyle`
   .main-wrapper {
     min-width: 300px;
     min-height: 100%; 
-    position: relative;
     padding-top: 130px;
-    overflow-x: hidden;
     
     @media (max-width: 300px) {
       overflow-x: scroll;
@@ -45,7 +42,5 @@ export default createGlobalStyle`
 
   main {
     width: 100%;
-    overflow-x:hidden;
-    position: relative;
   }
 `;

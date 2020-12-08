@@ -1,14 +1,18 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
 import { Link } from "react-router-dom";
-import { useLocator } from "@hooks/utils";
 
 const StyledWrapper = styled.ul`
   ${({ theme }) => useFontSize(theme)};
   list-style-type: none;
   display: flex;
   flex-wrap: wrap;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 const StyledSeperator = styled.span`
@@ -30,23 +34,32 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Locator = () => {
-  const locations = useLocator();
-
+const Locator = ({ locations }) => {
   return (
     <StyledWrapper>
-      {locations.map(({ name, link }, index) => (
-        <div key={index}>
-          <StyledItem>
-            <StyledLink to={link}>{name}</StyledLink>
-          </StyledItem>
-          {index !== locations.length - 1 && (
-            <StyledSeperator>&gt;</StyledSeperator>
-          )}
-        </div>
-      ))}
+      {[{ name: "Hardware Team", link: "/" }]
+        .concat(locations)
+        .map(({ name, link }, index) => (
+          <div key={link}>
+            <StyledItem>
+              <StyledLink to={link}>{name}</StyledLink>
+            </StyledItem>
+            {index !== locations.length && (
+              <StyledSeperator>&gt;</StyledSeperator>
+            )}
+          </div>
+        ))}
     </StyledWrapper>
   );
+};
+
+Locator.propTypes = {
+  locations: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      link: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 };
 
 export default Locator;

@@ -25,6 +25,8 @@ const StyledWrapper = styled.button`
       box-shadow: unset;
       border-radius: unset;
       font-weight: 400;
+      outline: none;
+      padding: 0 5px !important;
     `}
 
   @media (max-width: 1024px) {

@@ -201,7 +201,7 @@ export const news = [
       "O pojawieniu się nowego zestawu VR Oculus Quest 2, dowiedzieliśmy się po opublikowaniu zdjęcia rzekomo przedstawiającego następcy Questa. Zdjęcie zostało opublikowane przez popularnego użytkownika na Twitterze. Kolorystyka przedstawiona na Twiterze prezentuje wersję biało-różową oraz samo urządzenie wygląda na lżejsza konstrukcję oraz ma wiele subtelnych zmian estetycznych.",
     date: 1607178678,
     readTime: 5,
-    link: "/",
+    link: "/aktualnosci/oculus-quest-2–nowy-zestaw-vr-od-oculus",
   },
   {
     img: articleCard2,
@@ -210,7 +210,7 @@ export const news = [
       "Już od dłuższego czasu słyszymy, że podstawowa wersja iPhone 12 może mieć 5,4 calowy ekran, a najnowsze informacje pokazują jak mały może być cały telefon. Użytkownik iZac z forum MacRumors zakupił atrapę telefonu. Wygląd atrapy oczywiście opierał się na przeciekach i innych wyciekłych informacjach. Dodatkowo porównał atrapę iPhone 12 do iPhone 7 i SE.",
     date: 1607178678,
     readTime: 5,
-    link: "/",
+    link: "/aktualnosci/iphone-12-w-kompaktowym-rozmiarze",
   },
   {
     img: articleCard3,
@@ -219,7 +219,7 @@ export const news = [
       "Porsche Design i Acer zawarły nowe partnerstwo, które łączy innowacje technologiczne, zakorzenioną wiedzę na temat komputerów wraz z filozofią funkcjonalnego projektowania oraz inżynierii Porsche Design. Obie strony w ramach współpracy dążą do dostarczania wyjątkowych i najnowocześniejszych produktów.",
     date: 1607178678,
     readTime: 5,
-    link: "/",
+    link: "/aktualnosci/porsche-design-i-acer-nowa-wspolpraca",
   },
   {
     img: articleCard4,
@@ -228,7 +228,7 @@ export const news = [
       "Acer prezentuje trzy nowe produkty z serii komercyjnych notebooków TravelMate dla użytkowników korporacyjnych i biznesowych. Należą do nich: konwertowalny notebook z ekranem dotykowym TravelMate Spin P4 (TMP414RN-51); mocny i przenośny notebook dla tych, którzy preferują tradycyjne konstrukcje – TravelMate P4 (TMP414-51) oraz TravelMate P2 (TMP214-53) – trwały notebook z bogatą liczbą portów i pojemną baterią, który pozwoli na pracę z dala od zasilania przez cały dzień roboczy.",
     date: 1607178678,
     readTime: 5,
-    link: "/",
+    link: "/aktualnosci/travelmate-3-nowe-biznesowe-laptopy-od-acer",
   },
   {
     img: articleCard5,
@@ -237,7 +237,7 @@ export const news = [
       "Acer przedstawia nowe produkty z serii Swift oraz Spin dedykowane dla osób pracujących w podróży, które cenią sobie doskonałą wydajność i znakomitą jakość obrazu w metalowej, niezwykle smukłej i stylowej obudowie. Producent, oprócz nowości z serii Swift oraz Spin, zaprezentował również odświeżony model Aspire 5.",
     date: 1607178678,
     readTime: 5,
-    link: "/",
+    link: "/aktualnosci/acer-nowe-notebooki-z-serii-swift-spin-i-aspire",
   },
   {
     img: articleCard6,
@@ -247,7 +247,8 @@ export const news = [
       "Xblitz to polska marka, która w swojej ofercie posiada szereg urządzeń technologicznych.  W ostatnim czasie producent przedstawił nową serię głośników bezprzewodowych bluetooth, które charakteryzują się funkcjonalnością, jakością wykonania, długim czasem pracy na baterii oraz przede wszystkim świetną jakością dźwięku.",
     date: 1607178678,
     readTime: 5,
-    link: "/",
+    link:
+      "/aktualnosci/wysoka-jakosc-i-przystepna-cena-oto-nowa-seria-glosnikow-bezprzewodowych-xblitz",
   },
   {
     img: articleCard7,
@@ -256,7 +257,7 @@ export const news = [
       "Nie musimy czekać na oficjalna premierę, aby poznać szczegóły dotyczące specyfikacji oraz wyglądu nowego smartfona S20 FE, który będzie bardziej przystępną cenowo wersja Samsunga Galaxy S20. Według sprawdzonego źródła (Roland Quandta), nadchodzący model smartfona będzie wyposażony w Snapdragon 865 w wersji 5G. W wersji 4G smartfon będzie wyposażony w procesor Samsung Exynos 990.",
     date: 1607178678,
     readTime: 5,
-    link: "/",
+    link: "/aktualnosci/samsung-galaxy-s20-fe-przecieki-informacji",
   },
 ];
 
