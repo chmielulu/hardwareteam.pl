@@ -95,6 +95,7 @@ function Dialog({
   categories,
   handleBackClick,
   handleItemClick,
+  link,
 }) {
   // const isArray = typeof categories[0] === 'string';
 
@@ -105,7 +106,7 @@ function Dialog({
         <StyledHeadline>{name}</StyledHeadline>
       </StyledHeadlineWrapper>
       <StyledButtonWrapper>
-        <Button as={Link} to="/" kind={tertiary}>
+        <Button as={Link} to={link} kind={tertiary}>
           Zobacz {name}
         </Button>
       </StyledButtonWrapper>
@@ -135,6 +136,7 @@ Dialog.propTypes = {
   name: PropTypes.string.isRequired,
   handleBackClick: PropTypes.func.isRequired,
   handleItemClick: PropTypes.func,
+  link: PropTypes.string.isRequired,
 };
 
 Dialog.defaultProps = {

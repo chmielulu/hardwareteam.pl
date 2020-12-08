@@ -1,27 +1,39 @@
 import React from "react";
 import BasicTemplate from "@templates/BasicTemplate";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import routes from "@routes/";
-import Index from "./Index/Index";
-import Login from "./Login/Login";
-import Register from "./Register/Register";
+import IndexView from "./Index/Index";
+import LoginView from "./Login/Login";
+import RegisterView from "./Register/Register";
+import CategoryView from "./Category/Category";
+import View404 from "./404/404";
 
 const Root = () => (
   <BasicTemplate>
     <Router>
       <Switch>
         <Route exact path={routes.index}>
-          <Index />
+          <IndexView />
         </Route>
         <Route path={routes.login}>
-          <Login />
+          <LoginView />
         </Route>
         <Route path={routes.register}>
-          <Register />
+          <RegisterView />
+        </Route>
+        <Route exact path={routes.category}>
+          <CategoryView />
+        </Route>
+        <Route path={routes.notFound}>
+          <View404 />
         </Route>
         <Route>
-          <h1>Ooops! 404 Not Found!</h1>
-          <Link to="/">Go to home</Link>
+          <Redirect to={routes.notFound} />
         </Route>
       </Switch>
     </Router>

@@ -1,7 +1,7 @@
 import React from "react";
 import { StoryRouter } from "storybook-react-router";
 import { withKnobs, text, files, number } from "@storybook/addon-knobs";
-import defaultImg from "@assets/images/categoryCard.png";
+import defaultImg from "@assets/images/categoryCard.jpg";
 import CategoryCard from "./CategoryCard";
 
 export default {

@@ -1,8 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
 import { Link } from "react-router-dom";
+import { useLocator } from "@hooks/utils";
 
 const StyledWrapper = styled.ul`
   ${({ theme }) => useFontSize(theme)};
@@ -18,6 +18,7 @@ const StyledSeperator = styled.span`
 const StyledItem = styled.li`
   display: inline-flex;
   line-height: 1.4;
+  font-weight: 300;
 `;
 
 const StyledLink = styled(Link)`
@@ -29,27 +30,23 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Locator = ({ location }) => (
-  <StyledWrapper>
-    {location.map(({ name, to }, index) => (
-      <div key={index}>
-        <StyledItem>
-          <StyledLink to={to}>{name}</StyledLink>
-        </StyledItem>
-        {index !== location.length - 1 && (
-          <StyledSeperator>&gt;</StyledSeperator>
-        )}
-      </div>
-    ))}
-  </StyledWrapper>
-);
+const Locator = () => {
+  const locations = useLocator();
 
-Locator.propTypes = {
-  location: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      to: PropTypes.string,
-    })
-  ).isRequired,
+  return (
+    <StyledWrapper>
+      {locations.map(({ name, link }, index) => (
+        <div key={index}>
+          <StyledItem>
+            <StyledLink to={link}>{name}</StyledLink>
+          </StyledItem>
+          {index !== locations.length - 1 && (
+            <StyledSeperator>&gt;</StyledSeperator>
+          )}
+        </div>
+      ))}
+    </StyledWrapper>
+  );
 };
+
 export default Locator;

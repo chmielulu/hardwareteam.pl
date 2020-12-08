@@ -117,6 +117,7 @@ const StyledInput = styled(Input)`
 
 const StyledRightColumn = styled.div`
   width: 60%;
+  overflow: hidden;
 
   @media (max-width: 1250px) {
     width: 50%;

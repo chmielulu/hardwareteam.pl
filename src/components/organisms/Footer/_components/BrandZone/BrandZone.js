@@ -71,8 +71,8 @@ const BrandZone = ({ brands }) => {
           spaceBetween={35}
           breakpoints={{ 540: { spaceBetween: 50 } }}
         >
-          {brands.map(({ link, icon, name }) => (
-            <StyledLink to={link}>
+          {brands.map(({ link, icon, name }, index) => (
+            <StyledLink to={link} key={index}>
               <StyledImg src={icon} alt={name} />
             </StyledLink>
           ))}

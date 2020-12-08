@@ -16,21 +16,23 @@ const StyledLink = styled(Link)`
 
   @media (max-width: 1024px) {
     flex-direction: row;
+    justify-content: flex-start;
   }
 `;
 
 const StyledImg = styled.img`
-  max-width: 235px;
-  max-height: 201px;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
 
   @media (max-width: 1024px) {
-    max-width: ${useFluidSize({ min: 50, max: 200 })};
-    max-height: ${useFluidSize({ min: 45, max: 165 })};
+    width: ${useFluidSize({ min: 45, max: 120 })};
+    height: ${useFluidSize({ min: 45, max: 120 })};
   }
 
   @media (max-width: 360px) {
-    max-width: 50px;
-    max-height: 45px;
+    width: 45px;
+    height: 45px;
   }
 `;
 
@@ -38,10 +40,14 @@ const StyledHeadline = styled.h3`
   ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 400;
   margin-top: 10px;
+  max-width: 200px;
+  text-align: center;
 
   @media (max-width: 1024px) {
     margin-top: 0;
-    margin-left: 30px;
+    margin-left: 40px;
+    max-width: 80%;
+    text-align: left;
   }
 `;
 
@@ -50,9 +56,9 @@ const StyledCount = styled.span`
   margin-left: 4px;
 `;
 
-const CategoryCard = ({ name, link, img, count }) => {
+const CategoryCard = ({ name, link, img, count, ...props }) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper {...props}>
       <StyledLink to={link}>
         <StyledImg src={img} alt={name} />
         <StyledHeadline>

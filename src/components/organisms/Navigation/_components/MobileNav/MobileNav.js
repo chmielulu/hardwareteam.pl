@@ -92,6 +92,7 @@ const MobileNav = ({ isActive, categories }) => {
         isActive={isDialogActive}
         categories={categories[activeOption].subcategories}
         name={categories[activeOption].name}
+        link={categories[activeOption].link}
         handleBackClick={() => handleBackClick()}
         handleItemClick={handleItemClick}
       />

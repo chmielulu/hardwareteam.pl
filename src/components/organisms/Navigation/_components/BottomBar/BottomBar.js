@@ -82,13 +82,13 @@ const BottomBar = ({ categories, isDropDownActive, setDropDownActive }) => {
     <StyledWrapper>
       <StyledListWrapper>
         {categories.map(
-          ({ name, icon, featuredProduct, subcategories }, index) => (
+          ({ name, icon, featuredProduct, subcategories, link }, index) => (
             <StyledListItem
               key={index}
               onMouseOver={() => handleMouseOver(index)}
               onMouseOut={handleMouseOut}
             >
-              <StyledListItemLink to="/">
+              <StyledListItemLink to={link}>
                 <TextWithIcon icon={icon} text={name} secondary />
               </StyledListItemLink>
               <DropDown

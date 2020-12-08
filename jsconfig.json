@@ -11,7 +11,8 @@
       "@assets/*": ["./src/assets/*"],
       "@routes/*": ["./src/routes/*"],
       "@custom/*": ["./src/custom/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@utils/*": ["./src/utils/*"],
+      "@database/*": ["./src/database/*"]
     }
   },
   "exclude": ["node_modules", "build"]

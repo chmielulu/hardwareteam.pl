@@ -26,6 +26,7 @@ const computers = {
     image: matebookImg,
     markImg: huaweiImg,
   },
+  link: "/kategoria/komputery-i-laptopy",
   subcategories: [
     {
       name: "Laptopy, notebooki, ultrabooki",
@@ -138,6 +139,7 @@ const phones = {
     image: redmiImg,
     markImg: xiaomiImg,
   },
+  link: "/kategoria/komputery-i-laptopy",
   subcategories: [
     {
       name: "Smartfony i telefony",
@@ -238,6 +240,7 @@ const gaming = {
     image: matebookImg,
     markImg: huaweiImg,
   },
+  link: "/kategoria/komputery-i-laptopy",
   subcategories: [
     {
       name: "Laptopy, notebooki, ultrabooki",
@@ -350,6 +353,7 @@ const pcComponents = {
     image: redmiImg,
     markImg: xiaomiImg,
   },
+  link: "/kategoria/komputery-i-laptopy",
   subcategories: [
     {
       name: "Smartfony i telefony",
@@ -451,6 +455,7 @@ const periferyDevices = {
     image: redmiImg,
     markImg: xiaomiImg,
   },
+  link: "/kategoria/komputery-i-laptopy",
   subcategories: [
     {
       name: "Smartfony i telefony",
@@ -552,6 +557,7 @@ const tv = {
     image: redmiImg,
     markImg: xiaomiImg,
   },
+  link: "/kategoria/komputery-i-laptopy",
   subcategories: [
     {
       name: "Smartfony i telefony",
@@ -653,6 +659,7 @@ const smarthome = {
     image: redmiImg,
     markImg: xiaomiImg,
   },
+  link: "/kategoria/komputery-i-laptopy",
   subcategories: [
     {
       name: "Smartfony i telefony",
@@ -753,6 +760,7 @@ const accessories = {
     image: matebookImg,
     markImg: huaweiImg,
   },
+  link: "/kategoria/komputery-i-laptopy",
   subcategories: [
     {
       name: "Laptopy, notebooki, ultrabooki",

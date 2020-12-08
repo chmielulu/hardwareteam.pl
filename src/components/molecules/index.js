@@ -5,6 +5,7 @@ import PromotionCard from "./PromotionCard/PromotionCard";
 import OrderProcess from "./OrderProcess/OrderProcess";
 import CustomSwiper from "./CustomSwiper/CustomSwiper";
 import HotShot from "./HotShot/HotShot";
+import CategoryCard from "./CategoryCard/CategoryCard";
 
 export {
   ProductCard,
@@ -14,4 +15,5 @@ export {
   OrderProcess,
   CustomSwiper,
   HotShot,
+  CategoryCard,
 };
