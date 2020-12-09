@@ -46,14 +46,15 @@ const StyledDropDown = styled.ul`
   list-style-type: none;
   position: absolute;
   top: 100%;
-  right: 0;
-  width: 100%;
+  right: -1px;
+  width: calc(100% + 2px);
   flex-direction: column;
   display: none;
   margin: 0 auto;
   background: #fff;
   box-shadow: ${({ theme }) => theme.shadow};
   border-radius: 0 0 5px 5px;
+  z-index: 10;
 
   ${({ $isDropDownActive, theme }) =>
     $isDropDownActive &&

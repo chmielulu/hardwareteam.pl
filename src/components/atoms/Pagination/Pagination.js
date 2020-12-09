@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import Icon from "@iconify/react";
 import arrowIcon from "@iconify/icons-clarity/arrow-line";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useFontSize } from "@hooks/styled-components";
 
 const StyledWrapper = styled.div`
@@ -62,17 +62,32 @@ const StyledInput = styled.input`
   max-width: 30px;
   padding-right: 2px;
   margin-right: 8px;
+  text-align: center;
 `;
 
 const StyledText = styled.span`
   ${({ theme }) => useFontSize(theme, "m", "l")};
   font-weight: 300;
   margin-right: 5px;
+
+  ${({ $withoutText }) =>
+    $withoutText &&
+    css`
+      display: none;
+    `}
 `;
 
-const Pagination = ({ prev, current, next, min, max }) => {
+const Pagination = ({
+  current,
+  min,
+  max,
+  withoutText,
+  changePage,
+  ...props
+}) => {
   const [value, setValue] = useState(current);
   const reg = /^\d+$/;
+  const history = useHistory();
 
   const handleInputChange = ({ target: { value } }) => {
     if (value === "") {
@@ -101,19 +116,32 @@ const Pagination = ({ prev, current, next, min, max }) => {
       return null;
     }
 
-    if (key === "Enter") {
-      console.log("Enter!");
+    if (key === "Enter" && value !== current) {
+      if (changePage) {
+        changePage(value);
+      } else {
+        history.push(`?page=${value}`);
+      }
     }
 
     return null;
   };
 
+  useLayoutEffect(() => {
+    setValue(current);
+  }, [current]);
+
   return (
-    <StyledWrapper>
+    <StyledWrapper {...props}>
       <StyledLink
-        as={!prev ? "span" : undefined}
-        to={prev || undefined}
-        $disabled={!prev}
+        as={current === min ? "span" : undefined}
+        to={current !== min ? { search: `?page=${current - 1}` } : undefined}
+        $disabled={current === min}
+        onClick={
+          changePage && current !== min
+            ? (e) => changePage(current - 1, e)
+            : undefined
+        }
       >
         <StyledFirstIcon icon={arrowIcon} />
       </StyledLink>
@@ -129,11 +157,16 @@ const Pagination = ({ prev, current, next, min, max }) => {
         z {max}
       </StyledInnerWrapper>
       <StyledLink
-        as={!next ? "span" : undefined}
-        to={next || undefined}
-        $disabled={!next}
+        as={current === max ? "span" : undefined}
+        to={current !== max ? { search: `?page=${current + 1}` } : undefined}
+        $disabled={current === max}
+        onClick={
+          changePage && current !== max
+            ? (e) => changePage(current + 1, e)
+            : undefined
+        }
       >
-        <StyledText>Następna</StyledText>
+        <StyledText $withoutText={withoutText}>Następna</StyledText>
         <StyledSecondIcon icon={arrowIcon} />
       </StyledLink>
     </StyledWrapper>
@@ -141,16 +174,16 @@ const Pagination = ({ prev, current, next, min, max }) => {
 };
 
 Pagination.propTypes = {
-  prev: PropTypes.string,
-  current: PropTypes.number.isRequired,
-  next: PropTypes.string,
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
+  current: PropTypes.number.isRequired,
+  withoutText: PropTypes.bool,
+  changePage: PropTypes.func,
 };
 
 Pagination.defaultProps = {
-  prev: null,
-  next: null,
+  withoutText: null,
+  changePage: null,
 };
 
 export default Pagination;

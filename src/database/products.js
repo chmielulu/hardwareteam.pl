@@ -1,5 +1,6 @@
-import macBookImg from "@assets/images/database/macbook.webp";
+// import macBookImg from "@assets/images/database/macbook.webp";
 import { kinds } from "@components/molecules/ProductCard/_components/Information/kinds";
+import faker from "faker";
 
 const attributes = [
   { name: "Procesor", values: ["Apple M1"] },
@@ -19,22 +20,24 @@ const attributes = [
   { name: "Zainstalowany system operacyjny", values: ["macOS Big Sur"] },
 ];
 
-export default [...Array(140).keys()].map(() => ({
-  name: "Apple MacBook Air M1/8GB/256/Mac OS Space Gray",
-  img: macBookImg,
-  price: 5199,
-  score: 5,
-  reviewsCount: 40,
-  attributes,
-  featuredAttributes: [
-    attributes[0],
-    attributes[1],
-    attributes[2],
-    attributes[3],
-    attributes[6],
-    attributes[7],
-  ].map(({ name, values }) => ({ name, value: values[0] })),
-  awards: ["recommendable", "valueForMoney", "a11yAdapted"],
-  subcategoryId: "laptopy-notebooki-ultrabooki",
-  informations: kinds,
-}));
+export default [...Array(140).keys()].map(() => {
+  return {
+    name: faker.commerce.productName(),
+    img: faker.image.technics(300, 300),
+    price: parseInt(faker.commerce.price(2314, 12545), 10),
+    score: Math.random() * 4 + 1,
+    reviewsCount: Math.floor(Math.random() * 50 + 1),
+    attributes,
+    featuredAttributes: [
+      attributes[0],
+      attributes[1],
+      attributes[2],
+      attributes[3],
+      attributes[6],
+      attributes[7],
+    ].map(({ name, values }) => ({ name, value: values[0] })),
+    awards: ["recommendable", "valueForMoney", "a11yAdapted"],
+    subcategoryId: "laptopy-notebooki-ultrabooki",
+    informations: kinds,
+  };
+});

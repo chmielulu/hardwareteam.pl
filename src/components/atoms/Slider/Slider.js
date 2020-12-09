@@ -4,6 +4,7 @@ import noUiSlider from "nouislider";
 import "nouislider/distribute/nouislider.min.css";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import wNumb from "wnumb"
 
 const StyledWrapper = styled.div`
   &.noUi-target {
@@ -54,11 +55,11 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const Progress = ({ min, max, onChange, className }) => {
+const Progress = React.forwardRef(({ min, max, onChange, className }, ref) => {
   const slider = useRef();
 
   useEffect(() => {
-    noUiSlider.create(slider.current, {
+    noUiSlider.create(ref.current || slider.current, {
       start: [min, max],
       behaviour: "tap",
       connect: true,
@@ -68,14 +69,18 @@ const Progress = ({ min, max, onChange, className }) => {
       },
       orientation: "horizontal",
       direction: "ltr",
+      format: wNumb({
+        decimals: 0
+      })
     });
 
-    if (onChange)
-      slider.current.noUiSlider.on("slide", (e) => onChange(e[0], e[1]));
+    if (onChange) {
+      (ref || slider).current.noUiSlider.on("slide", (e) => onChange(e[0], e[1]));
+    }
   }, []);
 
-  return <StyledWrapper ref={slider} className={className} />;
-};
+  return <StyledWrapper ref={ref || slider} className={className} />;
+});
 
 Progress.propTypes = {
   min: PropTypes.number.isRequired,

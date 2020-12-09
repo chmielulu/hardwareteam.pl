@@ -48,6 +48,10 @@ const StyledParagraph = styled.p`
     font-weight: 500;
   }
 
+  a {
+    color: ${({ theme }) => theme.primary};
+  }
+
   :first-of-type {
     margin-top: 0;
   }

@@ -60,14 +60,20 @@ const StyledLabel = styled.label`
   user-select: none;
 `;
 
-const Checkbox = ({ name, label, render }) => (
+const Checkbox = ({ name, label, render, id, checked, onChange }) => (
   <StyledWrapper>
     <StyledInnerWrapper>
-      <StyledInput type="checkbox" name={name} id={name} />
+      <StyledInput
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        name={name}
+        id={id || name}
+      />
       <StyledCheckbox />
       <StyledIcon icon={checkIcon} />
     </StyledInnerWrapper>
-    <StyledLabel htmlFor={name}>{render ? render() : label}</StyledLabel>
+    <StyledLabel htmlFor={id || name}>{render ? render() : label}</StyledLabel>
   </StyledWrapper>
 );
 
@@ -75,11 +81,17 @@ Checkbox.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string,
   render: PropTypes.func,
+  id: PropTypes.string,
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
 };
 
 Checkbox.defaultProps = {
   label: null,
   render: null,
+  id: null,
+  checked: undefined,
+  onChange: undefined,
 };
 
 export default Checkbox;

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { nanoid } from "nanoid";
 
 const StyledWrapper = styled.div``;
 
@@ -30,6 +31,8 @@ Score.propTypes = {
 
 // eslint-disable-next-line react/prop-types
 function Star({ score, className, id }) {
+  const nanoId = nanoid();
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +40,7 @@ function Star({ score, className, id }) {
       className={className}
     >
       <defs>
-        <linearGradient id={id} x1="0%" y1="0%" x2="100%" y2="0%">
+        <linearGradient id={nanoId || id} x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="#F7B000" />
           <stop
             offset={`${score * 100}%`}
@@ -51,7 +54,7 @@ function Star({ score, className, id }) {
       <path
         d="M34 16.78a2.22 2.22 0 00-1.29-4l-9-.34a.23.23 0 01-.2-.15l-3.11-8.4a2.22 2.22 0 00-4.17 0l-3.1 8.43a.23.23 0 01-.2.15l-9 .34a2.22 2.22 0 00-1.29 4l7.06 5.55a.23.23 0 01.08.24l-2.43 8.61a2.22 2.22 0 003.38 2.45l7.46-5a.22.22 0 01.25 0l7.46 5a2.2 2.2 0 002.55 0 2.2 2.2 0 00.83-2.4l-2.45-8.64a.22.22 0 01.08-.24z"
         className="clr-i-solid clr-i-solid-path-1"
-        fill={`url(#${id})`}
+        fill={`url(#${nanoId || id})`}
       />
     </svg>
   );

@@ -39,10 +39,12 @@ const Locator = ({ locations }) => {
     <StyledWrapper>
       {[{ name: "Hardware Team", link: "/" }]
         .concat(locations)
-        .map(({ name, link }, index) => (
+        .map(({ name, link, onClick }, index) => (
           <div key={link}>
             <StyledItem>
-              <StyledLink to={link}>{name}</StyledLink>
+              <StyledLink to={link} onClick={onClick || undefined}>
+                {name}
+              </StyledLink>
             </StyledItem>
             {index !== locations.length && (
               <StyledSeperator>&gt;</StyledSeperator>
@@ -58,6 +60,7 @@ Locator.propTypes = {
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       link: PropTypes.string.isRequired,
+      onClick: PropTypes.func,
     })
   ).isRequired,
 };

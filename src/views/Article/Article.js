@@ -260,7 +260,9 @@ const ArticleView = () => {
                     <StyledItem key={id}>
                       <StyledLink
                         href={`#${id}`}
-                        onClick={(e) => scrollToElement(e, id)}
+                        onClick={(e) =>
+                          scrollToElement(`#${id}`, e, { yOffset: 160 })
+                        }
                       >
                         <StyledIndex>
                           {index < 9 ? `0${index + 1}` : index + 1}
@@ -273,7 +275,9 @@ const ArticleView = () => {
                             <StyledItem key={id}>
                               <StyledLink
                                 href={`#${id}`}
-                                onClick={(e) => scrollToElement(e, id)}
+                                onClick={(e) =>
+                                  scrollToElement(`#${id}`, e, { yOffset: 160 })
+                                }
                               >
                                 <StyledText>{name}</StyledText>
                               </StyledLink>
