@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import styled, { css } from "styled-components";
 import MainTemplate from "@templates/MainTemplate";
 import { Redirect, useParams } from "react-router-dom";
 import categories from "@database/categories";
@@ -35,9 +35,17 @@ const StyledProductsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  width: 100%;
   align-items: flex-end;
   margin-top: 40px;
+  flex-grow: 1;
+
+  ${({ $secondary }) =>
+    $secondary &&
+    css`
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      grid-gap: 2em;
+    `}
 `;
 
 const StyledProductCard = styled(ProductCard)`
@@ -59,7 +67,7 @@ const StyledLeftColumn = styled.div`
 
 const StyledRightColumn = styled.div`
   margin-left: 50px;
-  flex-grow: 1;
+  flex: 1;
 `;
 
 const StyledPaginationWrapper = styled.div`
@@ -92,8 +100,8 @@ const ProductsView = () => {
   );
 
   const { page: pageParameter } = useSearchParameters();
-  const pageNumber = parseInt(pageParameter, 10) || 1;
-  const allPages = usePages(products.length);
+  const pageNumber = products ? parseInt(pageParameter, 10) || 1 : 1;
+  const allPages = products ? usePages(products.length) : 1;
 
   const currentPage = pageNumber > allPages || pageNumber < 1 ? 1 : pageNumber;
 
@@ -101,7 +109,12 @@ const ProductsView = () => {
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  });
+  }, [pageNumber]);
+
+  const [activeGrid, setActiveGrid] = useState("primary");
+
+  const changeToPrimary = () => setActiveGrid("primary");
+  const changeToSecondary = () => setActiveGrid("secondary");
 
   return (
     <MainTemplate>
@@ -119,7 +132,9 @@ const ProductsView = () => {
 
         <StyledHeadline>
           {subcategory.name}{" "}
-          <StyledCountWrapper>({products.length})</StyledCountWrapper>
+          <StyledCountWrapper>
+            ({products ? products.length : 0})
+          </StyledCountWrapper>
         </StyledHeadline>
 
         <StyledInnerWrapper>
@@ -136,23 +151,30 @@ const ProductsView = () => {
               currentMaxPrice={currentMaxPrice}
               changePage={methods.changePage}
               changePriceRange={methods.changePriceRange}
+              sort={methods.sort}
+              changeToPrimary={changeToPrimary}
+              changeToSecondary={changeToSecondary}
+              activeGrid={activeGrid}
             />
 
-            <StyledProductsWrapper>
-              {products
-                .slice(ranges[0], ranges[1])
-                .map(({ featuredAttributes, ...props }, index) => (
-                  <StyledProductCard
-                    key={index}
-                    {...props}
-                    attributes={featuredAttributes}
-                  />
-                ))}
-            </StyledProductsWrapper>
+            {products && (
+              <StyledProductsWrapper $secondary={activeGrid === "secondary"}>
+                {products
+                  .slice(ranges[0], ranges[1])
+                  .map(({ featuredAttributes, ...props }, index) => (
+                    <StyledProductCard
+                      key={index}
+                      {...props}
+                      attributes={featuredAttributes}
+                      kind={activeGrid}
+                    />
+                  ))}
+              </StyledProductsWrapper>
+            )}
 
             <StyledPaginationWrapper>
               <Pagination
-                max={5}
+                max={allPages}
                 min={1}
                 current={currentPage}
                 changePage={methods.changePage}

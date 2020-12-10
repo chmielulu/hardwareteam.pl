@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { rgba } from "polished";
@@ -94,10 +94,13 @@ const StyledIcon = styled(Icon)`
     `}
 `;
 
-const Select = ({ options, kind, ...props }) => {
+const Select = ({ options, kind, initialActiveOption, ...props }) => {
   const wrapper = useRef();
   const [isDropDownActive, setDropDownActive] = useState(false);
   const [activeOption, setActiveOption] = useState(0);
+  const [isInitialActiveOptionUsed, setInitialActiveOptionUsed] = useState(
+    false
+  );
 
   const handleSelectClick = () => setDropDownActive(!isDropDownActive);
   const handleOptionClick = (index) => {
@@ -106,6 +109,23 @@ const Select = ({ options, kind, ...props }) => {
   };
   useOutsideClick(wrapper, () => setDropDownActive(false));
 
+  useEffect(() => {
+    if (
+      !isInitialActiveOptionUsed &&
+      activeOption === 0 &&
+      initialActiveOption < options.length &&
+      initialActiveOption > 0
+    ) {
+      setActiveOption(initialActiveOption);
+      setInitialActiveOptionUsed(true);
+    }
+  }, [
+    initialActiveOption,
+    activeOption,
+    options.length,
+    isInitialActiveOptionUsed,
+  ]);
+
   return (
     <StyledWrapper
       ref={wrapper}
@@ -113,21 +133,24 @@ const Select = ({ options, kind, ...props }) => {
       onClick={handleSelectClick}
       {...props}
     >
-      <StyledSelectedOption>{options[activeOption]}</StyledSelectedOption>
+      <StyledSelectedOption>{options[activeOption].name}</StyledSelectedOption>
       <StyledIcon
         icon={angleLine}
         $kind={kind}
         $isDropDownActive={isDropDownActive}
       />
       <StyledDropDown $isDropDownActive={isDropDownActive}>
-        {options.map((item, index) => (
+        {options.map(({ name, method }, index) => (
           <StyledOption
             key={index}
             $isSelected={index === activeOption}
-            onClick={() => handleOptionClick(index)}
+            onClick={() => {
+              handleOptionClick(index);
+              if (method) method();
+            }}
             $kind={kind}
           >
-            {item}
+            {name}
           </StyledOption>
         ))}
       </StyledDropDown>
@@ -136,12 +159,19 @@ const Select = ({ options, kind, ...props }) => {
 };
 
 Select.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      method: PropTypes.func,
+    })
+  ).isRequired,
   kind: PropTypes.oneOf([primary, secondary]),
+  initialActiveOption: PropTypes.number,
 };
 
 Select.defaultProps = {
   kind: primary,
+  initialActiveOption: null,
 };
 
 export default Select;

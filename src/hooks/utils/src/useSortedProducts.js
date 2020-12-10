@@ -11,6 +11,8 @@ const reducer = (state, { type, payload }) => {
       return { ...state, page: payload.page };
     case "changePriceRange":
       return { ...state, price: { min: payload.min, max: payload.max } };
+    case "sort":
+      return { ...state, sort: payload.type };
     case "clearAll":
       return {
         page: state.page,
@@ -22,6 +24,8 @@ const reducer = (state, { type, payload }) => {
 };
 
 export default (productsProp) => {
+  if (productsProp.length === 0) return nothing();
+
   const [products, setProducts] = useState(productsProp);
   const [minPrice, maxPrice] = usePriceRanges(productsProp);
 
@@ -55,6 +59,110 @@ export default (productsProp) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.price]);
 
+  useLayoutEffect(() => {
+    if (!query.sort) return undefined;
+
+    switch (query.sort) {
+      case "default":
+        setProducts(productsProp);
+        break;
+      case "lowestPrice":
+        setProducts(
+          products.sort((product, second) => {
+            const firstPrice = products.discount || product.price;
+            const secondPrice = second.discount || second.price;
+
+            if (firstPrice > secondPrice) {
+              return 1;
+            }
+
+            if (secondPrice > firstPrice) {
+              return -1;
+            }
+
+            return 0;
+          })
+        );
+        break;
+      case "highestPrice":
+        setProducts(
+          products.sort((product, second) => {
+            const firstPrice = products.discount || product.price;
+            const secondPrice = second.discount || second.price;
+
+            if (firstPrice > secondPrice) {
+              return -1;
+            }
+
+            if (secondPrice > firstPrice) {
+              return 1;
+            }
+
+            return 0;
+          })
+        );
+        break;
+      case "bestGrade":
+        setProducts(
+          products.sort((product, second) => {
+            const firstScore = product.score;
+            const secondScore = second.score;
+
+            if (firstScore > secondScore) {
+              return -1;
+            }
+
+            if (secondScore > firstScore) {
+              return 1;
+            }
+
+            return 0;
+          })
+        );
+        break;
+      case "nameAZ":
+        setProducts(
+          products.sort((product, second) => {
+            const firstName = product.name;
+            const secondName = second.name;
+
+            if (firstName < secondName) {
+              return -1;
+            }
+
+            if (firstName > secondName) {
+              return 1;
+            }
+
+            return 0;
+          })
+        );
+        break;
+      case "nameZA":
+        setProducts(
+          products.sort((product, second) => {
+            const firstName = product.name;
+            const secondName = second.name;
+
+            if (firstName < secondName) {
+              return 1;
+            }
+
+            if (firstName > secondName) {
+              return -1;
+            }
+
+            return 0;
+          })
+        );
+        break;
+      default:
+        break;
+    }
+    return undefined;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query.sort]);
+
   const methods = {
     changePage: (page, e) => {
       if (e) {
@@ -74,6 +182,20 @@ export default (productsProp) => {
         payload: {
           min,
           max,
+        },
+      });
+    },
+    sort: (type) => {
+      dispatchQuery({
+        type: "sort",
+        payload: {
+          type,
+        },
+      });
+      dispatchQuery({
+        type: "changePage",
+        payload: {
+          page: 1,
         },
       });
     },
@@ -101,3 +223,19 @@ export default (productsProp) => {
     maxPrice,
   };
 };
+
+function nothing() {
+  return {
+    products: [],
+    methods: {
+      changePage: () => {},
+      changePriceRange: () => {},
+      sort: () => {},
+      clearAll: () => {},
+    },
+    currentMinPrice: 0,
+    currentMaxPrice: 0,
+    minPrice: 1,
+    maxPrice: 2,
+  };
+}

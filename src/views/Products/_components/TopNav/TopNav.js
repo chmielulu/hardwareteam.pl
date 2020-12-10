@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { Select, Pagination } from "@components/atoms";
 import Icon from "@iconify/react";
 import gridIcon from "@iconify/icons-oi/grid-four-up";
 import listIcon from "@iconify/icons-oi/list-rich";
+import { useSearchParameters } from "@hooks/utils";
 import PriceRange from "../PriceRange/PriceRange";
 
 const StyledWrapper = styled.div`
@@ -65,14 +66,38 @@ const TopNav = ({
   currentMaxPrice,
   changePage,
   changePriceRange,
+  sort,
+  changeToPrimary,
+  changeToSecondary,
+  activeGrid,
 }) => {
+  const [activeOption, setActiveOption] = useState(0);
+  const { sort: sortParam } = useSearchParameters();
+
+  useEffect(() => {
+    if (!sortParam) return undefined;
+
+    if (sortParam === "lowestPrice") setActiveOption(1);
+    if (sortParam === "highestPrice") setActiveOption(2);
+    if (sortParam === "bestGrade") setActiveOption(3);
+    if (sortParam === "nameAZ") setActiveOption(4);
+    if (sortParam === "nameZA") setActiveOption(5);
+    return undefined;
+  }, [sortParam]);
+
   return (
     <StyledWrapper>
       <StyledButtonsWrapper>
-        <StyledButton $isActive>
+        <StyledButton
+          $isActive={activeGrid === "primary"}
+          onClick={activeGrid !== "primary" ? changeToPrimary : undefined}
+        >
           <StyledIcon title="Widok listy szczegółowej" icon={listIcon} />
         </StyledButton>
-        <StyledButton>
+        <StyledButton
+          $isActive={activeGrid === "secondary"}
+          onClick={activeGrid !== "secondary" ? changeToSecondary : undefined}
+        >
           <StyledIcon title="Widok kafelków" icon={gridIcon} />
         </StyledButton>
       </StyledButtonsWrapper>
@@ -85,13 +110,14 @@ const TopNav = ({
       />
       <StyledSelect
         options={[
-          "Popularność",
-          "Cena: od najtańszych",
-          "Cena: od najdroższych",
-          "Ocena: od najlepszej",
-          "Nazwa: A-Z",
-          "Nazwa: Z-A",
+          { name: "Domyślne", method: () => sort("default") },
+          { name: "Cena od najtańszych", method: () => sort("lowestPrice") },
+          { name: "Cena od najdroższych", method: () => sort("highestPrice") },
+          { name: "Ocena: od najlepszej", method: () => sort("bestGrade") },
+          { name: "Nazwa: A-Z", method: () => sort("nameAZ") },
+          { name: "Nazwa: Z-A", method: () => sort("nameZA") },
         ]}
+        initialActiveOption={activeOption}
       />
       <StyledPagination
         max={allPages}
@@ -113,6 +139,10 @@ TopNav.propTypes = {
   currentMaxPrice: PropTypes.number,
   changePage: PropTypes.func.isRequired,
   changePriceRange: PropTypes.func.isRequired,
+  sort: PropTypes.func.isRequired,
+  changeToPrimary: PropTypes.func.isRequired,
+  changeToSecondary: PropTypes.func.isRequired,
+  activeGrid: PropTypes.string.isRequired,
 };
 
 TopNav.defaultProps = {

@@ -107,7 +107,7 @@ const Pagination = ({
     return null;
   };
 
-  const handleKeyDown = ({ key }) => {
+  const handleKeyDown = ({ key, target }) => {
     if (!reg.test(value)) {
       return null;
     }
@@ -122,6 +122,7 @@ const Pagination = ({
       } else {
         history.push(`?page=${value}`);
       }
+      target.blur();
     }
 
     return null;

@@ -5,15 +5,15 @@ import { Input, Select, Button } from "@components/atoms";
 import { secondary } from "@constants/kinds";
 
 const options = [
-  "Wszystko",
-  "Komputery i laptopy",
-  "Telefony i smartwatche",
-  "Gaming i streaming",
-  "Podzespoły komputerowe",
-  "Urządzenia peryferyjne",
-  "TV i audio",
-  "Smarthome i lifestyle",
-  "Akcesoria",
+  { name: "Wszystko" },
+  { name: "Komputery i laptopy" },
+  { name: "Telefony i smartwatche" },
+  { name: "Gaming i streaming" },
+  { name: "Podzespoły komputerowe" },
+  { name: "Urządzenia peryferyjne" },
+  { name: "TV i audio" },
+  { name: "Smarthome i lifestyle" },
+  { name: "Akcesoria" },
 ];
 
 const StyledWrapper = styled.div`

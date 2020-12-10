@@ -77,7 +77,7 @@ ProductCard.defaultProps = {
   discount: null,
   kind: "primary",
   render: undefined,
-  big: "normal",
+  size: "normal",
   informations: null,
   awards: null,
   price: null,
