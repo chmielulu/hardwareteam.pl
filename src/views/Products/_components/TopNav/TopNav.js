@@ -21,14 +21,28 @@ const StyledSelect = styled(Select)`
   width: 240px;
   height: 0%;
   margin-left: 40px;
+
+  @media (max-width: 1420px) {
+    margin-left: auto;
+    width: 200px;
+  }
 `;
 
 const StyledPagination = styled(Pagination)`
   margin-left: auto;
+
+  @media (max-width: 1420px) {
+    display: none;
+  }
 `;
 
 const StyledButtonsWrapper = styled.div`
   margin-right: 30px;
+
+  @media (max-width: 1220px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -51,6 +65,15 @@ const StyledButton = styled.button`
       color: ${({ theme }) => theme.black};
       cursor: default;
     `};
+
+  @media (max-width: 1220px) {
+    margin-right: 0;
+    margin-bottom: 5px;
+
+    :last-of-type {
+      margin-bottom: 0;
+    }
+  }
 `;
 
 const StyledIcon = styled(Icon)`

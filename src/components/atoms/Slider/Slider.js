@@ -4,7 +4,7 @@ import noUiSlider from "nouislider";
 import "nouislider/distribute/nouislider.min.css";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import wNumb from "wnumb"
+import wNumb from "wnumb";
 
 const StyledWrapper = styled.div`
   &.noUi-target {
@@ -55,32 +55,38 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const Progress = React.forwardRef(({ min, max, onChange, className }, ref) => {
-  const slider = useRef();
+const Progress = React.forwardRef(
+  ({ min, max, onChange, className, ...props }, ref) => {
+    const slider = useRef();
 
-  useEffect(() => {
-    noUiSlider.create(ref.current || slider.current, {
-      start: [min, max],
-      behaviour: "tap",
-      connect: true,
-      range: {
-        min,
-        max,
-      },
-      orientation: "horizontal",
-      direction: "ltr",
-      format: wNumb({
-        decimals: 0
-      })
-    });
+    useEffect(() => {
+      noUiSlider.create(ref.current || slider.current, {
+        start: [min, max],
+        behaviour: "tap",
+        connect: true,
+        range: {
+          min,
+          max,
+        },
+        orientation: "horizontal",
+        direction: "ltr",
+        format: wNumb({
+          decimals: 0,
+        }),
+      });
 
-    if (onChange) {
-      (ref || slider).current.noUiSlider.on("slide", (e) => onChange(e[0], e[1]));
-    }
-  }, []);
+      if (onChange) {
+        (ref || slider).current.noUiSlider.on("slide", (e) =>
+          onChange(e[0], e[1])
+        );
+      }
+    }, []);
 
-  return <StyledWrapper ref={ref || slider} className={className} />;
-});
+    return (
+      <StyledWrapper ref={ref || slider} className={className} {...props} />
+    );
+  }
+);
 
 Progress.propTypes = {
   min: PropTypes.number.isRequired,

@@ -6,6 +6,10 @@ import { useFontSize } from "@hooks/styled-components";
 
 const StyledWrapper = styled.div`
   width: 305px;
+
+  @media (max-width: 1420px) {
+    width: 230px;
+  }
 `;
 
 const StyledTopWrapper = styled.div`
@@ -14,7 +18,11 @@ const StyledTopWrapper = styled.div`
 
 const StyledText = styled.span`
   ${({ theme }) => useFontSize(theme)}
-  margin-right: 25px;
+  margin-right: 30px;
+
+  @media (max-width: 1420px) {
+    margin-right: 20px;
+  }
 `;
 
 const StyledBottomWrapper = styled.div`
@@ -30,6 +38,10 @@ const StyledInput = styled(Input)`
     text-align: center;
     padding: 6px;
   }
+
+  @media (max-width: 1420px) {
+    width: 60px;
+  }
 `;
 
 const StyledSpacer = styled.span`
@@ -38,11 +50,20 @@ const StyledSpacer = styled.span`
   width: 20px;
   background: ${({ theme }) => theme.gray};
   margin: 0 10px;
+
+  @media (max-width: 1420px) {
+    width: 10px;
+    margin: 0 5px;
+  }
 `;
 
 const StyledButton = styled(Button)`
   margin-left: auto;
   padding: 8px 15px;
+`;
+
+const StyledSlider = styled(Slider)`
+  flex: 1;
 `;
 
 const PriceRange = ({ min, max, currentMin, currentMax, changePriceRange }) => {
@@ -146,7 +167,7 @@ const PriceRange = ({ min, max, currentMin, currentMax, changePriceRange }) => {
     <StyledWrapper>
       <StyledTopWrapper>
         <StyledText>Cena (zł)</StyledText>
-        <Slider
+        <StyledSlider
           min={initialMinPrice}
           max={initialMaxPrice}
           onChange={handleSliderChange}

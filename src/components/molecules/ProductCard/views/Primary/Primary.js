@@ -65,6 +65,7 @@ const StyledSecondColumn = styled.div`
   flex-direction: column;
   justify-content: center;
   padding-bottom: 10px;
+  margin-right: 30px;
 `;
 
 const StyledThirdColumn = styled.div`
@@ -105,6 +106,10 @@ const StyledAttributesWrapper = styled.div``;
 
 const StyledAttribute = styled(Attribute)`
   margin-bottom: 10px;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   :last-of-type {
     margin-bottom: 0;
