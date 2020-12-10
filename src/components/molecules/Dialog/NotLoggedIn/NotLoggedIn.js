@@ -11,7 +11,7 @@ import tagsIcon from "@iconify/icons-clarity/tags-line";
 import { Button } from "@components/atoms";
 import { useFontSize } from "@hooks/styled-components";
 import { useWindowSize } from "@hooks/utils";
-import Window from "../_components/Window/Window";
+import Window from "../Window/Window";
 import Spacer from "../_components/Spacer/Spacer";
 
 const whyWorthRegisterItems = [

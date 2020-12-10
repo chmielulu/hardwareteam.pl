@@ -26,6 +26,10 @@ const StyledSelect = styled(Select)`
     margin-left: auto;
     width: 200px;
   }
+
+  @media (max-width: 1120px) {
+    width: 160px;
+  }
 `;
 
 const StyledPagination = styled(Pagination)`

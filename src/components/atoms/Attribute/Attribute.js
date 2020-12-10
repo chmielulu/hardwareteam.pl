@@ -14,7 +14,12 @@ const StyledName = styled.span`
   margin-right: 5px;
 `;
 
-const StyledValue = styled.span``;
+const StyledValue = styled.span`
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
 
 const Attribute = ({ name, value, ...props }) => {
   return (

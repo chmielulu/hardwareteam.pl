@@ -9,10 +9,16 @@ import routes from "@routes";
 import { Locator, Pagination } from "@components/atoms";
 import { ProductCard } from "@components/molecules";
 import { useFontSize } from "@hooks/styled-components";
-import { usePages, useSearchParameters, useSortedProducts } from "@hooks/utils";
+import {
+  usePages,
+  useSearchParameters,
+  useSortedProducts,
+  useWindowSize,
+} from "@hooks/utils";
 import TopNav from "./_components/TopNav/TopNav";
 import LeftNav from "./_components/LeftNav/LeftNav";
 import SEO from "./_components/SEO/SEO";
+import MobileNav from "./_components/MobileNav/MobileNav";
 
 const StyledWrapper = styled.div`
   max-width: 1500px;
@@ -25,6 +31,10 @@ const StyledHeadline = styled.h2`
   ${({ theme }) => useFontSize(theme, "xl")}
   font-weight: 400;
   margin-top: 20px;
+
+  @media (max-width: 1024px) {
+    margin-top: 30px;
+  }
 `;
 
 const StyledCountWrapper = styled.span`
@@ -45,7 +55,17 @@ const StyledProductsWrapper = styled.div`
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
       grid-gap: 2em;
+      align-items: center;
+      justify-content: center;
+
+      @media (max-width: 1024px) {
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      }
     `}
+
+  @media (max-width: 1024px) {
+    margin-top: 20px;
+  }
 `;
 
 const StyledProductCard = styled(ProductCard)`
@@ -54,11 +74,21 @@ const StyledProductCard = styled(ProductCard)`
   :last-of-type {
     margin-bottom: 0;
   }
+
+  @media (max-width: 1024px) {
+    margin: 0 auto;
+    margin-bottom: 10px;
+  }
 `;
 
 const StyledInnerWrapper = styled.div`
   display: flex;
   margin-top: 40px;
+
+  @media (max-width: 1024px) {
+    margin-top: 0;
+    flex-direction: column;
+  }
 `;
 
 const StyledLeftColumn = styled.div`
@@ -68,6 +98,10 @@ const StyledLeftColumn = styled.div`
 const StyledRightColumn = styled.div`
   margin-left: 50px;
   flex: 1;
+
+  @media (max-width: 1024px) {
+    margin-left: 0;
+  }
 `;
 
 const StyledPaginationWrapper = styled.div`
@@ -105,13 +139,14 @@ const ProductsView = () => {
 
   const currentPage = pageNumber > allPages || pageNumber < 1 ? 1 : pageNumber;
 
-  const ranges = [30 * (currentPage - 1), 30 + 30 * currentPage];
+  const ranges = [30 * (currentPage - 1), 30 * currentPage];
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [pageNumber]);
 
   const [activeGrid, setActiveGrid] = useState("primary");
+  const { width } = useWindowSize();
 
   const changeToPrimary = () => setActiveGrid("primary");
   const changeToSecondary = () => setActiveGrid("secondary");
@@ -138,13 +173,17 @@ const ProductsView = () => {
         </StyledHeadline>
 
         <StyledInnerWrapper>
-          <StyledLeftColumn>
-            <LeftNav />
-          </StyledLeftColumn>
-          <StyledRightColumn>
-            <TopNav
-              currentPage={currentPage}
-              allPages={allPages}
+          {width > 1024 && (
+            <StyledLeftColumn>
+              <LeftNav />
+            </StyledLeftColumn>
+          )}
+
+          {width <= 1024 && (
+            <MobileNav
+              changeToPrimary={changeToPrimary}
+              changeToSecondary={changeToSecondary}
+              activeGrid={activeGrid}
               minPrice={minPrice}
               maxPrice={maxPrice}
               currentMinPrice={currentMinPrice}
@@ -152,10 +191,26 @@ const ProductsView = () => {
               changePage={methods.changePage}
               changePriceRange={methods.changePriceRange}
               sort={methods.sort}
-              changeToPrimary={changeToPrimary}
-              changeToSecondary={changeToSecondary}
-              activeGrid={activeGrid}
             />
+          )}
+
+          <StyledRightColumn>
+            {width > 1024 && (
+              <TopNav
+                currentPage={currentPage}
+                allPages={allPages}
+                minPrice={minPrice}
+                maxPrice={maxPrice}
+                currentMinPrice={currentMinPrice}
+                currentMaxPrice={currentMaxPrice}
+                changePage={methods.changePage}
+                changePriceRange={methods.changePriceRange}
+                sort={methods.sort}
+                changeToPrimary={changeToPrimary}
+                changeToSecondary={changeToSecondary}
+                activeGrid={activeGrid}
+              />
+            )}
 
             {products && (
               <StyledProductsWrapper $secondary={activeGrid === "secondary"}>

@@ -175,11 +175,12 @@ const Secondary = ({
   discount,
   productLink,
   size,
+  ...props
 }) => {
   const shortenName = useShortenText(name, size === "small" ? 30 : 50);
 
   return (
-    <StyledWrapper $size={size}>
+    <StyledWrapper $size={size} {...props}>
       <StyledLink to={productLink}>
         <StyledImg src={img} alt={name} $size={size} />
         <StyledInnerWrapper>

@@ -49,15 +49,6 @@ const StyledFirstColumn = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-right: 100px;
-
-  @media (max-width: 1420px) {
-    margin-right: 50px;
-  }
-
-  @media (max-width: 1140px) {
-    margin-right: 25px;
-  }
 `;
 
 const StyledSecondColumn = styled.div`
@@ -65,7 +56,7 @@ const StyledSecondColumn = styled.div`
   flex-direction: column;
   justify-content: center;
   padding-bottom: 10px;
-  margin-right: 30px;
+  margin: 0 auto;
 `;
 
 const StyledThirdColumn = styled.div`
@@ -172,7 +163,7 @@ const Primary = ({
   const sortedAwards = useSortedAwards(awards);
   const { width } = useWindowSize();
 
-  if (width <= 1024)
+  if (width <= 1380)
     return (
       <MobilePrimary
         name={name}
@@ -184,6 +175,7 @@ const Primary = ({
         informations={informations}
         awards={awards}
         discount={discount}
+        {...props}
       />
     );
   return (

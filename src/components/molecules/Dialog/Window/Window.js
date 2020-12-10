@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { CSSTransition } from "react-transition-group";
@@ -31,6 +31,9 @@ const StyledWrapper = styled.div`
     padding: 0;
     height: unset;
     min-height: 100vh;
+    z-index: 999999;
+    width: 100%;
+    position: fixed;
   }
 `;
 
@@ -63,7 +66,7 @@ const StyledWindow = styled.div`
 
   @media (max-width: 1024px) {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     left: 0;
     top: 0;
     transform: translateX(-100vw);
@@ -123,18 +126,20 @@ const StyledTitle = styled.h3`
 `;
 
 const StyledContentWrapper = styled.div`
-  max-height: calc(100vh - 140px);
+  max-height: calc(100vh - 240px);
   position: relative;
   overflow-y: auto;
 
   @media (max-width: 1024px) {
-    max-height: unset;
+    max-height: calc(100vh - 135px);
   }
 `;
 
 const StyledContent = styled.div`
   position: relative;
 `;
+
+const BottomBarWrapper = styled.div``;
 
 const Overlay = styled.div`
   width: 100%;
@@ -155,8 +160,20 @@ const Overlay = styled.div`
     `}
 `;
 
-const Window = ({ children, isActive, title, onClose, width }) => {
+const Window = ({ children, isActive, title, onClose, width, bottomBar }) => {
   const { width: windowWidth } = useWindowSize();
+
+  useEffect(() => {
+    if (width > 1024) return undefined;
+
+    if (isActive) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return undefined;
+  }, [width, isActive]);
 
   return (
     <StyledWrapper $isActive={isActive}>
@@ -177,6 +194,7 @@ const Window = ({ children, isActive, title, onClose, width }) => {
           <StyledContentWrapper>
             <StyledContent>{children}</StyledContent>
           </StyledContentWrapper>
+          {bottomBar && <BottomBarWrapper>{bottomBar()}</BottomBarWrapper>}
         </StyledWindow>
       </CSSTransition>
       <Overlay $isActive={isActive} />
@@ -190,10 +208,12 @@ Window.propTypes = {
   title: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   width: PropTypes.number,
+  bottomBar: PropTypes.node,
 };
 
 Window.defaultProps = {
   width: 500,
+  bottomBar: null,
 };
 
 export default Window;

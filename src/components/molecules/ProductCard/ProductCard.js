@@ -34,7 +34,6 @@ const ProductCard = ({
     awards,
     discount,
     productLink,
-    props,
   };
 
   return getView({
@@ -42,14 +41,18 @@ const ProductCard = ({
     allProps,
     render,
     size,
+    props,
   });
 };
 
-function getView({ kind, allProps, render = undefined, size } = {}) {
-  if (kind === "primary") return <PrimaryView {...allProps} />;
-  if (kind === "secondary") return <SecondaryView size={size} {...allProps} />;
+function getView({ kind, allProps, render = null, size, props } = {}) {
+  if (kind === "primary") return <PrimaryView {...allProps} {...props} />;
+  if (kind === "secondary")
+    return <SecondaryView size={size} {...allProps} {...props} />;
   if (kind === "tertiary")
-    return <TertiaryView render={render} size={size} {...allProps} />;
+    return (
+      <TertiaryView render={render} size={size} {...allProps} {...props} />
+    );
   return null;
 }
 

@@ -10,9 +10,13 @@ import Information from "../../../_components/Information/Information";
 
 const StyledWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
-  padding: 40px 15px 20px;
+  padding: 40px 15px 40px;
   width: 100%;
   min-width: 300px;
+
+  @media (max-width: 1024px) {
+    padding: 40px 15px 20px;
+  }
 `;
 
 const StyledAwardsWrapper = styled.div`
@@ -107,11 +111,12 @@ const Primary = ({
   informations,
   awards,
   discount,
+  ...props
 }) => {
   const sortedAwards = useSortedAwards(awards);
 
   return (
-    <StyledWrapper>
+    <StyledWrapper {...props}>
       {awards && (
         <StyledAwardsWrapper>
           {sortedAwards.slice(0, 3).map((kind, index) => (

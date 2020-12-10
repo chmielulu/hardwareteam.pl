@@ -64,7 +64,6 @@ export default [...Array(Math.floor(Math.random() * 746)).keys()].map(() => {
       attributes[2],
       attributes[3],
       attributes[4],
-      attributes[5],
     ].map(({ name, value }) => ({ name, value: value.name })),
     awards: ["recommendable", "valueForMoney", "a11yAdapted"],
     subcategoryId: "laptopy-notebooki-ultrabooki",

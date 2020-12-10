@@ -26,6 +26,7 @@ module.exports = {
     config.resolve.alias["@routes"] = resolve("../src/routes");
     config.resolve.alias["@custom"] = resolve("../src/custom");
     config.resolve.alias["@utils"] = resolve("../src/utils");
+    config.resolve.alias["@database"] = resolve("../src/database");
     return config;
   },
 };

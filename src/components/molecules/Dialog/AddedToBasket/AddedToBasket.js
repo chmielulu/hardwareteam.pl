@@ -11,7 +11,7 @@ import arrowIcon from "@iconify/icons-clarity/circle-arrow-line";
 import { Link } from "react-router-dom";
 import { useFontSize } from "@hooks/styled-components";
 import { useWindowSize } from "@hooks/utils";
-import Window from "../_components/Window/Window";
+import Window from "../Window/Window";
 
 const StyledWrapper = styled.div``;
 
@@ -122,10 +122,7 @@ const StyledPaginationWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   border-top: 1px solid ${({ theme }) => theme.lightGray};
-
-  @media (max-width: 1024px) {
-    margin-top: auto;
-  }
+  align-items: center;
 `;
 
 const AddedToBasket = ({
@@ -133,99 +130,101 @@ const AddedToBasket = ({
   recommendedProducts,
   isActive,
   onClose,
-}) => {
+}) => (
+  <Window
+    title="Produkt został dodany do koszyka"
+    isActive={isActive}
+    onClose={onClose}
+    width={600}
+    bottomBar={() => <BottomBar onClose={onClose} />}
+  >
+    <StyledWrapper>
+      <StyledProductWrapper>
+        <ProductCard
+          kind={tertiary}
+          name={addedProduct.name}
+          img={addedProduct.img}
+          render={() => (
+            <StyledProductInformations>
+              <StyledPrice>{formatPrice(addedProduct.price)}</StyledPrice>
+              <StyledProductCount>{addedProduct.count} szt.</StyledProductCount>
+            </StyledProductInformations>
+          )}
+        />
+      </StyledProductWrapper>
+
+      <StyledTitle>Rekomendowane Akcesoria</StyledTitle>
+      <StyledRecommendedProductsWrapper>
+        <CustomSwiper>
+          {recommendedProducts.map(
+            ({ name, price, discount, score, reviewsCount, img }, index) => (
+              <ProductCard
+                name={name}
+                price={price}
+                discount={discount}
+                score={score}
+                reviewsCount={reviewsCount}
+                kind={secondary}
+                img={img}
+                size="small"
+                key={index}
+              />
+            )
+          )}
+        </CustomSwiper>
+      </StyledRecommendedProductsWrapper>
+
+      <StyledSummary>
+        <StyledBasketCounterWrapper>
+          <StyledBasketIconWrapper>
+            <StyledBasketIcon icon={basketIcon} />
+            <StyledBasketProductCount>1</StyledBasketProductCount>
+          </StyledBasketIconWrapper>
+          <StyledSummaryText>
+            W koszyku łącznie masz 1 produkt
+          </StyledSummaryText>
+        </StyledBasketCounterWrapper>
+        <StyledBasketPriceText>
+          Wartość koszyka:
+          <StyledBasketPrice>
+            {formatPrice(addedProduct.price)}
+          </StyledBasketPrice>
+        </StyledBasketPriceText>
+      </StyledSummary>
+    </StyledWrapper>
+  </Window>
+);
+
+// eslint-disable-next-line react/prop-types
+function BottomBar({ onClose }) {
   const { width } = useWindowSize();
 
   return (
-    <Window
-      title="Produkt został dodany do koszyka"
-      isActive={isActive}
-      onClose={onClose}
-      width={600}
-    >
-      <StyledWrapper>
-        <StyledProductWrapper>
-          <ProductCard
-            kind={tertiary}
-            name={addedProduct.name}
-            img={addedProduct.img}
-            render={() => (
-              <StyledProductInformations>
-                <StyledPrice>{formatPrice(addedProduct.price)}</StyledPrice>
-                <StyledProductCount>
-                  {addedProduct.count} szt.
-                </StyledProductCount>
-              </StyledProductInformations>
-            )}
-          />
-        </StyledProductWrapper>
-
-        <StyledTitle>Rekomendowane Akcesoria</StyledTitle>
-        <StyledRecommendedProductsWrapper>
-          <CustomSwiper>
-            {recommendedProducts.map(
-              ({ name, price, discount, score, reviewsCount, img }, index) => (
-                <ProductCard
-                  name={name}
-                  price={price}
-                  discount={discount}
-                  score={score}
-                  reviewsCount={reviewsCount}
-                  kind={secondary}
-                  img={img}
-                  size="small"
-                  key={index}
-                />
-              )
-            )}
-          </CustomSwiper>
-        </StyledRecommendedProductsWrapper>
-
-        <StyledSummary>
-          <StyledBasketCounterWrapper>
-            <StyledBasketIconWrapper>
-              <StyledBasketIcon icon={basketIcon} />
-              <StyledBasketProductCount>1</StyledBasketProductCount>
-            </StyledBasketIconWrapper>
-            <StyledSummaryText>
-              W koszyku łącznie masz 1 produkt
-            </StyledSummaryText>
-          </StyledBasketCounterWrapper>
-          <StyledBasketPriceText>
-            Wartość koszyka:
-            <StyledBasketPrice>
-              {formatPrice(addedProduct.price)}
-            </StyledBasketPrice>
-          </StyledBasketPriceText>
-        </StyledSummary>
-
-        <StyledPaginationWrapper>
-          {width > 1024 && (
-            <BackButton
-              onClick={(e) => {
-                e.preventDefault();
-                onClose();
-              }}
-              to="/"
-            >
-              Wróć do zakupów
-            </BackButton>
-          )}
-          <Button
-            as={Link}
-            to="/"
-            icon={arrowIcon}
-            position="right"
-            rotateIcon={90}
-            fullWidth={width <= 1024}
-          >
-            Przejdź do koszyka
-          </Button>
-        </StyledPaginationWrapper>
-      </StyledWrapper>
-    </Window>
+    <StyledPaginationWrapper>
+      {width > 1024 && (
+        <BackButton
+          onClick={(e) => {
+            e.preventDefault();
+            onClose();
+          }}
+          to="/"
+        >
+          Wróć do zakupów
+        </BackButton>
+      )}
+      <Button
+        as={Link}
+        to="/"
+        icon={arrowIcon}
+        position="right"
+        rotateIcon={90}
+        fullWidth={width <= 1024}
+      >
+        Przejdź do koszyka
+      </Button>
+    </StyledPaginationWrapper>
   );
-};
+}
 
 AddedToBasket.propTypes = {
   isActive: PropTypes.bool.isRequired,
