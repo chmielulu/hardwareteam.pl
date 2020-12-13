@@ -118,18 +118,18 @@ const StyledItemsWrapper = styled.div`
   @media (max-width: 1024px) {
     position: absolute;
     top: 0;
-    left: 100%;
+    right: 100%;
     transition: transform 0.4s ease;
     width: 100%;
     background: #fff;
     min-height: 100%;
     z-index: 20;
-    padding: 20px 0;
+    padding: 20px 5%;
 
     ${({ $isActive }) =>
       $isActive &&
       css`
-        transform: translateX(-100%);
+        transform: translateX(100%);
       `}
   }
 `;

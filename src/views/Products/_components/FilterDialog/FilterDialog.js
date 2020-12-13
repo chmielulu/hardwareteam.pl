@@ -9,8 +9,8 @@ import PriceRange from "../PriceRange/PriceRange";
 
 const StyledWrapper = styled.div`
   margin: 0 auto;
-  padding-top: 20px;
-  width: 90%;
+  padding: 20px 5%;
+  width: 100%;
   overflow: hidden;
   position: relative;
   min-height: calc(100vh - 135px);
@@ -18,7 +18,7 @@ const StyledWrapper = styled.div`
   ${({ $isActive }) =>
     $isActive &&
     css`
-      overflow-y: scroll;
+      position: static;
     `}
 `;
 

@@ -6,10 +6,13 @@ import { Radio, Button } from "@components/atoms/";
 import { useFontSize } from "@hooks/styled-components";
 import arrowIcon from "@iconify/icons-clarity/circle-arrow-line";
 
+const StyledWrapper = styled.div`
+  margin: 20px 0;
+`;
+
 const StyledHeadline = styled.span`
   ${({ theme }) => useFontSize(theme, "m", "l")}
   margin-left: 5%;
-  margin-top: 20px;
   display: block;
   margin-bottom: 10px;
 `;
@@ -71,18 +74,20 @@ const SortDialog = ({ sort, isActive, onClose }) => {
       onClose={onClose}
       bottomBar={() => <BottomBar onClick={handleButtonClick} />}
     >
-      <StyledHeadline>Sortowanie według</StyledHeadline>
+      <StyledWrapper>
+        <StyledHeadline>Sortowanie według</StyledHeadline>
 
-      {controlledRadios.map(({ name, id, checked }) => (
-        <StyledOptionWrapper key={id} onClick={() => handleOptionClick(id)}>
-          <Radio
-            name="sort"
-            render={() => <StyledTextWrapper>{name}</StyledTextWrapper>}
-            checked={checked || false}
-            readOnly
-          />
-        </StyledOptionWrapper>
-      ))}
+        {controlledRadios.map(({ name, id, checked }) => (
+          <StyledOptionWrapper key={id} onClick={() => handleOptionClick(id)}>
+            <Radio
+              name="sort"
+              render={() => <StyledTextWrapper>{name}</StyledTextWrapper>}
+              checked={checked || false}
+              readOnly
+            />
+          </StyledOptionWrapper>
+        ))}
+      </StyledWrapper>
     </Window>
   );
 };
