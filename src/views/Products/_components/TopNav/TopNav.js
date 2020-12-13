@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { Select, Pagination } from "@components/atoms";
@@ -101,15 +101,13 @@ const TopNav = ({
   const [activeOption, setActiveOption] = useState(0);
   const { sort: sortParam } = useSearchParameters();
 
-  useEffect(() => {
-    if (!sortParam) return undefined;
-
+  useLayoutEffect(() => {
+    if (!sortParam || sortParam === "default") setActiveOption(0);
     if (sortParam === "lowestPrice") setActiveOption(1);
     if (sortParam === "highestPrice") setActiveOption(2);
     if (sortParam === "bestGrade") setActiveOption(3);
     if (sortParam === "nameAZ") setActiveOption(4);
     if (sortParam === "nameZA") setActiveOption(5);
-    return undefined;
   }, [sortParam]);
 
   return (
@@ -144,7 +142,8 @@ const TopNav = ({
           { name: "Nazwa: A-Z", method: () => sort("nameAZ") },
           { name: "Nazwa: Z-A", method: () => sort("nameZA") },
         ]}
-        initialActiveOption={activeOption}
+        activeOption={activeOption}
+        setActiveOption={setActiveOption}
       />
       <StyledPagination
         max={allPages}
