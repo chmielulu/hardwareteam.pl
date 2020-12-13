@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { Checkbox } from "@components/atoms";
 import { Icon } from "@iconify/react";
 import angleIcon from "@iconify/icons-clarity/angle-line";
+import arrowIcon from "@iconify/icons-clarity/arrow-line";
 import { useFontSize } from "@hooks/styled-components";
+import { useWindowSize } from "@hooks/utils";
 
 const StyledWrapper = styled.section`
   margin-bottom: 30px;
+
+  @media (max-width: 1024px) {
+    margin-bottom: 0;
+  }
 `;
 
 const StyledHeader = styled.header`
@@ -14,6 +21,16 @@ const StyledHeader = styled.header`
   align-items: flex-end;
   justify-content: space-between;
   margin-bottom: 15px;
+
+  @media (max-width: 1024px) {
+    border-bottom: 1px solid ${({ theme }) => theme.lightGray};
+    padding: 15px 10px;
+    margin-bottom: 0;
+
+    ${StyledWrapper}:first-of-type & {
+      border-top: 1px solid ${({ theme }) => theme.lightGray};
+    }
+  }
 `;
 
 const StyledHeadline = styled.span`
@@ -21,13 +38,19 @@ const StyledHeadline = styled.span`
 `;
 
 const StyledButton = styled.button`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   color: ${({ theme }) => theme.gray};
   background: transparent;
   border: 0;
   outline: none;
   cursor: pointer;
   margin-bottom: 4px;
+
+  @media (max-width: 1024px) {
+    margin-top: -10px;
+    padding: 10px 0;
+    margin-bottom: 10px;
+  }
 `;
 
 const StyledItem = styled.div`
@@ -38,10 +61,20 @@ const StyledItem = styled.div`
   :last-of-type {
     margin-bottom: 0;
   }
+
+  @media (max-width: 1024px) {
+    padding: 15px 10px;
+    margin-bottom: 0;
+    border-bottom: 1px solid ${({ theme }) => theme.lightGray};
+
+    :first-of-type {
+      border-top: 1px solid ${({ theme }) => theme.lightGray};
+    }
+  }
 `;
 
 const StyledText = styled.div`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 300;
   margin-left: 5px;
 `;
@@ -60,6 +93,10 @@ const ShowMoreButton = styled.button`
   margin-top: 15px;
   cursor: pointer;
   outline: none;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 const StyledIcon = styled(Icon)`
@@ -72,7 +109,32 @@ const StyledIcon = styled(Icon)`
     `}
 `;
 
-const Filter = () => {
+const StyledArrow = styled(Icon)`
+  font-size: 2rem;
+  transform: rotate(90deg) !important;
+`;
+
+const StyledItemsWrapper = styled.div`
+  @media (max-width: 1024px) {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transition: transform 0.4s ease;
+    width: 100%;
+    background: #fff;
+    min-height: 100%;
+    z-index: 20;
+    padding: 20px 0;
+
+    ${({ $isActive }) =>
+      $isActive &&
+      css`
+        transform: translateX(-100%);
+      `}
+  }
+`;
+
+const Filter = ({ isItemsActive, handleHeaderClick }) => {
   const [isMoreActive, setMoreActive] = useState(false);
   const [isAnyChecked, setAnyChecked] = useState(false);
   const [controlledCheckboxes, setControlledCheckboxes] = useState(
@@ -114,17 +176,31 @@ const Filter = () => {
     }
   }, [controlledCheckboxes]);
 
+  const { width } = useWindowSize();
+
   return (
     <StyledWrapper>
-      <StyledHeader>
+      <StyledHeader onClick={handleHeaderClick}>
         <StyledHeadline>Producent</StyledHeadline>
-        <StyledButton onClick={handleCheckAllCheckboxes}>
-          {isAnyChecked ? "Wyczyść" : "Zaznacz"}
-        </StyledButton>
+        {width > 1024 ? (
+          <StyledButton onClick={handleCheckAllCheckboxes}>
+            {isAnyChecked ? "Wyczyść" : "Zaznacz"}
+          </StyledButton>
+        ) : (
+          <StyledArrow icon={arrowIcon} />
+        )}
       </StyledHeader>
 
-      {(isMoreActive ? items : items.slice(0, 6)).map(
-        ({ name, count, id }, index) => (
+      <StyledItemsWrapper $isActive={isItemsActive}>
+        {width <= 1024 && (
+          <StyledButton onClick={handleCheckAllCheckboxes}>
+            {isAnyChecked ? "Wyczyść" : "Zaznacz"}
+          </StyledButton>
+        )}
+        {(isMoreActive
+          ? items
+          : items.slice(0, width > 1024 ? 6 : undefined)
+        ).map(({ name, count, id }, index) => (
           <StyledItem key={id}>
             <Checkbox
               name={name}
@@ -138,10 +214,10 @@ const Filter = () => {
               )}
             />
           </StyledItem>
-        )
-      )}
+        ))}
+      </StyledItemsWrapper>
 
-      {items.length > 6 && (
+      {width > 1024 && items.length > 6 && (
         <ShowMoreButton onClick={handleMoreButtonClick}>
           <StyledIcon icon={angleIcon} $isActive={isMoreActive} />
           {isMoreActive ? "Zwiń" : "Pokaż więcej"}
@@ -151,8 +227,19 @@ const Filter = () => {
   );
 };
 
+Filter.propTypes = {
+  isItemsActive: PropTypes.bool,
+  handleHeaderClick: PropTypes.func,
+};
+
+Filter.defaultProps = {
+  isItemsActive: false,
+  handleHeaderClick: () => {},
+};
+
 /* eslint-disable no-var */
-var items = [...Array(8).keys()].map((key) => ({
+// eslint-disable-next-line vars-on-top
+var items = [...Array(15).keys()].map((key) => ({
   name: "Samsung",
   count: 58,
   id: key,

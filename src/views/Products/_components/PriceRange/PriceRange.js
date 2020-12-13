@@ -10,6 +10,10 @@ const StyledWrapper = styled.div`
   @media (max-width: 1420px) {
     width: 230px;
   }
+
+  @media (max-width: 1024px) {
+    width: 80%;
+  }
 `;
 
 const StyledTopWrapper = styled.div`
@@ -17,7 +21,7 @@ const StyledTopWrapper = styled.div`
 `;
 
 const StyledText = styled.span`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   margin-right: 30px;
 
   @media (max-width: 1420px) {

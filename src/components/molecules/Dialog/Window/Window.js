@@ -126,12 +126,12 @@ const StyledTitle = styled.h3`
 `;
 
 const StyledContentWrapper = styled.div`
-  max-height: calc(100vh - 240px);
+  height: calc(100vh - 240px);
   position: relative;
   overflow-y: auto;
 
   @media (max-width: 1024px) {
-    max-height: calc(100vh - 135px);
+    height: calc(100vh - 135px);
   }
 `;
 
@@ -139,7 +139,10 @@ const StyledContent = styled.div`
   position: relative;
 `;
 
-const BottomBarWrapper = styled.div``;
+const BottomBarWrapper = styled.div`
+  position: relative;
+  z-index: 25;
+`;
 
 const Overlay = styled.div`
   width: 100%;
@@ -208,7 +211,7 @@ Window.propTypes = {
   title: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   width: PropTypes.number,
-  bottomBar: PropTypes.node,
+  bottomBar: PropTypes.func,
 };
 
 Window.defaultProps = {

@@ -158,7 +158,7 @@ const Primary = ({
   informations,
   awards,
   discount,
-  props,
+  ...props
 }) => {
   const sortedAwards = useSortedAwards(awards);
   const { width } = useWindowSize();

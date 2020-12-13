@@ -55,10 +55,16 @@ const StyledLabel = styled.label`
   user-select: none;
 `;
 
-const Radio = ({ name, label, render, id }) => (
+const Radio = ({ name, label, render, id, checked, readOnly }) => (
   <StyledWrapper>
     <StyledInnerWrapper>
-      <StyledInput type="radio" name={name} id={id} />
+      <StyledInput
+        type="radio"
+        name={name}
+        id={id}
+        checked={checked}
+        readOnly={readOnly}
+      />
       <StyledCheckbox />
     </StyledInnerWrapper>
     <StyledLabel htmlFor={id}>{render ? render() : label}</StyledLabel>
@@ -67,14 +73,19 @@ const Radio = ({ name, label, render, id }) => (
 
 Radio.propTypes = {
   name: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  id: PropTypes.string,
   label: PropTypes.string,
   render: PropTypes.func,
+  checked: PropTypes.bool,
+  readOnly: PropTypes.bool,
 };
 
 Radio.defaultProps = {
   label: null,
   render: null,
+  checked: undefined,
+  id: undefined,
+  readOnly: false,
 };
 
 export default Radio;
