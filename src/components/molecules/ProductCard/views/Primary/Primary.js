@@ -158,6 +158,7 @@ const Primary = ({
   informations,
   awards,
   discount,
+  addToBasket,
   ...props
 }) => {
   const sortedAwards = useSortedAwards(awards);
@@ -218,7 +219,24 @@ const Primary = ({
               ))}
             </StyledInformationsWrapper>
           </div>
-          <Button icon={basketIcon}>Do koszyka</Button>
+          <Button
+            icon={basketIcon}
+            onClick={() =>
+              addToBasket({
+                name,
+                img,
+                attributes,
+                score,
+                reviewsCount,
+                price,
+                informations,
+                awards,
+                discount,
+              })
+            }
+          >
+            Do koszyka
+          </Button>
         </StyledThirdColumn>
       </StyledInnerWrapper>
     </StyledWrapper>

@@ -65,7 +65,34 @@ const StyledText = styled.span`
     `}
 `;
 
-const TextWithIcon = ({ text, icon, secondary, tertiary, ...props }) => {
+const StyledIconWrapper = styled.div`
+  position: relative;
+`;
+
+const StyledCount = styled.span`
+  ${({ theme }) => useFontSize(theme, "s")}
+  position: absolute;
+  background: ${({ theme }) => theme.primary};
+  color: #fff;
+  padding: 5px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  top: 0;
+  right: 0;
+  transform: translateX(-25%);
+`;
+
+const TextWithIcon = ({
+  text,
+  icon,
+  secondary,
+  tertiary,
+  productsCount,
+  ...props
+}) => {
   const iReg = RegExp(" i ");
 
   const testText = (name) => {
@@ -80,12 +107,18 @@ const TextWithIcon = ({ text, icon, secondary, tertiary, ...props }) => {
 
   return (
     <StyledWrapper {...props}>
-      {icon &&
-        (!secondary ? (
-          <StyledIcon icon={icon} $tertiary={tertiary} />
-        ) : (
-          <StyledSecondIcon icon={icon} />
-        ))}
+      {icon && (
+        <StyledIconWrapper>
+          {!secondary ? (
+            <>
+              <StyledIcon icon={icon} $tertiary={tertiary} />
+              {productsCount > 0 && <StyledCount>{productsCount}</StyledCount>}
+            </>
+          ) : (
+            <StyledSecondIcon icon={icon} />
+          )}
+        </StyledIconWrapper>
+      )}
       <StyledText $secondary={secondary} $tertiary={tertiary}>
         {testText(text)}
       </StyledText>
@@ -98,12 +131,14 @@ TextWithIcon.propTypes = {
   icon: PropTypes.object,
   secondary: PropTypes.bool,
   tertiary: PropTypes.bool,
+  productsCount: PropTypes.number,
 };
 
 TextWithIcon.defaultProps = {
   secondary: null,
   tertiary: null,
   icon: null,
+  productsCount: null,
 };
 
 export default TextWithIcon;

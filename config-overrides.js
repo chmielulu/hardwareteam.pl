@@ -17,6 +17,9 @@ module.exports = function override(config) {
     "@custom": "src/custom/",
     "@utils": "src/utils/",
     "@database": "src/database/",
+    "@actions": "src/actions/",
+    "@reducers": "src/reducers/",
+    "@store": "src/store/",
   })(config);
 
   config.entry = "./src/index.js";

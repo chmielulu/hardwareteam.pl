@@ -12,7 +12,10 @@
       "@routes/*": ["./src/routes/*"],
       "@custom/*": ["./src/custom/*"],
       "@utils/*": ["./src/utils/*"],
-      "@database/*": ["./src/database/*"]
+      "@database/*": ["./src/database/*"],
+      "@actions/*": ["./src/actions/*"],
+      "@store/*": ["./src/store/*"],
+      "@reducers/*": ["./src/reducers/*"]
     }
   },
   "exclude": ["node_modules", "build"]

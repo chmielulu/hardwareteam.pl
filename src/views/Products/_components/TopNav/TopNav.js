@@ -6,6 +6,7 @@ import Icon from "@iconify/react";
 import gridIcon from "@iconify/icons-oi/grid-four-up";
 import listIcon from "@iconify/icons-oi/list-rich";
 import { useSearchParameters } from "@hooks/utils";
+import { primary, secondary } from "@constants/kinds";
 import PriceRange from "../PriceRange/PriceRange";
 
 const StyledWrapper = styled.div`
@@ -114,14 +115,14 @@ const TopNav = ({
     <StyledWrapper>
       <StyledButtonsWrapper>
         <StyledButton
-          $isActive={activeGrid === "primary"}
-          onClick={activeGrid !== "primary" ? changeToPrimary : undefined}
+          $isActive={activeGrid === primary}
+          onClick={activeGrid !== primary ? changeToPrimary : undefined}
         >
           <StyledIcon title="Widok listy szczegółowej" icon={listIcon} />
         </StyledButton>
         <StyledButton
-          $isActive={activeGrid === "secondary"}
-          onClick={activeGrid !== "secondary" ? changeToSecondary : undefined}
+          $isActive={activeGrid === secondary}
+          onClick={activeGrid !== secondary ? changeToSecondary : undefined}
         >
           <StyledIcon title="Widok kafelków" icon={gridIcon} />
         </StyledButton>
@@ -168,7 +169,7 @@ TopNav.propTypes = {
   sort: PropTypes.func.isRequired,
   changeToPrimary: PropTypes.func.isRequired,
   changeToSecondary: PropTypes.func.isRequired,
-  activeGrid: PropTypes.string.isRequired,
+  activeGrid: PropTypes.oneOf([primary, secondary]).isRequired,
 };
 
 TopNav.defaultProps = {

@@ -11,7 +11,7 @@ import { useWindowSize } from "@hooks/utils";
 const StyledWrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   overflow: hidden;
   pointer-events: none;
   left: 0;
@@ -20,6 +20,7 @@ const StyledWrapper = styled.div`
   align-items: center;
   justify-content: center;
   padding: 40px 0;
+  z-index: 99999999;
 
   ${({ $isActive }) =>
     $isActive &&
@@ -126,11 +127,12 @@ const StyledTitle = styled.h3`
 `;
 
 const StyledContentWrapper = styled.div`
-  height: calc(100vh - 240px);
+  max-height: calc(100vh - 240px);
   position: relative;
   overflow-y: auto;
 
   @media (max-width: 1024px) {
+    max-height: unset;
     height: calc(100vh - 135px);
   }
 `;

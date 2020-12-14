@@ -15,6 +15,7 @@ import {
   useSortedProducts,
   useWindowSize,
 } from "@hooks/utils";
+import { primary, secondary } from "@constants/kinds";
 import TopNav from "./_components/TopNav/TopNav";
 import LeftNav from "./_components/LeftNav/LeftNav";
 import SEO from "./_components/SEO/SEO";
@@ -145,11 +146,11 @@ const ProductsView = () => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [pageNumber]);
 
-  const [activeGrid, setActiveGrid] = useState("primary");
+  const [activeGrid, setActiveGrid] = useState(primary);
   const { width } = useWindowSize();
 
-  const changeToPrimary = () => setActiveGrid("primary");
-  const changeToSecondary = () => setActiveGrid("secondary");
+  const changeToPrimary = () => setActiveGrid(primary);
+  const changeToSecondary = () => setActiveGrid(secondary);
 
   return (
     <MainTemplate>
@@ -213,7 +214,7 @@ const ProductsView = () => {
             )}
 
             {products && (
-              <StyledProductsWrapper $secondary={activeGrid === "secondary"}>
+              <StyledProductsWrapper $secondary={activeGrid === secondary}>
                 {products
                   .slice(ranges[0], ranges[1])
                   .map(({ featuredAttributes, ...props }, index) => (

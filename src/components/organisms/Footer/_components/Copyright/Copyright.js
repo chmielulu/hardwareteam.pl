@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { primary, secondary } from "@constants/kinds";
 import { useFluidSize, useFontSize } from "@hooks/styled-components";
 
 const StyledWrapper = styled.div`
@@ -17,6 +18,13 @@ const StyledWrapper = styled.div`
     margin-top: 30px;
     padding: 0 0 20px;
   }
+
+  ${({ $kind }) =>
+    $kind === secondary &&
+    css`
+      max-width: 1500px;
+      width: 90%;
+    `}
 `;
 
 const StyledInnerWrapper = styled.div`
@@ -31,6 +39,14 @@ const StyledInnerWrapper = styled.div`
     width: 100%;
     justify-content: center;
   }
+
+  ${({ $kind }) =>
+    $kind === secondary &&
+    css`
+      justify-content: center;
+      width: 100%;
+      max-width: unset;
+    `}
 `;
 
 const StyledText = styled.div`
@@ -71,19 +87,22 @@ const StyledImage = styled.img`
   }
 `;
 
-const Copyright = ({ copyrightImages }) => {
+const Copyright = ({ copyrightImages, kind }) => {
   return (
-    <StyledWrapper>
-      <StyledInnerWrapper>
+    <StyledWrapper $kind={kind}>
+      <StyledInnerWrapper $kind={kind}>
         <StyledText>
           Copyright 2020 - <StyledTextSpan>Hardware Team</StyledTextSpan> - All
           right reserved.
         </StyledText>
-        <StyledImagesWrapper>
-          {copyrightImages.map((image, index) => (
-            <StyledImage src={image} key={index} />
-          ))}
-        </StyledImagesWrapper>
+
+        {kind === primary && (
+          <StyledImagesWrapper>
+            {copyrightImages.map((image, index) => (
+              <StyledImage src={image} key={index} />
+            ))}
+          </StyledImagesWrapper>
+        )}
       </StyledInnerWrapper>
     </StyledWrapper>
   );
@@ -91,6 +110,11 @@ const Copyright = ({ copyrightImages }) => {
 
 Copyright.propTypes = {
   copyrightImages: PropTypes.array.isRequired,
+  kind: PropTypes.oneOf([primary, secondary]),
+};
+
+Copyright.defaultProps = {
+  kind: primary,
 };
 
 export default Copyright;

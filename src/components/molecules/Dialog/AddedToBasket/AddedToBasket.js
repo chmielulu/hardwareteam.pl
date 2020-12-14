@@ -11,6 +11,7 @@ import arrowIcon from "@iconify/icons-clarity/circle-arrow-line";
 import { Link } from "react-router-dom";
 import { useFontSize } from "@hooks/styled-components";
 import { useWindowSize } from "@hooks/utils";
+import routes from "@routes";
 import Window from "../Window/Window";
 
 const StyledWrapper = styled.div``;
@@ -214,11 +215,12 @@ function BottomBar({ onClose }) {
       )}
       <Button
         as={Link}
-        to="/"
+        to={routes.basket}
         icon={arrowIcon}
         position="right"
         rotateIcon={90}
         fullWidth={width <= 1024}
+        onClick={() => onClose()}
       >
         Przejdź do koszyka
       </Button>

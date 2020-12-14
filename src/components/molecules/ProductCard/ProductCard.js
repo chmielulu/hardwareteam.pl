@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { kinds as awardKinds } from "@components/atoms/Award/kinds";
+import { addToBasket as addToBasketAction } from "@actions";
+import { connect } from "react-redux";
+import { primary, secondary, allKinds } from "@constants/kinds";
 import PrimaryView from "./views/Primary/Primary";
 import SecondaryView from "./views/Secondary/Secondary";
 import TertiaryView from "./views/Tertiary/Tertiary";
@@ -19,6 +22,7 @@ const ProductCard = ({
   kind,
   render,
   size,
+  addToBasket,
   ...props
 }) => {
   const productLink = "/";
@@ -41,14 +45,32 @@ const ProductCard = ({
     allProps,
     render,
     size,
+    addToBasket,
     props,
   });
 };
 
-function getView({ kind, allProps, render = null, size, props } = {}) {
-  if (kind === "primary") return <PrimaryView {...allProps} {...props} />;
-  if (kind === "secondary")
-    return <SecondaryView size={size} {...allProps} {...props} />;
+function getView({
+  kind,
+  allProps,
+  render = null,
+  size,
+  addToBasket,
+  props,
+} = {}) {
+  if (kind === primary)
+    return <PrimaryView addToBasket={addToBasket} {...allProps} {...props} />;
+  if (kind === secondary)
+    return (
+      <SecondaryView
+        addToBasket={addToBasket}
+        {...allProps}
+        {...props}
+        size={size}
+        {...allProps}
+        {...props}
+      />
+    );
   if (kind === "tertiary")
     return (
       <TertiaryView render={render} size={size} {...allProps} {...props} />
@@ -71,14 +93,15 @@ ProductCard.propTypes = {
   informations: PropTypes.arrayOf(PropTypes.oneOf(informationKinds)),
   awards: PropTypes.arrayOf(PropTypes.oneOf(awardKinds)),
   discount: PropTypes.number,
-  kind: PropTypes.oneOf(["primary", "secondary", "tertiary"]),
+  kind: PropTypes.oneOf(allKinds),
   render: PropTypes.func,
   size: PropTypes.oneOf(["big", "normal", "small"]),
+  addToBasket: PropTypes.func,
 };
 
 ProductCard.defaultProps = {
   discount: null,
-  kind: "primary",
+  kind: primary,
   render: undefined,
   size: "normal",
   informations: null,
@@ -87,6 +110,11 @@ ProductCard.defaultProps = {
   reviewsCount: null,
   score: null,
   attributes: null,
+  addToBasket: null,
 };
 
-export default ProductCard;
+const mapDispatchToProps = (dispatch) => ({
+  addToBasket: (product) => dispatch(addToBasketAction(product)),
+});
+
+export default connect(null, mapDispatchToProps)(ProductCard);

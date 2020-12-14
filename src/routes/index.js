@@ -10,4 +10,5 @@ export default {
   notFound: "/404",
   article: articles,
   products: "/kategoria/:categoryId/:subCategoryId",
+  basket: "/koszyk",
 };

@@ -60,8 +60,8 @@ const StyledLabel = styled.label`
   user-select: none;
 `;
 
-const Checkbox = ({ name, label, render, id, checked, onChange }) => (
-  <StyledWrapper>
+const Checkbox = ({ name, label, render, id, checked, onChange, ...props }) => (
+  <StyledWrapper {...props}>
     <StyledInnerWrapper>
       <StyledInput
         type="checkbox"

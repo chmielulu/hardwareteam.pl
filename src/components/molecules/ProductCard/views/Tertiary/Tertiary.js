@@ -48,7 +48,9 @@ const StyledImg = styled.img`
   }
 `;
 
-const StyledContentColumn = styled.div``;
+const StyledContentColumn = styled.div`
+  flex: 1;
+`;
 
 const StyledName = styled.h3`
   ${({ theme }) => useFontSize(theme, "m", "l")}

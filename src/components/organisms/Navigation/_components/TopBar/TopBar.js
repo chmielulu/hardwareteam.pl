@@ -7,6 +7,7 @@ import helpIcon from "@iconify-icons/clarity/help-line";
 import heartIcon from "@iconify-icons/clarity/heart-line";
 import userIcon from "@iconify-icons/clarity/user-line";
 import basketIcon from "@iconify-icons/clarity/shopping-bag-line";
+import { connect } from "react-redux";
 import Link from "../StyledLink/StyledLink";
 import Search from "../Search/Search";
 import TextWithIcon from "../TextWithIcon/TextWithIcon";
@@ -109,7 +110,7 @@ const PopUpWrapper = styled.div`
   }
 `;
 
-const TopBar = ({ innerSizes }) => {
+const TopBar = ({ innerSizes, basket }) => {
   return (
     <StyledWrapper>
       <StyledLink to={routes.index}>
@@ -131,8 +132,12 @@ const TopBar = ({ innerSizes }) => {
           <StyledSecondLink to={routes.login}>
             <TextWithIcon icon={userIcon} text="Twoje konto" />
           </StyledSecondLink>
-          <StyledSecondLink to={routes.index}>
-            <TextWithIcon icon={basketIcon} text="Koszyk" />
+          <StyledSecondLink to={routes.basket}>
+            <TextWithIcon
+              icon={basketIcon}
+              text="Koszyk"
+              productsCount={basket.count}
+            />
           </StyledSecondLink>
         </TextWithIconsWrapper>
       )}
@@ -145,6 +150,12 @@ TopBar.propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
   }).isRequired,
+  basket: PropTypes.object.isRequired,
 };
 
-export default TopBar;
+const mapStateToProps = (state) => {
+  const { basket } = state;
+  return { basket };
+};
+
+export default connect(mapStateToProps)(TopBar);

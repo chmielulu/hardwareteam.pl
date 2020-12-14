@@ -42,6 +42,8 @@ const StyledHeadline = styled.h1`
     css`
       padding-left: 0;
       display: inline;
+      padding-top: 15px;
+      font-weight: 300;
 
       ::before,
       ::after {

@@ -7,6 +7,7 @@ import gridIcon from "@iconify/icons-oi/grid-four-up";
 import listIcon from "@iconify/icons-oi/list-rich";
 import filterIcon from "@iconify/icons-clarity/filter-line";
 import sortIcon from "@iconify/icons-clarity/two-way-arrows-line";
+import { primary, secondary } from "@constants/kinds";
 import FilterDialog from "../FilterDialog/FilterDialog";
 import SortDialog from "../SortDialog/SortDialog";
 
@@ -84,14 +85,10 @@ const MobileNav = ({
     <>
       <StyledWrapper>
         <ChangeLayoutButton
-          ariaLabel={
-            activeGrid === "primary" ? "Widok kafelków" : "Widok listy"
-          }
-          onClick={
-            activeGrid === "primary" ? changeToSecondary : changeToPrimary
-          }
+          ariaLabel={activeGrid === primary ? "Widok kafelków" : "Widok listy"}
+          onClick={activeGrid === primary ? changeToSecondary : changeToPrimary}
         >
-          <StyledIcon icon={activeGrid === "primary" ? gridIcon : listIcon} />
+          <StyledIcon icon={activeGrid === primary ? gridIcon : listIcon} />
         </ChangeLayoutButton>
         <SecondButton onClick={handleFilterClick}>
           <StyledIcon icon={filterIcon} />
@@ -125,7 +122,7 @@ const MobileNav = ({
 MobileNav.propTypes = {
   changeToSecondary: PropTypes.func.isRequired,
   changeToPrimary: PropTypes.func.isRequired,
-  activeGrid: PropTypes.string.isRequired,
+  activeGrid: PropTypes.oneOf([primary, secondary]).isRequired,
   minPrice: PropTypes.number.isRequired,
   maxPrice: PropTypes.number.isRequired,
   currentMinPrice: PropTypes.number,

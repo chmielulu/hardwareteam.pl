@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { primary, secondary } from "@constants/kinds";
 import BrandZone from "./_components/BrandZone/BrandZone";
 import Newsletter from "./_components/Newsletter/Newsletter";
 import Navigation from "./_components/Navigation/Navigation";
@@ -17,15 +18,26 @@ const StyledWrapper = styled.footer`
     width: 90%;
     margin: 30px auto;
   }
+
+  ${({ $kind }) =>
+    $kind === secondary &&
+    css`
+      margin: 0;
+      margin-bottom: 20px;
+    `}
 `;
 
-const Footer = ({ brands, copyrightImages }) => {
+const Footer = ({ brands, copyrightImages, kind }) => {
   return (
-    <StyledWrapper>
-      <BrandZone brands={brands} />
-      <Newsletter />
-      <Navigation />
-      <Copyright copyrightImages={copyrightImages} />
+    <StyledWrapper $kind={kind}>
+      {kind === primary && (
+        <>
+          <BrandZone brands={brands} />
+          <Newsletter />
+          <Navigation />
+        </>
+      )}
+      <Copyright copyrightImages={copyrightImages} kind={kind} />
     </StyledWrapper>
   );
 };
@@ -39,6 +51,11 @@ Footer.propTypes = {
     })
   ).isRequired,
   copyrightImages: PropTypes.array.isRequired,
+  kind: PropTypes.oneOf([primary, secondary]),
+};
+
+Footer.defaultProps = {
+  kind: primary,
 };
 
 export default Footer;

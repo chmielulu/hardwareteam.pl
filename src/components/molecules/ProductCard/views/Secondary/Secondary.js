@@ -175,6 +175,7 @@ const Secondary = ({
   discount,
   productLink,
   size,
+  addToBasket,
   ...props
 }) => {
   const shortenName = useShortenText(name, size === "small" ? 30 : 50);
@@ -197,7 +198,18 @@ const Secondary = ({
           </StyledScoreWrapper>
         </StyledInnerWrapper>
       </StyledLink>
-      <StyledBasketButton />
+      <StyledBasketButton
+        onClick={() =>
+          addToBasket({
+            name,
+            img,
+            score,
+            reviewsCount,
+            price,
+            discount,
+          })
+        }
+      />
     </StyledWrapper>
   );
 };

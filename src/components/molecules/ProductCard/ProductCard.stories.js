@@ -10,6 +10,7 @@ import {
   select,
 } from "@storybook/addon-knobs";
 import productImg from "@assets/images/huaweiPhone.png";
+import { primary, allKinds } from "@constants/kinds";
 import { StoryRouter } from "storybook-react-router";
 import ProductCard from "./ProductCard";
 
@@ -78,7 +79,7 @@ export const withProductCard = () => {
     { display: "check" }
   );
   const discount = number("Discount", undefined);
-  const kind = select("Kind", ["primary", "secondary", "tertiary"], "primary");
+  const kind = select("Kind", allKinds, primary);
   const size = select("Size", ["big", "normal", "small"], "normal");
 
   return (
