@@ -22,8 +22,12 @@ const StyledWrapper = styled.footer`
   ${({ $kind }) =>
     $kind === secondary &&
     css`
-      margin: 0;
+      margin-top: 0;
       margin-bottom: 20px;
+
+      @media (max-width: 1024px) {
+        margin-top: 0;
+      }
     `}
 `;
 

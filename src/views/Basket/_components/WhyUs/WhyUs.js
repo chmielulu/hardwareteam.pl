@@ -37,6 +37,7 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledItem = styled.div`
+  width: 30%;
   max-width: 450px;
 `;
 

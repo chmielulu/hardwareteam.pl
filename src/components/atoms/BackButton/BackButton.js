@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Icon from "@iconify/react";
 import arrowIcon from "@iconify/icons-clarity/circle-arrow-line";
@@ -24,12 +24,24 @@ const StyledIcon = styled(Icon)`
   transform: rotate(-90deg) !important;
 `;
 
-const BackButton = ({ to, children, onClick, ...props }) => (
-  <StyledLink to={to} onClick={onClick} {...props}>
-    <StyledIcon icon={arrowIcon} />
-    {children}
-  </StyledLink>
-);
+const BackButton = ({ to, children, onClick, ...props }) => {
+  const { goBack } = useHistory();
+
+  return (
+    <StyledLink
+      to={to}
+      onClick={(e) => {
+        e.preventDefault();
+        goBack();
+        if (onClick) onClick();
+      }}
+      {...props}
+    >
+      <StyledIcon icon={arrowIcon} />
+      {children}
+    </StyledLink>
+  );
+};
 
 BackButton.propTypes = {
   to: PropTypes.string.isRequired,

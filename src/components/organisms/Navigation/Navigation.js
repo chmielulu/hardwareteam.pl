@@ -71,15 +71,13 @@ const MobileNavWrapper = styled.div`
 
 function Navigation() {
   const [isDropDownActive, setDropDownActive] = useState(false);
+  const [isMobNavActive, setMobNavActive] = useState(false);
   const size = useWindowSize();
-
-  const [activeOption, setActiveOption] = useState(-1);
-  const handleItemClick = (index) => setActiveOption(index);
 
   useEffect(() => {
     const bodyStyle = document.body.style;
 
-    if (activeOption === 0) bodyStyle.overflow = "hidden";
+    if (isMobNavActive) bodyStyle.overflow = "hidden";
     else bodyStyle.overflow = "";
   });
 
@@ -96,16 +94,13 @@ function Navigation() {
         )}
         {size.width <= 1024 && (
           <>
-            <MobileNavWrapper isActive={activeOption === 0}>
-              <MobileNav
-                isActive={activeOption === 0}
-                categories={dummyContent}
-              />
+            <MobileNavWrapper isActive={isMobNavActive}>
+              <MobileNav isActive={isMobNavActive} categories={dummyContent} />
             </MobileNavWrapper>
             <MobileBar
               categories={dummyContent}
-              activeOption={activeOption}
-              handleItemClick={handleItemClick}
+              isMobNavActive={isMobNavActive}
+              setMobNavActive={setMobNavActive}
             />
           </>
         )}

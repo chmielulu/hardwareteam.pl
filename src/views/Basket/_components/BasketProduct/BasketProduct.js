@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { Input } from "@components/atoms";
 import { ProductCard } from "@components/molecules";
 import { tertiary } from "@constants/kinds";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
+import { useWindowSize } from "@hooks/utils";
 import formatPrice from "@utils/formatPrice";
 import Icon from "@iconify/react";
 import trashIcon from "@iconify/icons-clarity/trash-line";
@@ -29,6 +30,11 @@ const StyledWrapper = styled.div`
   :last-of-type {
     margin-bottom: 0;
   }
+
+  @media (max-width: 1024px) {
+    border-bottom: 1px solid ${({ theme }) => theme.lightGray};
+    padding-bottom: 20px;
+  }
 `;
 
 const StyledProduct = styled(ProductCard)`
@@ -36,8 +42,15 @@ const StyledProduct = styled(ProductCard)`
   margin-left: 10px;
 `;
 
+const StyledPriceWrapper = styled.div`
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
 const StyledPrice = styled.span`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 500;
 
   ${({ $isDiscount }) =>
@@ -45,14 +58,22 @@ const StyledPrice = styled.span`
     css`
       color: ${({ theme }) => theme.gray};
       text-decoration: line-through;
-      ${({ theme }) => useFontSize(theme, "s")}
+      ${({ theme }) => useFontSize(theme, "s", "xs")}
     `}
+
+  @media (max-width: 1024px) {
+    order: 0;
+  }
 `;
 
 const StyledDiscount = styled.span`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 500;
   margin-right: 10px;
+
+  @media (max-width: 1024px) {
+    order: 1;
+  }
 `;
 
 const StyledInput = styled(Input)`
@@ -63,12 +84,26 @@ const StyledInput = styled(Input)`
     padding: 10px 5px;
     text-align: center;
   }
+
+  @media (max-width: 1024px) {
+    width: ${useFluidSize({ min: 20, max: 40 })};
+    margin-right: 10px;
+
+    input {
+      padding: ${useFluidSize({ min: 5, max: 10 })} 5px;
+      border-radius: 5px;
+    }
+  }
 `;
 
 const StyledRender = styled.div`
   display: flex;
   padding-top: 10px;
   align-items: center;
+
+  @media (max-width: 620px) {
+    padding-top: 0;
+  }
 `;
 
 const StyledDeleteButton = styled.button`
@@ -94,6 +129,11 @@ const StyledDeleteButton = styled.button`
   :focus {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
   }
+
+  @media (max-width: 1024px) {
+    position: static;
+    margin-left: auto;
+  }
 `;
 
 const StyledIcon = styled(Icon)`
@@ -101,6 +141,14 @@ const StyledIcon = styled(Icon)`
 
   ${StyledDeleteButton}:hover & {
     color: #e85160;
+  }
+
+  @media (max-width: 1024px) {
+    font-size: ${useFluidSize({ min: 1.5, max: 2, unit: "rem" })};
+  }
+
+  @media (max-width: 360px) {
+    font-size: 1.5rem;
   }
 `;
 
@@ -113,6 +161,20 @@ const BasketProduct = ({
   removeProduct,
 }) => {
   const [count, setCount] = useState(countProp);
+  const { width } = useWindowSize();
+
+  useEffect(() => {
+    setCount(countProp);
+  }, [countProp]);
+
+  const DeleteButton = () => (
+    <StyledDeleteButton
+      aria-label="Usuń produkt z koszyka"
+      onClick={() => removeProduct({ name, count: countProp })}
+    >
+      <StyledIcon icon={trashIcon} />
+    </StyledDeleteButton>
+  );
 
   return (
     <StyledWrapper>
@@ -131,21 +193,19 @@ const BasketProduct = ({
               name={`${name}-count`}
               label="Count"
             />
-            {discount && (
-              <StyledDiscount>{formatPrice(discount)}</StyledDiscount>
-            )}
-            <StyledPrice $isDiscount={!!discount}>
-              {formatPrice(price)}
-            </StyledPrice>
+            <StyledPriceWrapper>
+              {discount && (
+                <StyledDiscount>{formatPrice(discount)}</StyledDiscount>
+              )}
+              <StyledPrice $isDiscount={!!discount}>
+                {formatPrice(price)}
+              </StyledPrice>
+            </StyledPriceWrapper>
+            {width <= 1024 && <DeleteButton />}
           </StyledRender>
         )}
       />
-      <StyledDeleteButton
-        aria-label="Usuń produkt z koszyka"
-        onClick={() => removeProduct({ name, count: countProp })}
-      >
-        <StyledIcon icon={trashIcon} />
-      </StyledDeleteButton>
+      {width > 1024 && <DeleteButton />}
     </StyledWrapper>
   );
 };

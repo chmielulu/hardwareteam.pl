@@ -8,8 +8,9 @@ import basketIcon from "@iconify-icons/clarity/shopping-bag-line";
 import searchIcon from "@iconify-icons/clarity/search-line";
 import { Icon } from "@iconify/react";
 import { Logo } from "@components/atoms";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import routes from "@routes/";
+import { connect } from "react-redux";
 
 const StyledWrapper = styled.nav`
   ${({ theme }) => useFontSize(theme, "xl")}
@@ -70,48 +71,98 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
+const StyledIconWrapper = styled.div`
+  position: relative;
+`;
+
 const StyledIcon = styled(Icon)`
   font-size: 2.8rem;
 `;
 
-const itemsArray = [
-  { icon: searchIcon },
-  { icon: basketIcon, link: routes.index },
-  { icon: heartIcon, link: routes.index },
-  { icon: userIcon, link: routes.login },
-];
+const StyledCount = styled.span`
+  ${({ theme }) => useFontSize(theme, "s", "m")}
+  position: absolute;
+  background: ${({ theme }) => theme.primary};
+  color: #fff;
+  padding: 0.4em;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  top: 0;
+  right: 0;
+  transform: translateX(25%);
+`;
 
-const MobileBar = ({ activeOption, handleItemClick }) => (
-  <>
-    <StyledWrapper>
-      <StyledList>
-        <StyledItem
-          onClick={() => handleItemClick(-1)}
-          active={activeOption === -1}
-        >
-          <StyledLink to={routes.index}>
-            <Logo withoutText size="35px" />
-          </StyledLink>
-        </StyledItem>
-        {itemsArray.map(({ icon, link }, index) => (
+const MobileBar = ({ isMobNavActive, setMobNavActive, basket }) => {
+  const { pathname } = useLocation();
+
+  const handleItemClick = () => {
+    if (isMobNavActive) setMobNavActive(false);
+  };
+
+  const handleNavClick = () => {
+    setMobNavActive(!isMobNavActive);
+  };
+
+  return (
+    <>
+      <StyledWrapper>
+        <StyledList>
           <StyledItem
-            key={index}
-            onClick={() => handleItemClick(index)}
-            active={activeOption === index}
+            onClick={handleItemClick}
+            active={pathname === routes.index && !isMobNavActive}
           >
-            <StyledLink to={link || undefined} as={!link ? "div" : undefined}>
-              <StyledIcon icon={icon} />
+            <StyledLink to={routes.index}>
+              <Logo withoutText size="35px" />
             </StyledLink>
           </StyledItem>
-        ))}
-      </StyledList>
-    </StyledWrapper>
-  </>
-);
-
-MobileBar.propTypes = {
-  activeOption: PropTypes.number.isRequired,
-  handleItemClick: PropTypes.func.isRequired,
+          <StyledItem onClick={handleNavClick} active={isMobNavActive}>
+            <StyledIcon icon={searchIcon} />
+          </StyledItem>
+          <StyledItem
+            onClick={handleItemClick}
+            active={pathname === routes.basket && !isMobNavActive}
+          >
+            <StyledLink to={routes.basket}>
+              <StyledIconWrapper>
+                <StyledIcon icon={basketIcon} />
+                {basket.count > 0 && <StyledCount>{basket.count}</StyledCount>}
+              </StyledIconWrapper>
+            </StyledLink>
+          </StyledItem>
+          <StyledItem
+            onClick={handleItemClick}
+            active={pathname === routes.login && !isMobNavActive}
+          >
+            <StyledLink to={routes.login}>
+              <StyledIcon icon={heartIcon} />
+            </StyledLink>
+          </StyledItem>
+          <StyledItem
+            onClick={handleItemClick}
+            active={pathname === routes.login && !isMobNavActive}
+          >
+            <StyledLink to={routes.login}>
+              <StyledIcon icon={userIcon} />
+            </StyledLink>
+          </StyledItem>
+        </StyledList>
+      </StyledWrapper>
+    </>
+  );
 };
 
-export default MobileBar;
+MobileBar.propTypes = {
+  isMobNavActive: PropTypes.bool.isRequired,
+  setMobNavActive: PropTypes.func.isRequired,
+  basket: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const { basket } = state;
+  return { basket };
+};
+
+export default connect(mapStateToProps)(MobileBar);

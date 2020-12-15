@@ -10,6 +10,8 @@ import trashIcon from "@iconify/icons-clarity/trash-line";
 import { Headline, BackButton } from "@components/atoms";
 import { ProductCard, CustomSwiper } from "@components/molecules";
 import { removeAllFromBasket as removeAllFromBasketAction } from "@actions";
+import routes from "@routes";
+import { useWindowSize } from "@hooks/utils";
 import EmptyBasket from "./_components/EmptyBasket/EmptyBasket";
 import IconTextButton from "./_components/IconTextButton/IconTextButton";
 import BasketProduct from "./_components/BasketProduct/BasketProduct";
@@ -28,6 +30,10 @@ const StyledInnerWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;
 
 const StyledLeftColumn = styled.div`
@@ -36,6 +42,11 @@ const StyledLeftColumn = styled.div`
 
 const StyledRightColumn = styled.div`
   margin-left: 30px;
+
+  @media (max-width: 1024px) {
+    margin-left: 0;
+    margin-top: 20px;
+  }
 `;
 
 const StyledNavigation = styled.div`
@@ -46,18 +57,39 @@ const StyledNavigation = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
   padding: 0 10px;
   padding-bottom: 20px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: flex-start;
+    border-bottom: 0;
+    padding: 0;
+  }
 `;
 
 const StyledHeadline = styled.h2`
-  ${({ theme }) => useFontSize(theme, "l")}
+  ${({ theme }) => useFontSize(theme, "l", "xl")}
   font-weight: 300;
 
   span {
     color: ${({ theme }) => theme.gray};
   }
+
+  @media (max-width: 1024px) {
+    margin-bottom: 15px;
+    padding: 0 10px;
+  }
 `;
 
-const StyledButtonsWrapper = styled.div``;
+const StyledButtonsWrapper = styled.div`
+  @media (max-width: 1024px) {
+    border-top: 1px solid ${({ theme }) => theme.lightGray};
+    border-bottom: 1px solid ${({ theme }) => theme.lightGray};
+    width: 100%;
+    padding: 0 10px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+`;
 
 const StyledProductsWrapper = styled.div`
   width: 100%;
@@ -66,12 +98,21 @@ const StyledProductsWrapper = styled.div`
 
 const StyledSection = styled.div`
   margin-top: 60px;
+
+  @media (max-width: 1024px) {
+    margin-top: 30px;
+  }
 `;
 
 const StyledSliderWrapper = styled.div`
   margin: 0 auto;
   margin-top: 30px;
   width: 90%;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    margin-top: 10px;
+  }
 `;
 
 const StyledBackButton = styled(BackButton)`
@@ -80,6 +121,7 @@ const StyledBackButton = styled(BackButton)`
 `;
 
 const Basket = ({ basket, removeAllProducts }) => {
+  const { width } = useWindowSize();
   return (
     <MainTemplate footerKind={secondary}>
       <StyledWrapper>
@@ -126,8 +168,14 @@ const Basket = ({ basket, removeAllProducts }) => {
               </StyledRightColumn>
             </StyledInnerWrapper>
 
-            <StyledBackButton>Wróć do zakupów</StyledBackButton>
-            <WhyUs />
+            {width > 1024 && (
+              <>
+                <StyledBackButton to={routes.index}>
+                  Wróć do zakupów
+                </StyledBackButton>
+                <WhyUs />
+              </>
+            )}
           </>
         ) : (
           <EmptyBasket />

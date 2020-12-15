@@ -37,6 +37,10 @@ const StyledHeadline = styled.h1`
       }
     `}
 
+  @media (max-width: 1024px) {
+    padding: 0 0 15px 5px;
+  }
+
   ${({ $kind, theme }) =>
     $kind === secondary &&
     css`
@@ -63,6 +67,10 @@ const StyledHeadline = styled.h1`
         background: ${theme.lightGray};
         border-radius: 0 2px 2px 0;
       }
+
+      @media (max-width: 1024px) {
+        padding-top: 10px;
+      }
     `}
 
   ${({ $kind }) =>
@@ -71,10 +79,6 @@ const StyledHeadline = styled.h1`
       padding: 0;
     }
   `}
-
-  @media (max-width: 1024px) {
-    padding: 0 0 15px 5px;
-  }
 `;
 
 const Headline = ({ kind, fontSize, mobileFontSize, children }) => (

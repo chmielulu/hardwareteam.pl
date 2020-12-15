@@ -30,6 +30,10 @@ export default (timestamp) => {
 
     setTimeRemaining();
     const timeinterval = setInterval(setTimeRemaining, 1000);
+
+    return () => {
+      clearInterval(timeinterval);
+    };
   }, [timestamp]);
 
   return [hours, minutes, seconds];
