@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import TextWithIcon from "../TextWithIcon/TextWithIcon";
@@ -11,6 +11,8 @@ const StyledWrapper = styled.nav`
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
   padding: 0 12px;
   background: #fff;
+  display: flex;
+  justify-content: center;
 
   @media (max-width: 1752px) {
     height: 50px;
@@ -19,7 +21,7 @@ const StyledWrapper = styled.nav`
 
 const StyledListWrapper = styled.ul`
   align-items: center;
-  display: flex;
+  display: inline-flex;
   list-style-type: none;
   justify-content: center;
   height: 100%;
@@ -72,21 +74,52 @@ const StyledListItemLink = styled(Link)`
 
 const BottomBar = ({ categories, isDropDownActive, setDropDownActive }) => {
   const [activeOption, setActiveOption] = useState(0);
-  const handleMouseOver = (index) => {
+  const [delayHandler, setDelayHandler] = useState(null);
+  const [preventDelay, setPreventDelay] = useState(false);
+  const wrapper = useRef(null);
+
+  const handleMouseEnter = (index) => {
     setActiveOption(index);
-    setDropDownActive(true);
+
+    if (!preventDelay) {
+      setDelayHandler(
+        setTimeout(() => {
+          setDropDownActive(true);
+          setPreventDelay(true);
+        }, 300)
+      );
+    } else {
+      setDropDownActive(true);
+    }
   };
-  const handleMouseOut = () => setDropDownActive(false);
+
+  const handleMouseLeave = ({ relatedTarget }) => {
+    if (delayHandler) {
+      clearTimeout(delayHandler);
+      setDelayHandler(null);
+    }
+
+    if (
+      relatedTarget === wrapper.current ||
+      wrapper.current.contains(relatedTarget)
+    ) {
+      setPreventDelay(true);
+    } else {
+      setPreventDelay(false);
+    }
+
+    setDropDownActive(false);
+  };
 
   return (
     <StyledWrapper>
-      <StyledListWrapper>
+      <StyledListWrapper ref={wrapper}>
         {categories.map(
           ({ name, icon, featuredProduct, subcategories, link }, index) => (
             <StyledListItem
               key={index}
-              onMouseOver={() => handleMouseOver(index)}
-              onMouseOut={handleMouseOut}
+              onMouseEnter={() => handleMouseEnter(index)}
+              onMouseLeave={handleMouseLeave}
             >
               <StyledListItemLink to={link}>
                 <TextWithIcon icon={icon} text={name} secondary />
