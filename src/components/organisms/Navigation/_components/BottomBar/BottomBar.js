@@ -100,8 +100,10 @@ const BottomBar = ({ categories, isDropDownActive, setDropDownActive }) => {
     }
 
     if (
-      relatedTarget === wrapper.current ||
-      wrapper.current.contains(relatedTarget)
+      // eslint-disable-next-line no-undef
+      relatedTarget instanceof HTMLElement &&
+      (relatedTarget === wrapper.current ||
+        wrapper.current.contains(relatedTarget))
     ) {
       setPreventDelay(true);
     } else {
