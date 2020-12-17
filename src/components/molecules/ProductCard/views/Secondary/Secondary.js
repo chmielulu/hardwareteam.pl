@@ -176,6 +176,7 @@ const Secondary = ({
   productLink,
   size,
   addToBasket,
+  titleAs,
   ...props
 }) => {
   const shortenName = useShortenText(name, size === "small" ? 30 : 50);
@@ -191,7 +192,9 @@ const Secondary = ({
               <StyledDiscount>{formatPrice(discount)}</StyledDiscount>
             )}
           </StyledPrice>
-          <StyledName $size={size}>{shortenName}</StyledName>
+          <StyledName $size={size} as={titleAs || undefined}>
+            {shortenName}
+          </StyledName>
           <StyledScoreWrapper>
             <StyledScore score={score} />
             <StyledReviewsCounter>({reviewsCount})</StyledReviewsCounter>

@@ -18,6 +18,7 @@ import ToolBox from "./ToolBox/ToolBox";
 import Spinner from "./Spinner/Spinner";
 import ArrowButton from "./ArrowButton/ArrowButton";
 import SocialButton from "./SocialButton/SocialButton";
+import Information from "./Information/Information";
 
 export {
   Attribute,
@@ -40,4 +41,5 @@ export {
   Spinner,
   ArrowButton,
   SocialButton,
+  Information,
 };

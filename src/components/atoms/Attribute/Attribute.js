@@ -15,7 +15,6 @@ const StyledName = styled.span`
 `;
 
 const StyledValue = styled.span`
-  user-select: none;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -11,4 +11,5 @@ export default {
   article: articles,
   products: "/kategoria/:categoryId/:subCategoryId",
   basket: "/koszyk",
+  product: "/produkt/:productId",
 };

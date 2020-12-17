@@ -4,10 +4,10 @@ import { kinds as awardKinds } from "@components/atoms/Award/kinds";
 import { addToBasket as addToBasketAction } from "@actions";
 import { connect } from "react-redux";
 import { primary, secondary, allKinds } from "@constants/kinds";
+import { kinds as informationKinds } from "@components/atoms/Information/kinds";
 import PrimaryView from "./views/Primary/Primary";
 import SecondaryView from "./views/Secondary/Secondary";
 import TertiaryView from "./views/Tertiary/Tertiary";
-import { kinds as informationKinds } from "./_components/Information/kinds";
 
 const ProductCard = ({
   name,
@@ -23,9 +23,10 @@ const ProductCard = ({
   render,
   size,
   addToBasket,
+  titleAs,
   ...props
 }) => {
-  const productLink = "/";
+  const productLink = "/produkt/test";
 
   const allProps = {
     name,
@@ -38,6 +39,7 @@ const ProductCard = ({
     awards,
     discount,
     productLink,
+    titleAs,
   };
 
   return getView({
@@ -97,6 +99,7 @@ ProductCard.propTypes = {
   render: PropTypes.func,
   size: PropTypes.oneOf(["big", "normal", "small"]),
   addToBasket: PropTypes.func,
+  titleAs: PropTypes.string,
 };
 
 ProductCard.defaultProps = {
@@ -111,6 +114,7 @@ ProductCard.defaultProps = {
   score: null,
   attributes: null,
   addToBasket: null,
+  titleAs: null,
 };
 
 const mapDispatchToProps = (dispatch) => ({

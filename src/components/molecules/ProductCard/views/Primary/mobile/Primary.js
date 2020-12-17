@@ -6,7 +6,8 @@ import { useSortedAwards } from "@hooks/utils";
 import { Award, Attribute, Score, Button } from "@components/atoms";
 import basketIcon from "@iconify/icons-clarity/shopping-cart-line";
 import formatPrice from "@utils/formatPrice";
-import Information from "../../../_components/Information/Information";
+import { Information } from "@components/atoms/";
+import { Link } from "react-router-dom";
 
 const StyledWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
@@ -101,6 +102,11 @@ const StyledInformation = styled(Information)`
   margin-bottom: 10px;
 `;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
+
 const Primary = ({
   name,
   img,
@@ -125,13 +131,17 @@ const Primary = ({
           ))}
         </StyledAwardsWrapper>
       )}
-      <StyledHeadline>{name}</StyledHeadline>
+      <StyledLink to="/produkt/test">
+        <StyledHeadline>{name}</StyledHeadline>
+      </StyledLink>
       <StyledScoreWrapper>
         <StyledScore score={score} />
         <StyledReviewsCounter>({reviewsCount})</StyledReviewsCounter>
       </StyledScoreWrapper>
       <StyledPhotoWrapper>
-        <StyledPhoto src={img} alt={name} />
+        <StyledLink to="/produkt/test">
+          <StyledPhoto src={img} alt={name} />
+        </StyledLink>
       </StyledPhotoWrapper>
       <StyledPrice>
         {discount && <StyledDiscount>{formatPrice(discount)}</StyledDiscount>}

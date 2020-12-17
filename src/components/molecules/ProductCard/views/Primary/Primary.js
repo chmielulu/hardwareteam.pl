@@ -6,9 +6,10 @@ import { Award, Attribute, Score, Button } from "@components/atoms";
 import basketIcon from "@iconify/icons-clarity/shopping-cart-line";
 import { useSortedAwards, useWindowSize } from "@hooks/utils";
 import formatPrice from "@utils/formatPrice";
+import { Information } from "@components/atoms/";
+import { Link } from "react-router-dom";
 import MobilePrimary from "./mobile/Primary";
 import ComparedButton from "../../_components/ComparedButton/ComparedButton";
-import Information from "../../_components/Information/Information";
 
 const StyledWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
@@ -144,6 +145,15 @@ const StyledDiscount = styled.div`
 
 const StyledInformationsWrapper = styled.div``;
 
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
 const StyledInformation = styled(Information)`
   margin-bottom: 10px;
 `;
@@ -181,10 +191,14 @@ const Primary = ({
     );
   return (
     <StyledWrapper {...props}>
-      <StyledHeadline>{name}</StyledHeadline>
+      <StyledLink to="/produkt/test">
+        <StyledHeadline>{name}</StyledHeadline>
+      </StyledLink>
       <StyledInnerWrapper>
         <StyledFirstColumn>
-          <StyledPhoto src={img} alt={name} />
+          <StyledLink to="/produkt/test">
+            <StyledPhoto src={img} alt={name} />
+          </StyledLink>
           <ComparedButton />
         </StyledFirstColumn>
         <StyledSecondColumn>

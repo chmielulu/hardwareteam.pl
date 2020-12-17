@@ -18,6 +18,7 @@ import View404 from "./404/404";
 import ArticleView from "./Article/Article";
 import ProductsView from "./Products/Products";
 import BasketView from "./Basket/Basket";
+import ProductView from "./Product/Product";
 
 const Root = () => {
   const { store, persistor } = createStore();
@@ -48,6 +49,9 @@ const Root = () => {
               </Route>
               <Route exact path={routes.basket}>
                 <BasketView />
+              </Route>
+              <Route exact path={routes.product}>
+                <ProductView />
               </Route>
               <Route path={routes.notFound}>
                 <View404 />
