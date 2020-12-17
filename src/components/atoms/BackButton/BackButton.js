@@ -31,9 +31,10 @@ const BackButton = ({ to, children, onClick, ...props }) => {
     <StyledLink
       to={to}
       onClick={(e) => {
-        e.preventDefault();
-        goBack();
-        if (onClick) onClick();
+        if (!onClick) {
+          e.preventDefault();
+          goBack();
+        } else onClick(e);
       }}
       {...props}
     >
