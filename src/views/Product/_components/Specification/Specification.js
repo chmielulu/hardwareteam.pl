@@ -233,9 +233,9 @@ const StyledContent = styled.p`
   }
 `;
 
-const Specification = () => {
+const Specification = React.forwardRef((_, ref) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper ref={ref}>
       <Headline as="h3" kind={secondary}>
         Specyfikacja
       </Headline>
@@ -253,6 +253,6 @@ const Specification = () => {
       </StyledTable>
     </StyledWrapper>
   );
-};
+});
 
 export default Specification;

@@ -375,7 +375,7 @@ const StyledScoreAndStatisticWrapper = styled.div`
   }
 `;
 
-const Reviews = () => {
+const Reviews = React.forwardRef((_, ref) => {
   const [maxReviews, setMaxReviews] = useState(4);
   const { width } = useWindowSize();
 
@@ -402,7 +402,7 @@ const Reviews = () => {
   };
 
   return (
-    <StyledWrapper>
+    <StyledWrapper ref={ref}>
       <Headline as="h3" kind={secondary}>
         Opinie
       </Headline>
@@ -513,6 +513,6 @@ const Reviews = () => {
       </StyledReviewsWrapper>
     </StyledWrapper>
   );
-};
+});
 
 export default Reviews;

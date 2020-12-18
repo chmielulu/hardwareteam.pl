@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import MainTemplate from "@templates/MainTemplate";
@@ -21,6 +21,7 @@ import formatPrice from "@utils/formatPrice";
 import { Img } from "react-image";
 import { connect } from "react-redux";
 import { addToBasket as addToBasketAction } from "@actions";
+import scrollTo from "@utils/scrollToElement";
 import DotNavigation from "./_components/DotNavigation/DotNavigation";
 import Navigation from "./_components/Navigation/Navigation";
 import Description from "./_components/Description/Description";
@@ -187,7 +188,8 @@ const StyledAttribute = styled(Attribute)`
 
 const StyledProductVariants = styled.div`
   display: flex;
-  margin-top: 15px;
+  margin-top: 10px;
+  flex-wrap: wrap;
 `;
 
 const StyledProductVariantWrapper = styled.div`
@@ -200,6 +202,7 @@ const StyledProductVariantWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 5px;
+  margin-top: 5px;
 
   :nth-of-type(2) {
     border: 2px solid ${({ theme }) => theme.primary};
@@ -444,6 +447,11 @@ const Product = ({ addToBasket }) => {
     }
   };
 
+  const description = useRef();
+  const specification = useRef();
+  const accessories = useRef();
+  const reviews = useRef();
+
   return (
     <MainTemplate>
       <StyledWrapper>
@@ -488,7 +496,14 @@ const Product = ({ addToBasket }) => {
                 <StyledScore score={5} />
                 <StyledScoreText>5/5</StyledScoreText>
               </StyledScoreInnerWrapper>
-              <StyledScoreLink href="#">Zobacz 2 opinie</StyledScoreLink>
+              <StyledScoreLink
+                href="#"
+                onClick={(e) => {
+                  scrollTo(reviews, e, { yOffset: 280 });
+                }}
+              >
+                Zobacz 2 opinie
+              </StyledScoreLink>
             </StyledScoreWrapper>
             <StyledAttributesWrapper>
               <StyledAttributesHeadline>
@@ -515,7 +530,12 @@ const Product = ({ addToBasket }) => {
                 <StyledProductVariant src={greenImg} alt="Zielony" />
               </StyledProductVariantWrapper>
             </StyledProductVariants>
-            <StyledAttributesLink href="#">
+            <StyledAttributesLink
+              href="#"
+              onClick={(e) => {
+                scrollTo(specification, e, { yOffset: 280 });
+              }}
+            >
               Zobacz wszystkie parametry
             </StyledAttributesLink>
           </StyledFirstColumn>
@@ -588,11 +608,13 @@ const Product = ({ addToBasket }) => {
           </StyledImagesWrapper>
         )}
 
-        <Navigation />
-        <Description />
-        <Specification />
-        <Recommended />
-        <Reviews />
+        <Navigation
+          allSections={{ description, specification, accessories, reviews }}
+        />
+        <Description ref={description} />
+        <Specification ref={specification} />
+        <Recommended ref={accessories} />
+        <Reviews ref={reviews} />
       </StyledWrapper>
     </MainTemplate>
   );

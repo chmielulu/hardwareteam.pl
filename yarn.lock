@@ -1752,6 +1752,11 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
+"@rooks/use-visibility-sensor@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@rooks/use-visibility-sensor/-/use-visibility-sensor-4.5.0.tgz#bba3e46272c2bd694c248e754a6b663019d6484b"
+  integrity sha512-Ibxr2AiE1xOZ+W3r9Ot8bgl0CaeAEFfU8H2Qhn3sC1sl23EvgBjU+5p5NW4liAej/83Ds4JQSfkzuMRdCfC67g==
+
 "@sinonjs/commons@^1.7.0":
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.8.1.tgz#e7df00f98a203324f6dc7cc606cad9d4a8ab2217"

@@ -190,9 +190,9 @@ const StyledImg = styled(Img)`
   }
 `;
 
-const Description = () => {
+const Description = React.forwardRef((_, ref) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper ref={ref}>
       {items.map(({ icon, headline, content, img }, index) => (
         <StyledItem key={index}>
           <StyledIcon icon={icon} />
@@ -205,6 +205,6 @@ const Description = () => {
       ))}
     </StyledWrapper>
   );
-};
+});
 
 export default Description;

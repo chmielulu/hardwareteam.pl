@@ -22,9 +22,9 @@ const StyledSliderWrapper = styled.div`
   margin-top: 30px;
 `;
 
-const Recommended = () => {
+const Recommended = React.forwardRef((_, ref) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper ref={ref}>
       <Headline as="h3" kind={secondary}>
         Rekomendowane akcesoria
       </Headline>
@@ -37,6 +37,6 @@ const Recommended = () => {
       </StyledSliderWrapper>
     </StyledWrapper>
   );
-};
+});
 
 export default Recommended;
