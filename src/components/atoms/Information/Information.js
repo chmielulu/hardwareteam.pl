@@ -26,7 +26,7 @@ const StyledText = styled.span`
 `;
 
 const StyledLink = styled(Link)`
-  ${({ theme }) => useFontSize(theme, "s")};
+  ${({ theme }) => useFontSize(theme, "s", "m")};
   text-decoration: none;
   color: ${({ theme }) => theme.gray};
   display: block;

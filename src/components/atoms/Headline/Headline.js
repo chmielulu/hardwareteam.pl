@@ -81,11 +81,12 @@ const StyledHeadline = styled.h1`
   `}
 `;
 
-const Headline = ({ kind, fontSize, mobileFontSize, children }) => (
+const Headline = ({ kind, fontSize, mobileFontSize, children, ...props }) => (
   <StyledHeadline
     $kind={kind}
     $fontSize={fontSize}
     $mobileFontSize={mobileFontSize}
+    {...props}
   >
     {children}
   </StyledHeadline>

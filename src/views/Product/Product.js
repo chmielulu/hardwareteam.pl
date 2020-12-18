@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import MainTemplate from "@templates/MainTemplate";
 import {
@@ -11,12 +12,16 @@ import {
   Information,
   Spinner,
 } from "@components/atoms";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
+import { useWindowSize } from "@hooks/utils";
 import Icon from "@iconify/react";
 import arrowIcon from "@iconify/icons-clarity/arrow-line";
 import basketIcon from "@iconify/icons-clarity/shopping-cart-line";
 import formatPrice from "@utils/formatPrice";
 import { Img } from "react-image";
+import { connect } from "react-redux";
+import { addToBasket as addToBasketAction } from "@actions";
+import DotNavigation from "./_components/DotNavigation/DotNavigation";
 import Navigation from "./_components/Navigation/Navigation";
 import Description from "./_components/Description/Description";
 import Specification from "./_components/Specification/Specification";
@@ -45,16 +50,62 @@ const StyledHeadline = styled.h2`
   ${({ theme }) => useFontSize(theme, "xl")}
   margin-top: 40px;
   font-weight: 400;
+
+  @media (max-width: 1420px) {
+    margin-top: 0;
+  }
 `;
 
 const StyledInnerWrapper = styled.div`
   margin-top: 20px;
   display: flex;
   align-items: flex-start;
+
+  @media (max-width: 1420px) {
+    display: grid;
+    align-items: unset;
+    border-bottom: 1px solid ${({ theme }) => theme.lightGray};
+    padding-bottom: 40px;
+  }
+
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 20px;
+  }
 `;
 
 const StyledFirstColumn = styled.div`
-  width: 400px;
+  width: 320px;
+
+  @media (max-width: 1420px) {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const StyledAwardsWrapper = styled.div`
+  @media (max-width: 1420px) {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 1024px) {
+    display: inline-flex;
+    width: calc(100% + 20px);
+    flex-wrap: wrap;
+    margin: 20px 0 10px -20px;
+  }
 `;
 
 const StyledAward = styled(Award)`
@@ -63,10 +114,23 @@ const StyledAward = styled(Award)`
   :last-of-type {
     margin-bottom: 0;
   }
+
+  @media (max-width: 1420px) {
+    margin-bottom: 0;
+    margin-right: 15px;
+  }
+
+  @media (max-width: 1024px) {
+    margin: 8px 0 0 20px;
+  }
 `;
 
 const StyledScoreWrapper = styled.div`
   margin-top: 20px;
+
+  @media (max-width: 1024px) {
+    order: 1;
+  }
 `;
 
 const StyledScoreInnerWrapper = styled.div`
@@ -76,6 +140,14 @@ const StyledScoreInnerWrapper = styled.div`
 
 const StyledScore = styled(Score)`
   width: 115px;
+
+  @media (max-width: 1024px) {
+    width: ${useFluidSize({ min: 100, max: 115 })};
+  }
+
+  @media (max-width: 360px) {
+    width: 100px;
+  }
 `;
 
 const StyledScoreText = styled.span`
@@ -85,7 +157,7 @@ const StyledScoreText = styled.span`
 `;
 
 const StyledScoreLink = styled.a`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   display: block;
   color: #f7b000;
   margin-top: 5px;
@@ -93,10 +165,14 @@ const StyledScoreLink = styled.a`
 
 const StyledAttributesWrapper = styled.div`
   margin-top: 20px;
+
+  @media (max-width: 1024px) {
+    margin-top: 0;
+  }
 `;
 
 const StyledAttributesHeadline = styled.h3`
-  ${({ theme }) => useFontSize(theme, "l")}
+  ${({ theme }) => useFontSize(theme, "l", "xl")}
   font-weight: 400;
   margin-bottom: 10px;
 `;
@@ -136,24 +212,51 @@ const StyledProductVariant = styled.img`
 `;
 
 const StyledAttributesLink = styled.a`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   margin-top: 20px;
   color: ${({ theme }) => theme.primary};
   display: flex;
 `;
 
 const StyledSecondColumn = styled.div`
-  margin: auto auto 0;
-`;
+  margin: 40px 60px 0;
+  flex: 1;
 
-const StyledActiveImageWrapper = styled.div`
-  display: flex;
-  align-items: center;
+  @media (max-width: 1620px) {
+    margin: 40px 40px 0;
+  }
+
+  @media (max-width: 1520px) {
+    margin: 40px auto auto;
+    display: flex;
+    justify-content: center;
+  }
+
+  @media (max-width: 1420px) {
+    grid-column: 1 / 4;
+    grid-row: 1 / 2;
+    margin: 40px 0;
+    flex-direction: column;
+    border-bottom: 1px solid ${({ theme }) => theme.lightGray};
+    padding-bottom: 40px;
+  }
+
+  @media (max-width: 1024px) {
+    order: -1;
+    width: 100%;
+    margin: 20px 0;
+    padding-bottom: 20px;
+  }
 `;
 
 const StyledActiveImage = styled.img`
-  max-width: 480px;
-  max-height: 460px;
+  width: 460px;
+  height: 460px;
+
+  @media (max-width: 1024px) {
+    width: ${useFluidSize({ min: 220, max: 460 })};
+    height: ${useFluidSize({ min: 220, max: 460 })};
+  }
 `;
 
 const StyledArrowButton = styled.button`
@@ -164,11 +267,31 @@ const StyledArrowButton = styled.button`
   outline: none;
 
   :first-of-type {
-    margin-right: 80px;
+    margin-right: auto;
   }
 
   :last-of-type {
-    margin-left: 80px;
+    margin-left: auto;
+  }
+`;
+
+const StyledActiveImageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  ${StyledArrowButton} {
+    @media (max-width: 1520px) {
+      display: none;
+    }
+
+    @media (max-width: 1420px) {
+      display: block;
+    }
+  }
+
+  @media (max-width: 1420px) {
+    width: 100%;
+    padding: 0 20px;
   }
 `;
 
@@ -182,25 +305,51 @@ const StyledArrowIcon = styled(Icon)`
   ${StyledArrowButton}:last-of-type & {
     transform: rotate(90deg) !important;
   }
+
+  @media (max-width: 1024px) {
+    font-size: ${useFluidSize({ min: 3, max: 4, unit: "rem" })};
+  }
+
+  @media (max-width: 360px) {
+    font-size: 3rem;
+  }
 `;
 
 const StyledThirdColumn = styled.div`
   border: 1px solid ${({ theme }) => theme.lightGray};
-  margin-left: auto;
   padding: 35px 35px 50px;
   border-radius: 10px;
+
+  @media (max-width: 1420px) {
+    grid-column: 3 / 4;
+    grid-row: 2 / 3;
+  }
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    border: 0;
+    padding: 0;
+  }
 `;
 
 const StyledPrice = styled.div`
-  ${({ theme }) => useFontSize(theme, "xl")}
+  ${({ theme }) => useFontSize(theme, "xl", "xxl")}
   font-weight: 500;
   margin-bottom: 20px;
+
+  @media (max-width: 1024px) {
+    margin-top: 15px;
+  }
 `;
 
 const StyledProductActionWrapper = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 40px;
+
+  @media (max-width: 1024px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const StyledInput = styled(Input)`
@@ -209,6 +358,7 @@ const StyledInput = styled(Input)`
 
   input {
     text-align: center;
+    ${({ theme }) => useFontSize(theme, "m", "l")}
   }
 `;
 
@@ -224,6 +374,13 @@ const StyledInformation = styled(Information)`
   :last-of-type {
     margin-bottom: 0;
   }
+
+  @media (max-width: 1024px) {
+    width: 230px;
+    :last-of-type {
+      border: 0;
+    }
+  }
 `;
 
 const StyledCode = styled.span`
@@ -234,6 +391,10 @@ const StyledCode = styled.span`
   :first-of-type {
     margin-top: 30px;
     margin-bottom: 7px;
+  }
+
+  @media (max-width: 1024px) {
+    display: none;
   }
 `;
 
@@ -262,7 +423,27 @@ const StyledImage = styled(Img)`
   max-height: 85px;
 `;
 
-const Product = () => {
+const Product = ({ addToBasket }) => {
+  const count = 6;
+  const { width } = useWindowSize();
+  const [activeImage, setActiveImage] = useState(0);
+
+  const handleNextClick = () => {
+    if (activeImage + 1 > count - 1) {
+      setActiveImage(0);
+    } else {
+      setActiveImage(activeImage + 1);
+    }
+  };
+
+  const handlePrevClick = () => {
+    if (activeImage - 1 < 0) {
+      setActiveImage(count - 1);
+    } else {
+      setActiveImage(activeImage - 1);
+    }
+  };
+
   return (
     <MainTemplate>
       <StyledWrapper>
@@ -282,14 +463,26 @@ const Product = () => {
             },
           ]}
         />
+        {width <= 1420 && (
+          <StyledAwardsWrapper>
+            <StyledAward kind="valueForMoney" />
+            <StyledAward kind="bestseller" />
+            <StyledAward kind="recommendable" />
+          </StyledAwardsWrapper>
+        )}
+
         <StyledHeadline>
           Smartfon Huawei Y6P 64GB Dual SIM Fioletowy
         </StyledHeadline>
         <StyledInnerWrapper>
           <StyledFirstColumn>
-            <StyledAward kind="valueForMoney" />
-            <StyledAward kind="bestseller" />
-            <StyledAward kind="recommendable" />
+            {width > 1420 && (
+              <StyledAwardsWrapper>
+                <StyledAward kind="valueForMoney" />
+                <StyledAward kind="bestseller" />
+                <StyledAward kind="recommendable" />
+              </StyledAwardsWrapper>
+            )}
             <StyledScoreWrapper>
               <StyledScoreInnerWrapper>
                 <StyledScore score={5} />
@@ -328,23 +521,41 @@ const Product = () => {
           </StyledFirstColumn>
           <StyledSecondColumn>
             <StyledActiveImageWrapper>
-              <StyledArrowButton>
+              <StyledArrowButton onClick={handlePrevClick}>
                 <StyledArrowIcon icon={arrowIcon} />
               </StyledArrowButton>
               <StyledActiveImage
                 src={currentImg}
                 alt="Smartfon Huawei Y6P 64GB Dual SIM Fioletowy"
               />
-              <StyledArrowButton>
+              <StyledArrowButton onClick={handleNextClick}>
                 <StyledArrowIcon icon={arrowIcon} />
               </StyledArrowButton>
             </StyledActiveImageWrapper>
+            {width <= 1420 && (
+              <DotNavigation
+                count={count}
+                active={activeImage}
+                changeActive={setActiveImage}
+              />
+            )}
           </StyledSecondColumn>
           <StyledThirdColumn>
             <StyledPrice>559,00 zł</StyledPrice>
             <StyledProductActionWrapper>
               <StyledInput name="count" value={1} label="count" />
-              <StyledButton icon={basketIcon}>Do koszyka</StyledButton>
+              <StyledButton
+                icon={basketIcon}
+                onClick={() =>
+                  addToBasket({
+                    name: "Smartfon Huawei Y6P 64GB Dual SIM Fioletowy",
+                    img: currentImg,
+                    price: 559,
+                  })
+                }
+              >
+                Do koszyka
+              </StyledButton>
             </StyledProductActionWrapper>
             <StyledInformation kind="time" to="/" />
             <StyledInformation kind="delivery" to="/" />
@@ -357,23 +568,25 @@ const Product = () => {
             <StyledCode>Kod Hardware Team: 563587 </StyledCode>
           </StyledThirdColumn>
         </StyledInnerWrapper>
-        <StyledImagesWrapper>
-          <StyledArrowButton>
-            <StyledArrowIcon icon={arrowIcon} />
-          </StyledArrowButton>
-          <StyledImage src={currentImg} alt="" />
-          <StyledImage src={img2} alt="" render={<Spinner />} />
-          <StyledImage src={img3} alt="" render={<Spinner />} />
-          <StyledImage src={img4} alt="" render={<Spinner />} />
-          <StyledImage src={img5} alt="" render={<Spinner />} />
-          <StyledImage src={img6} alt="" render={<Spinner />} />
-          <StyledImage src={img7} alt="" render={<Spinner />} />
-          <StyledImage src={img8} alt="" render={<Spinner />} />
-          <StyledImage src={img9} alt="" render={<Spinner />} />
-          <StyledArrowButton>
-            <StyledArrowIcon icon={arrowIcon} />
-          </StyledArrowButton>
-        </StyledImagesWrapper>
+        {width > 1420 && (
+          <StyledImagesWrapper>
+            <StyledArrowButton>
+              <StyledArrowIcon icon={arrowIcon} />
+            </StyledArrowButton>
+            <StyledImage src={currentImg} alt="" />
+            <StyledImage src={img2} alt="" render={<Spinner />} />
+            <StyledImage src={img3} alt="" render={<Spinner />} />
+            <StyledImage src={img4} alt="" render={<Spinner />} />
+            <StyledImage src={img5} alt="" render={<Spinner />} />
+            <StyledImage src={img6} alt="" render={<Spinner />} />
+            <StyledImage src={img7} alt="" render={<Spinner />} />
+            <StyledImage src={img8} alt="" render={<Spinner />} />
+            <StyledImage src={img9} alt="" render={<Spinner />} />
+            <StyledArrowButton>
+              <StyledArrowIcon icon={arrowIcon} />
+            </StyledArrowButton>
+          </StyledImagesWrapper>
+        )}
 
         <Navigation />
         <Description />
@@ -385,4 +598,12 @@ const Product = () => {
   );
 };
 
-export default Product;
+Product.propTypes = {
+  addToBasket: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  addToBasket: (product) => dispatch(addToBasketAction(product)),
+});
+
+export default connect(null, mapDispatchToProps)(Product);

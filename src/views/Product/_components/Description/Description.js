@@ -8,7 +8,7 @@ import cameraIcon from "@iconify/icons-clarity/camera-line";
 import cpuIcon from "@iconify/icons-clarity/cpu-line";
 import shoppingIcon from "@iconify/icons-clarity/shopping-bag-line";
 import faceIcon from "@iconify/icons-clarity/happy-face-line";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import firstImg from "../../_dummyContent/images/1.png";
 import secondImg from "../../_dummyContent/images/6.png";
 import thirdImg from "../../_dummyContent/images/4.png";
@@ -82,6 +82,32 @@ const StyledWrapper = styled.section`
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
   }
+
+  @media (max-width: 1024px) {
+    margin-top: ${useFluidSize({ min: 30, max: 60 })};
+
+    ::before,
+    ::after {
+      width: ${useFluidSize({ min: 30, max: 60 })};
+    }
+
+    ::after {
+      left: ${useFluidSize({ min: 30, max: 60 })};
+    }
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 30px;
+
+    ::before,
+    ::after {
+      width: 30px;
+    }
+
+    ::after {
+      left: 30px;
+    }
+  }
 `;
 
 const StyledItem = styled.div`
@@ -93,11 +119,27 @@ const StyledItem = styled.div`
   :last-of-type {
     margin-bottom: 0;
   }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: ${useFluidSize({ min: 40, max: 80 })};
+    width: 100%;
+  }
+
+  @media (max-width: 360px) {
+    margin-bottom: 40px;
+  }
 `;
 
 const StyledIcon = styled(Icon)`
   font-size: 7rem;
   margin-right: 40px;
+
+  @media (max-width: 1024px) {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 `;
 
 const StyledContentWrapper = styled.div`
@@ -105,12 +147,17 @@ const StyledContentWrapper = styled.div`
 `;
 
 const StyledHeadline = styled.h3`
-  ${({ theme }) => useFontSize(theme, "xl")}
+  ${({ theme }) => useFontSize(theme, "xl", "xxl")}
   font-weight: 400;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    text-align: center;
+  }
 `;
 
 const StyledParagraph = styled.p`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 300;
   margin-top: 10px;
   line-height: 1.5;
@@ -131,6 +178,16 @@ const StyledImg = styled(Img)`
   border-radius: 20px;
   margin: 50px auto 0;
   display: block;
+
+  @media (max-width: 1024px) {
+    max-width: 100%;
+    max-height: ${useFluidSize({ min: 180, max: 520 })};
+    margin-top: ${useFluidSize({ min: 10, max: 50 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 10px;
+  }
 `;
 
 const Description = () => {

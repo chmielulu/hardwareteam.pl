@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Headline } from "@components/atoms";
 import { secondary } from "@constants/kinds";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 
 const rows = [
   {
@@ -182,10 +182,11 @@ const StyledTable = styled.div`
 `;
 
 const StyledRow = styled.div`
-  display: flex;
+  display: inline-flex;
   width: 100%;
   padding: 17px 10%;
   border-bottom: 1px solid ${({ theme }) => theme.gray};
+  flex-shrink: 0;
 
   :nth-of-type(odd) {
     background: ${({ theme }) => theme.lighterGray};
@@ -194,19 +195,36 @@ const StyledRow = styled.div`
   :last-of-type {
     border-bottom: 0;
   }
+
+  @media (max-width: 1024px) {
+    padding: 17px;
+  }
 `;
 
 const StyledHeadline = styled.h4`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 400;
   width: 270px;
   margin-right: 50px;
+
+  @media (max-width: 1024px) {
+    width: ${useFluidSize({ min: 100, max: 270 })};
+    margin-right: ${useFluidSize({ min: 20, max: 40 })};
+  }
+
+  @media (max-width: 360px) {
+    width: 100px;
+    margin-right: 20px;
+  }
 `;
 
-const StyledContentWrapper = styled.div``;
+const StyledContentWrapper = styled.div`
+  flex: 1;
+  overflow: hidden;
+`;
 
 const StyledContent = styled.p`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 300;
   margin-bottom: 6px;
 

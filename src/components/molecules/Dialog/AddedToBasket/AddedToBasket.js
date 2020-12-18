@@ -199,7 +199,6 @@ const AddedToBasket = ({
 // eslint-disable-next-line react/prop-types
 function BottomBar({ onClose }) {
   const { width } = useWindowSize();
-
   return (
     <StyledPaginationWrapper>
       {width > 1024 && (

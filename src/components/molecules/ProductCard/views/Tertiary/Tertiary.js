@@ -2,6 +2,7 @@
 import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import React from "react";
 import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -74,13 +75,26 @@ const StyledRenderWrapper = styled.div`
   }
 `;
 
+const StyledLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
 const Tertiary = ({ name, img, render, className, size }) => (
   <StyledWrapper className={className}>
     <StyledImgColumn $size={size}>
-      <StyledImg src={img} alt={name} $size={size} />
+      <StyledLink to="/produkt/test">
+        <StyledImg src={img} alt={name} $size={size} />
+      </StyledLink>
     </StyledImgColumn>
     <StyledContentColumn>
-      <StyledName $size={size}>{name}</StyledName>
+      <StyledLink to="/produkt/test">
+        <StyledName $size={size}>{name}</StyledName>
+      </StyledLink>
       <StyledRenderWrapper>{render && render()}</StyledRenderWrapper>
     </StyledContentColumn>
   </StyledWrapper>

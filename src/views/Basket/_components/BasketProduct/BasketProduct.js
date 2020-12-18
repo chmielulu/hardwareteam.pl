@@ -195,10 +195,10 @@ const BasketProduct = ({
             />
             <StyledPriceWrapper>
               {discount && (
-                <StyledDiscount>{formatPrice(discount)}</StyledDiscount>
+                <StyledDiscount>{formatPrice(discount * count)}</StyledDiscount>
               )}
               <StyledPrice $isDiscount={!!discount}>
-                {formatPrice(price)}
+                {formatPrice(price * count)}
               </StyledPrice>
             </StyledPriceWrapper>
             {width <= 1024 && <DeleteButton />}

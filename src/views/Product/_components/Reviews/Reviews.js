@@ -7,6 +7,7 @@ import Icon from "@iconify/react";
 import starIcon from "@iconify/icons-clarity/star-solid";
 import chatIcon from "@iconify/icons-clarity/chat-bubble-line";
 import { useFontSize, useFluidSize } from "@hooks/styled-components";
+import { useWindowSize } from "@hooks/utils";
 
 const reviews = [
   {
@@ -149,6 +150,14 @@ const reviews = [
 
 const StyledWrapper = styled.section`
   margin-top: 80px;
+
+  @media (max-width: 1024px) {
+    margin-top: ${useFluidSize({ min: 50, max: 80 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 50px;
+  }
 `;
 
 const StyledReviewsSummmary = styled.div`
@@ -158,6 +167,16 @@ const StyledReviewsSummmary = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
   padding-bottom: 40px;
   margin-top: 40px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    padding: 5%;
+    margin-top: ${useFluidSize({ min: 20, max: 40 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 20px;
+  }
 `;
 
 const StyledScoreWrapper = styled.div`
@@ -167,7 +186,7 @@ const StyledScoreWrapper = styled.div`
 `;
 
 const StyledAverage = styled.div`
-  ${({ theme }) => useFontSize(theme, "xl")}
+  ${({ theme }) => useFontSize(theme, "xl", "xxl")}
   font-weight: 500;
   margin-bottom: 10px;
 `;
@@ -177,12 +196,25 @@ const StyledScore = styled(Score)`
 `;
 
 const StyledScoreText = styled.div`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   margin-top: 5px;
 `;
 
 const StyledStatistics = styled.div`
   margin-left: 10%;
+
+  @media (max-width: 1220px) {
+    margin-left: 5%;
+  }
+
+  @media (max-width: 1024px) {
+    margin-left: 50px;
+  }
+
+  @media (max-width: 420px) {
+    margin-left: 20px;
+    margin-top: 20px;
+  }
 `;
 
 const StyledStatisticsRow = styled.div`
@@ -195,10 +227,18 @@ const StyledIcon = styled(Icon)`
   font-size: 2rem;
   color: ${({ theme }) => theme.gray};
   margin-right: 7px;
+
+  @media (max-width: 1024px) {
+    font-size: ${useFluidSize({ min: 1.5, max: 2, unit: "rem" })};
+  }
+
+  @media (max-width: 360px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const StyledStatisticType = styled.span`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 300;
   margin-right: 10px;
 `;
@@ -206,10 +246,14 @@ const StyledStatisticType = styled.span`
 const StyledProgress = styled(Progress)`
   height: 12px;
   margin-right: 7px;
+
+  @media (max-width: 520px) {
+    width: 100px;
+  }
 `;
 
 const StyledStatisticCount = styled.span`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 300;
 `;
 
@@ -221,11 +265,27 @@ const StyledAddReview = styled.div`
   padding: 30px 100px;
   border: 1px solid ${({ theme }) => theme.lightGray};
   border-radius: 10px;
+
+  @media (max-width: 1220px) {
+    margin-left: 5%;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 0;
+    border: 0;
+    margin-left: 0;
+    width: 100%;
+    margin-top: 20px;
+  }
 `;
 
 const StyledAddReviewHeadline = styled.span`
   ${({ theme }) => useFontSize(theme, "l")}
   margin-bottom: 5px;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 const StyledAddReviewText = styled.span`
@@ -233,6 +293,10 @@ const StyledAddReviewText = styled.span`
   color: ${({ theme }) => theme.gray};
   font-weight: 300;
   margin-bottom: 20px;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
 `;
 
 const StyledAddReviewButton = styled(Button)``;
@@ -245,12 +309,20 @@ const StyledReviewsNavigation = styled.div`
   padding-left: 3%;
   padding-bottom: 40px;
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
+
+  @media (max-width: 1024px) {
+    padding-bottom: 20px;
+  }
 `;
 
 const StyledReviewsHeadline = styled.h4`
-  ${({ theme }) => useFontSize(theme, "l")}
+  ${({ theme }) => useFontSize(theme, "l", "xl")}
   font-weight: 300;
   margin-bottom: 30px;
+
+  @media (max-width: 1024px) {
+    margin-bottom: 0;
+  }
 `;
 
 const StyledReviewsFiltersWrapper = styled.div`
@@ -269,7 +341,9 @@ const StyledReviewsFilterText = styled.span`
   margin-right: 15px;
 `;
 
-const StyledSelect = styled(Select)``;
+const StyledSelect = styled(Select)`
+  width: 192px;
+`;
 
 const StyledResultsCounter = styled.span`
   ${({ theme }) => useFontSize(theme)}
@@ -291,8 +365,19 @@ const ShowMoreButton = styled(Button)`
   }
 `;
 
+const StyledScoreAndStatisticWrapper = styled.div`
+  display: flex;
+
+  @media (max-width: 1024px) {
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+
 const Reviews = () => {
   const [maxReviews, setMaxReviews] = useState(4);
+  const { width } = useWindowSize();
 
   const handleShowMoreClick = () => {
     if (maxReviews + 4 >= reviews.length) {
@@ -322,84 +407,99 @@ const Reviews = () => {
         Opinie
       </Headline>
       <StyledReviewsSummmary>
-        <StyledScoreWrapper>
-          <StyledAverage>5/5</StyledAverage>
-          <StyledScore score={5} />
-          <StyledScoreText>
-            ({reviews.length} {getWord()})
-          </StyledScoreText>
-        </StyledScoreWrapper>
-        <StyledStatistics>
-          <StyledStatisticsRow>
-            <StyledIcon icon={starIcon} />
-            <StyledStatisticType>5</StyledStatisticType>
-            <StyledProgress min={0} max={2} value={2} />
-            <StyledStatisticCount>2</StyledStatisticCount>
-          </StyledStatisticsRow>
-          <StyledStatisticsRow>
-            <StyledIcon icon={starIcon} />
-            <StyledStatisticType>4</StyledStatisticType>
-            <StyledProgress min={0} max={2} value={0} />
-            <StyledStatisticCount>0</StyledStatisticCount>
-          </StyledStatisticsRow>
-          <StyledStatisticsRow>
-            <StyledIcon icon={starIcon} />
-            <StyledStatisticType>3</StyledStatisticType>
-            <StyledProgress min={0} max={2} value={0} />
-            <StyledStatisticCount>0</StyledStatisticCount>
-          </StyledStatisticsRow>
-          <StyledStatisticsRow>
-            <StyledIcon icon={starIcon} />
-            <StyledStatisticType>2</StyledStatisticType>
-            <StyledProgress min={0} max={2} value={0} />
-            <StyledStatisticCount>0</StyledStatisticCount>
-          </StyledStatisticsRow>
-          <StyledStatisticsRow>
-            <StyledIcon icon={starIcon} />
-            <StyledStatisticType>1</StyledStatisticType>
-            <StyledProgress min={0} max={2} value={0} />
-            <StyledStatisticCount>0</StyledStatisticCount>
-          </StyledStatisticsRow>
-        </StyledStatistics>
+        <StyledScoreAndStatisticWrapper>
+          <StyledScoreWrapper>
+            <StyledAverage>5/5</StyledAverage>
+            <StyledScore score={5} />
+            <StyledScoreText>
+              ({reviews.length} {getWord()})
+            </StyledScoreText>
+          </StyledScoreWrapper>
+          <StyledStatistics>
+            <StyledStatisticsRow>
+              <StyledIcon icon={starIcon} />
+              <StyledStatisticType>5</StyledStatisticType>
+              <StyledProgress min={0} max={2} value={2} />
+              <StyledStatisticCount>2</StyledStatisticCount>
+            </StyledStatisticsRow>
+            <StyledStatisticsRow>
+              <StyledIcon icon={starIcon} />
+              <StyledStatisticType>4</StyledStatisticType>
+              <StyledProgress min={0} max={2} value={0} />
+              <StyledStatisticCount>0</StyledStatisticCount>
+            </StyledStatisticsRow>
+            <StyledStatisticsRow>
+              <StyledIcon icon={starIcon} />
+              <StyledStatisticType>3</StyledStatisticType>
+              <StyledProgress min={0} max={2} value={0} />
+              <StyledStatisticCount>0</StyledStatisticCount>
+            </StyledStatisticsRow>
+            <StyledStatisticsRow>
+              <StyledIcon icon={starIcon} />
+              <StyledStatisticType>2</StyledStatisticType>
+              <StyledProgress min={0} max={2} value={0} />
+              <StyledStatisticCount>0</StyledStatisticCount>
+            </StyledStatisticsRow>
+            <StyledStatisticsRow>
+              <StyledIcon icon={starIcon} />
+              <StyledStatisticType>1</StyledStatisticType>
+              <StyledProgress min={0} max={2} value={0} />
+              <StyledStatisticCount>0</StyledStatisticCount>
+            </StyledStatisticsRow>
+          </StyledStatistics>
+        </StyledScoreAndStatisticWrapper>
+
         <StyledAddReview>
           <StyledAddReviewHeadline>Masz ten produkt?</StyledAddReviewHeadline>
           <StyledAddReviewText>Pomóż innym w wyborze!</StyledAddReviewText>
-          <StyledAddReviewButton icon={chatIcon} kind={secondary}>
+          <StyledAddReviewButton
+            icon={chatIcon}
+            kind={secondary}
+            fullWidth={width <= 1024}
+          >
             Dodaj opinię
           </StyledAddReviewButton>
         </StyledAddReview>
       </StyledReviewsSummmary>
+
       <StyledReviewsWrapper>
         <StyledReviewsNavigation>
           <StyledReviewsHeadline>
             Opinie użytkowników ({reviews.length})
           </StyledReviewsHeadline>
-          <StyledReviewsFiltersWrapper>
-            <StyledReviewsFilter>
-              <StyledReviewsFilterText>Filtruj:</StyledReviewsFilterText>
-              <StyledSelect
-                options={[
-                  { name: "Wszystkie oceny" },
-                  { name: "1 gwiazdka" },
-                  { name: "2 gwiazdki" },
-                  { name: "3 gwiazdki" },
-                  { name: "4 gwiazdki" },
-                  { name: "5 gwiazdek" },
-                ]}
-                kind={secondary}
-              />
-            </StyledReviewsFilter>
-            <StyledReviewsFilter>
-              <StyledReviewsFilterText>Sortuj od:</StyledReviewsFilterText>
-              <StyledSelect
-                options={[{ name: "Najwyżej ocenione" }, { name: "Najnowsze" }]}
-                kind={secondary}
-              />
-            </StyledReviewsFilter>
-          </StyledReviewsFiltersWrapper>
-          <StyledResultsCounter>
-            Wyniki {reviews.length} z {reviews.length}
-          </StyledResultsCounter>
+          {width > 1024 && (
+            <>
+              <StyledReviewsFiltersWrapper>
+                <StyledReviewsFilter>
+                  <StyledReviewsFilterText>Filtruj:</StyledReviewsFilterText>
+                  <StyledSelect
+                    options={[
+                      { name: "Wszystkie oceny" },
+                      { name: "1 gwiazdka" },
+                      { name: "2 gwiazdki" },
+                      { name: "3 gwiazdki" },
+                      { name: "4 gwiazdki" },
+                      { name: "5 gwiazdek" },
+                    ]}
+                    kind={secondary}
+                  />
+                </StyledReviewsFilter>
+                <StyledReviewsFilter>
+                  <StyledReviewsFilterText>Sortuj od:</StyledReviewsFilterText>
+                  <StyledSelect
+                    options={[
+                      { name: "Najwyżej ocenione" },
+                      { name: "Najnowsze" },
+                    ]}
+                    kind={secondary}
+                  />
+                </StyledReviewsFilter>
+              </StyledReviewsFiltersWrapper>
+              <StyledResultsCounter>
+                Wyniki {reviews.length} z {reviews.length}
+              </StyledResultsCounter>
+            </>
+          )}
         </StyledReviewsNavigation>
 
         {reviews.slice(0, maxReviews).map((props, index) => (

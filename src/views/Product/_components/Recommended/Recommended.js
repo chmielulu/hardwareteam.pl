@@ -3,10 +3,19 @@ import styled from "styled-components";
 import { Headline } from "@components/atoms";
 import { ProductCard, CustomSwiper } from "@components/molecules";
 import { secondary } from "@constants/kinds";
+import { useFluidSize } from "@hooks/styled-components";
 import { recommendedProducts } from "../../../Index/_dummyContent/dummyContent";
 
 const StyledWrapper = styled.section`
   margin-top: 80px;
+
+  @media (max-width: 1024px) {
+    margin-top: ${useFluidSize({ min: 50, max: 80 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 50px;
+  }
 `;
 
 const StyledSliderWrapper = styled.div`
