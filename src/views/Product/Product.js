@@ -22,7 +22,14 @@ import { Img } from "react-image";
 import { connect } from "react-redux";
 import { addToBasket as addToBasketAction } from "@actions";
 import scrollTo from "@utils/scrollToElement";
-import DotNavigation from "./_components/DotNavigation/DotNavigation";
+import SwiperCore, {
+  Thumbs,
+  Navigation as SwiperNavigation,
+  Pagination,
+  EffectFlip,
+} from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/components/effect-flip/effect-flip.scss";
 import Navigation from "./_components/Navigation/Navigation";
 import Description from "./_components/Description/Description";
 import Specification from "./_components/Specification/Specification";
@@ -31,14 +38,9 @@ import Reviews from "./_components/Reviews/Reviews";
 import blackImg from "./_dummyContent/images/black.png";
 import greenImg from "./_dummyContent/images/green.png";
 import currentImg from "./_dummyContent/images/1.png";
-import img2 from "./_dummyContent/images/2.png";
-import img3 from "./_dummyContent/images/3.png";
-import img4 from "./_dummyContent/images/4.png";
-import img5 from "./_dummyContent/images/5.png";
-import img6 from "./_dummyContent/images/6.png";
-import img7 from "./_dummyContent/images/7.png";
-import img8 from "./_dummyContent/images/8.png";
-import img9 from "./_dummyContent/images/9.png";
+import { gallery } from "./_dummyContent/dummyContent";
+
+SwiperCore.use([Thumbs, SwiperNavigation, Pagination, EffectFlip]);
 
 const StyledWrapper = styled.div`
   width: 90%;
@@ -250,6 +252,64 @@ const StyledSecondColumn = styled.div`
     margin: 20px 0;
     padding-bottom: 20px;
   }
+
+  .swiper-pagination {
+    display: none;
+    justify-content: center;
+    width: 75%;
+    flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+
+    @media (max-width: 1420px) {
+      display: flex;
+    }
+  }
+
+  .swiper-pagination-bullet {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.lightGray};
+    margin-right: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    margin-top: 10px;
+    display: block;
+
+    :last-of-type {
+      margin-right: 0;
+    }
+
+    &-active {
+      background: ${({ theme }) => theme.primary};
+      transform: scale(1.2);
+      transform-origin: center center;
+      cursor: default;
+    }
+
+    @media (max-width: 720px) {
+      width: 15px;
+      height: 15px;
+    }
+  }
+`;
+
+const StyledGalleryWrapper = styled.div`
+  width: 460px;
+  height: 460px;
+  overflow: hidden;
+  position: relative;
+
+  .swiper-wrapper {
+    display: flex;
+  }
+
+  @media (max-width: 1024px) {
+    width: ${useFluidSize({ min: 220, max: 460 })};
+    height: ${useFluidSize({ min: 220, max: 460 })};
+  }
 `;
 
 const StyledActiveImage = styled.img`
@@ -419,17 +479,46 @@ const StyledImagesWrapper = styled.div`
       margin-left: auto;
     }
   }
+
+  @media (max-width: 1420px) {
+    display: none;
+  }
+`;
+
+const StyledThumbsWrapper = styled.div`
+  flex: 1;
+  overflow: hidden;
+  padding: 0 50px;
+
+  .swiper-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .swiper-slide {
+    width: 85px;
+    height: 85px;
+    opacity: 0.4;
+    cursor: pointer;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  .swiper-slide-thumb-active {
+    opacity: 1;
+  }
 `;
 
 const StyledImage = styled(Img)`
-  max-width: 100px;
-  max-height: 85px;
+  width: 85px;
+  height: 85px;
 `;
 
 const Product = ({ addToBasket }) => {
   const count = 6;
   const { width } = useWindowSize();
   const [activeImage, setActiveImage] = useState(0);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   const handleNextClick = () => {
     if (activeImage + 1 > count - 1) {
@@ -541,24 +630,45 @@ const Product = ({ addToBasket }) => {
           </StyledFirstColumn>
           <StyledSecondColumn>
             <StyledActiveImageWrapper>
-              <StyledArrowButton onClick={handlePrevClick}>
+              <StyledArrowButton
+                onClick={handlePrevClick}
+                className="swiper-prev-button"
+              >
                 <StyledArrowIcon icon={arrowIcon} />
               </StyledArrowButton>
-              <StyledActiveImage
-                src={currentImg}
-                alt="Smartfon Huawei Y6P 64GB Dual SIM Fioletowy"
-              />
-              <StyledArrowButton onClick={handleNextClick}>
+              <StyledGalleryWrapper>
+                <Swiper
+                  thumbs={{ swiper: thumbsSwiper }}
+                  navigation={{
+                    nextEl: `.swiper-next-button`,
+                    prevEl: `.swiper-prev-button`,
+                  }}
+                  loop
+                  effect="flip"
+                  pagination={{
+                    el: ".swiper-pagination",
+                    clickable: true,
+                  }}
+                  updateOnWindowResize
+                >
+                  {gallery.map((img) => (
+                    <SwiperSlide>
+                      <StyledActiveImage
+                        src={img}
+                        alt="Smartfon Huawei Y6P 64GB Dual SIM Fioletowy"
+                      />
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </StyledGalleryWrapper>
+              <StyledArrowButton
+                onClick={handleNextClick}
+                className="swiper-next-button"
+              >
                 <StyledArrowIcon icon={arrowIcon} />
               </StyledArrowButton>
             </StyledActiveImageWrapper>
-            {width <= 1420 && (
-              <DotNavigation
-                count={count}
-                active={activeImage}
-                changeActive={setActiveImage}
-              />
-            )}
+            <div className="swiper-pagination" />
           </StyledSecondColumn>
           <StyledThirdColumn>
             <StyledPrice>559,00 zł</StyledPrice>
@@ -588,25 +698,24 @@ const Product = ({ addToBasket }) => {
             <StyledCode>Kod Hardware Team: 563587 </StyledCode>
           </StyledThirdColumn>
         </StyledInnerWrapper>
-        {width > 1420 && (
-          <StyledImagesWrapper>
-            <StyledArrowButton>
-              <StyledArrowIcon icon={arrowIcon} />
-            </StyledArrowButton>
-            <StyledImage src={currentImg} alt="" />
-            <StyledImage src={img2} alt="" render={<Spinner />} />
-            <StyledImage src={img3} alt="" render={<Spinner />} />
-            <StyledImage src={img4} alt="" render={<Spinner />} />
-            <StyledImage src={img5} alt="" render={<Spinner />} />
-            <StyledImage src={img6} alt="" render={<Spinner />} />
-            <StyledImage src={img7} alt="" render={<Spinner />} />
-            <StyledImage src={img8} alt="" render={<Spinner />} />
-            <StyledImage src={img9} alt="" render={<Spinner />} />
-            <StyledArrowButton>
-              <StyledArrowIcon icon={arrowIcon} />
-            </StyledArrowButton>
-          </StyledImagesWrapper>
-        )}
+        <StyledImagesWrapper>
+          <StyledThumbsWrapper>
+            <Swiper
+              onSwiper={setThumbsSwiper}
+              watchSlidesVisibility
+              watchSlidesProgress
+              slidesPerView="auto"
+              freeMode
+              updateOnWindowResize
+            >
+              {gallery.map((img) => (
+                <SwiperSlide>
+                  <StyledImage src={img} alt="" loader={<Spinner />} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </StyledThumbsWrapper>
+        </StyledImagesWrapper>
 
         <Navigation
           allSections={{ description, specification, accessories, reviews }}
