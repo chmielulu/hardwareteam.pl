@@ -19,6 +19,10 @@ import ArticleView from "./Article/Article";
 import ProductsView from "./Products/Products";
 import BasketView from "./Basket/Basket";
 import ProductView from "./Product/Product";
+import OrdersView from "./Orders/Orders";
+import SettingsView from "./Settings/Settings";
+import ReturnsView from "./Returns/Returns";
+import FavoriteView from "./Favorite/Favorite";
 
 const Root = () => {
   const { store, persistor } = createStore();
@@ -52,6 +56,21 @@ const Root = () => {
               </Route>
               <Route exact path={routes.product}>
                 <ProductView />
+              </Route>
+              <Route exact path={routes.user}>
+                <Redirect to={routes.orders} />
+              </Route>
+              <Route exact path={routes.orders}>
+                <OrdersView />
+              </Route>
+              <Route exact path={routes.returns}>
+                <ReturnsView />
+              </Route>
+              <Route exact path={routes.favorite}>
+                <FavoriteView />
+              </Route>
+              <Route exact path={routes.settings}>
+                <SettingsView />
               </Route>
               <Route path={routes.notFound}>
                 <View404 />

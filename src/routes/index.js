@@ -12,4 +12,9 @@ export default {
   products: "/kategoria/:categoryId/:subCategoryId",
   basket: "/koszyk",
   product: "/produkt/:productId",
+  user: "/uzytkownik",
+  orders: "/uzytkownik/zamowienia",
+  returns: "/uzytkownik/zwroty-i-reklamacje",
+  favorite: "/uzytkownik/zapisane-produkty",
+  settings: "/uzytkownik/ustawienia",
 };

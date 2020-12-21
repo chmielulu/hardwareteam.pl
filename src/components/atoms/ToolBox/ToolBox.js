@@ -97,7 +97,7 @@ const StyledItemText = styled.span`
   user-select: none;
 `;
 
-const ToolBox = ({ content }) => {
+const ToolBox = ({ content, ...props }) => {
   const wrapper = useRef();
   const [isActive, setActive] = useState(false);
   const handleButtonClick = () => setActive(!isActive);
@@ -105,7 +105,7 @@ const ToolBox = ({ content }) => {
   useOutsideClick(wrapper, () => setActive(false));
 
   return (
-    <StyledWrapper aria-expanded={isActive.toString()} ref={wrapper}>
+    <StyledWrapper aria-expanded={isActive.toString()} ref={wrapper} {...props}>
       <StyledButton $isActive={isActive} onClick={handleButtonClick}>
         <Icon icon={toolBoxIcon} />
       </StyledButton>

@@ -8,7 +8,7 @@ import { useFontSize } from "@hooks/styled-components";
 
 const StyledWrapper = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   cursor: pointer;
 `;
 
@@ -58,6 +58,9 @@ const StyledLabel = styled.label`
   ${({ theme }) => useFontSize(theme)}
   cursor: pointer;
   user-select: none;
+  align-self: flex-start;
+  flex: 1;
+  line-height: 16px;
 `;
 
 const Checkbox = ({ name, label, render, id, checked, onChange, ...props }) => (

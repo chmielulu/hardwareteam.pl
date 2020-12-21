@@ -17,6 +17,7 @@ import { useFluidSize, useFontSize } from "@hooks/styled-components";
 import { useWindowSize } from "@hooks/utils";
 import { tertiary } from "@constants/kinds";
 import extractLink from "@utils/extractLink";
+import routes from "@routes";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -240,7 +241,12 @@ const AuthTemplate = ({
                 />
               ))}
 
-              <StyledButton fullWidth icon={button.icon}>
+              <StyledButton
+                fullWidth
+                icon={button.icon}
+                forwardedAs={Link}
+                to={routes.user}
+              >
                 {button.text}
               </StyledButton>
             </StyledForm>

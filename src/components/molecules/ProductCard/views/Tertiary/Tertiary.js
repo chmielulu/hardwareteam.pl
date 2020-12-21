@@ -84,10 +84,13 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Tertiary = ({ name, img, render, className, size }) => (
+const Tertiary = ({ name, img, render, className, size, onlyTextLink }) => (
   <StyledWrapper className={className}>
     <StyledImgColumn $size={size}>
-      <StyledLink to="/produkt/test">
+      <StyledLink
+        as={onlyTextLink ? "span" : undefined}
+        to={!onlyTextLink ? "/produkt/test" : undefined}
+      >
         <StyledImg src={img} alt={name} $size={size} />
       </StyledLink>
     </StyledImgColumn>
