@@ -17,4 +17,5 @@ export default {
   returns: "/uzytkownik/zwroty-i-reklamacje",
   favorite: "/uzytkownik/zapisane-produkty",
   settings: "/uzytkownik/ustawienia",
+  order: "/uzytkownik/zamowienia/:orderId",
 };

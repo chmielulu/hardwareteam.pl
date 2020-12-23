@@ -116,7 +116,7 @@ const UserTemplate = ({ Headline, children }) => {
             <StyledNavigation>
               <StyledList>
                 {items.map(({ name, icon, link }) => {
-                  const isActive = pathname === link;
+                  const isActive = pathname.includes(link);
 
                   return (
                     <StyledItem key={link} $isActive={isActive}>
@@ -131,9 +131,11 @@ const UserTemplate = ({ Headline, children }) => {
             </StyledNavigation>
           </StyledLeftColumn>
           <StyledRightColumn>
-            <StyledHeadline>
-              <Headline />
-            </StyledHeadline>
+            {Headline && (
+              <StyledHeadline>
+                <Headline />
+              </StyledHeadline>
+            )}
             {children}
           </StyledRightColumn>
         </StyledInnerWrapper>
@@ -143,8 +145,12 @@ const UserTemplate = ({ Headline, children }) => {
 };
 
 UserTemplate.propTypes = {
-  Headline: PropTypes.node.isRequired,
+  Headline: PropTypes.node,
   children: PropTypes.node.isRequired,
+};
+
+UserTemplate.defaultProps = {
+  Headline: null,
 };
 
 export default UserTemplate;

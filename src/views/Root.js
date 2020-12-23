@@ -23,6 +23,7 @@ import OrdersView from "./Orders/Orders";
 import SettingsView from "./Settings/Settings";
 import ReturnsView from "./Returns/Returns";
 import FavoriteView from "./Favorite/Favorite";
+import OrderView from "./Order/Order";
 
 const Root = () => {
   const { store, persistor } = createStore();
@@ -71,6 +72,9 @@ const Root = () => {
               </Route>
               <Route exact path={routes.settings}>
                 <SettingsView />
+              </Route>
+              <Route exact path={routes.order}>
+                <OrderView />
               </Route>
               <Route path={routes.notFound}>
                 <View404 />

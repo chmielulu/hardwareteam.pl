@@ -119,9 +119,9 @@ const StyledSpacer = styled.div`
   }
 `;
 
-const OrderProcess = ({ content }) => {
+const OrderProcess = ({ content, ...props }) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper {...props}>
       {content.map(({ name, isFinished, description, isActive }, index) => (
         <React.Fragment key={index}>
           <StyledItem>

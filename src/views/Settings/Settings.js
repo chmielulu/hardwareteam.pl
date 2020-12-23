@@ -41,7 +41,7 @@ const StyledItemHeadline = styled.h4`
 `;
 
 const StyledItemContentWrapper = styled.div`
-  padding: 17px 20px;
+  padding: 20px 25px;
   border: 1px solid ${({ theme }) => theme.lightGray};
   border-radius: 10px;
   position: relative;
