@@ -33,7 +33,6 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledSelectedOption = styled.div`
-  border-radius: 10px;
   user-select: none;
   white-space: nowrap;
   overflow: hidden;

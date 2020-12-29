@@ -150,7 +150,7 @@ const Order = () => {
   const { orderId } = useParams();
 
   return (
-    <UserTemplate>
+    <UserTemplate withoutBackButton>
       <BackButton to="/uzytkownik/zamowienia">
         Pokaż wszystkie zamówienia
       </BackButton>

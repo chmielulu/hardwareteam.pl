@@ -24,6 +24,7 @@ import SettingsView from "./Settings/Settings";
 import ReturnsView from "./Returns/Returns";
 import FavoriteView from "./Favorite/Favorite";
 import OrderView from "./Order/Order";
+import UserView from "./User/User";
 
 const Root = () => {
   const { store, persistor } = createStore();
@@ -59,7 +60,7 @@ const Root = () => {
                 <ProductView />
               </Route>
               <Route exact path={routes.user}>
-                <Redirect to={routes.orders} />
+                <UserView />
               </Route>
               <Route exact path={routes.orders}>
                 <OrdersView />

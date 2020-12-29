@@ -134,9 +134,9 @@ const MobileBar = ({ isMobNavActive, setMobNavActive, basket }) => {
           </StyledItem>
           <StyledItem
             onClick={handleItemClick}
-            active={pathname === routes.login && !isMobNavActive}
+            active={pathname === routes.favorite && !isMobNavActive}
           >
-            <StyledLink to={routes.login}>
+            <StyledLink to={routes.favorite}>
               <StyledIcon icon={heartIcon} />
             </StyledLink>
           </StyledItem>

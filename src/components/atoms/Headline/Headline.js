@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import {
   allSizes,
   l as defaultSize,
@@ -69,7 +69,7 @@ const StyledHeadline = styled.h1`
       }
 
       @media (max-width: 1024px) {
-        padding-top: 10px;
+        padding-top: ${useFluidSize({ min: 10, max: 15 })};
       }
     `}
 

@@ -72,10 +72,14 @@ const StyledInnerWrapper = styled.div`
   }
 
   @media (max-width: 1024px) {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
     width: 100%;
+    padding-bottom: ${useFluidSize({ min: 20, max: 40 })};
+  }
+
+  @media (max-width: 360px) {
     padding-bottom: 20px;
   }
 `;
@@ -89,9 +93,13 @@ const StyledFirstColumn = styled.div`
   }
 
   @media (max-width: 1024px) {
-    width: 100%;
     display: flex;
     flex-direction: column;
+  }
+
+  @media (max-width: 700px) {
+    grid-column: 1 / 4;
+    grid-row: 2 / 3;
   }
 `;
 
@@ -249,8 +257,12 @@ const StyledSecondColumn = styled.div`
   @media (max-width: 1024px) {
     order: -1;
     width: 100%;
-    margin: 20px 0;
+    margin: ${useFluidSize({ min: 20, max: 40 })} 0;
     padding-bottom: 20px;
+  }
+
+  @media (max-width: 360px) {
+    margin: 20px 0;
   }
 
   .swiper-pagination {
@@ -389,9 +401,18 @@ const StyledThirdColumn = styled.div`
   }
 
   @media (max-width: 1024px) {
-    width: 100%;
     border: 0;
     padding: 0;
+  }
+
+  @media (max-width: 700px) {
+    grid-column: 1 / 4;
+    grid-row: 3 / 4;
+    margin-top: ${useFluidSize({ min: 20, max: 30, maxView: 700 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 20px;
   }
 `;
 
@@ -399,10 +420,6 @@ const StyledPrice = styled.div`
   ${({ theme }) => useFontSize(theme, "xl", "xxl")}
   font-weight: 500;
   margin-bottom: 20px;
-
-  @media (max-width: 1024px) {
-    margin-top: 15px;
-  }
 `;
 
 const StyledProductActionWrapper = styled.div`
@@ -425,7 +442,12 @@ const StyledInput = styled(Input)`
   }
 `;
 
-const StyledButton = styled(Button)``;
+const StyledButton = styled(Button)`
+  @media (max-width: 700px) {
+    flex: 1;
+    overflow: hidden;
+  }
+`;
 
 const StyledInformation = styled(Information)`
   padding-bottom: 10px;
@@ -443,6 +465,10 @@ const StyledInformation = styled(Information)`
     :last-of-type {
       border: 0;
     }
+  }
+
+  @media (max-width: 700px) {
+    width: 100%;
   }
 `;
 

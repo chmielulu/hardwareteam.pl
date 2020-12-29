@@ -103,19 +103,35 @@ const StyledWindowTitleBar = styled.div`
   }
 `;
 
-const StyledIcon = styled(Icon)`
-  font-size: 2.5rem;
-  cursor: pointer;
-  transform: rotate(-90deg) !important;
-  padding: 10px;
+const StyledCloseButton = styled.button`
   box-sizing: content-box;
   margin-right: -10px;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  width: 40px;
+  height: 40px;
+  border-radius: 25px;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  :hover {
+    background: #fff;
+  }
 
   @media (max-width: 1024px) {
     order: -1;
     margin-right: 10px;
     margin-left: -10px;
   }
+`;
+
+const StyledIcon = styled(Icon)`
+  font-size: 2.5rem;
+  transform: rotate(-90deg) !important;
+  box-sizing: content-box;
 `;
 
 const StyledTitle = styled.h3`
@@ -180,6 +196,11 @@ const Window = ({ children, isActive, title, onClose, width, bottomBar }) => {
     return undefined;
   }, [width, isActive]);
 
+  useEffect(() => {
+    onClose();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <StyledWrapper $isActive={isActive}>
       <CSSTransition
@@ -191,10 +212,13 @@ const Window = ({ children, isActive, title, onClose, width, bottomBar }) => {
         <StyledWindow $width={width}>
           <StyledWindowTitleBar>
             <StyledTitle>{title}</StyledTitle>
-            <StyledIcon
-              icon={windowWidth <= 1024 ? arrowIcon : closeIcon}
+            <StyledCloseButton
               onClick={onClose}
-            />
+              aria-label="Zamknij"
+              title="Zamknij"
+            >
+              <StyledIcon icon={windowWidth <= 1024 ? arrowIcon : closeIcon} />
+            </StyledCloseButton>
           </StyledWindowTitleBar>
           <StyledContentWrapper>
             <StyledContent>{children}</StyledContent>

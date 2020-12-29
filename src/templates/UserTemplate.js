@@ -1,15 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import MainTemplate from "@templates/MainTemplate";
-import routes from "@routes";
 import { useFontSize } from "@hooks/styled-components";
-import { Link, useLocation } from "react-router-dom";
-import Icon from "@iconify/react";
-import ordersIcon from "@iconify/icons-clarity/list-line";
-import returnIcon from "@iconify/icons-clarity/history-line";
-import heartIcon from "@iconify/icons-clarity/heart-line";
-import settingsIcon from "@iconify/icons-clarity/settings-line";
+import { UserNav } from "@components/molecules";
+import { useWindowSize } from "@hooks/utils";
+import { BackButton } from "@components/atoms";
+import routes from "@routes";
 
 const StyledWrapper = styled.div`
   width: 90%;
@@ -20,6 +17,10 @@ const StyledWrapper = styled.div`
 
 const StyledInnerWrapper = styled.div`
   display: flex;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;
 
 const StyledLeftColumn = styled.div``;
@@ -30,62 +31,13 @@ const StyledRightColumn = styled.div`
   border-left: 1px solid ${({ theme }) => theme.lightGray};
   flex: 1;
   overflow: hidden;
-`;
 
-const StyledGreeting = styled.span`
-  ${({ theme }) => useFontSize(theme)}
-  font-weight: 300;
-  padding-left: 15px;
-`;
-
-const StyledUserName = styled.span`
-  ${({ theme }) => useFontSize(theme, "l")}
-  font-weight: 400;
-  display: block;
-  margin-top: 5px;
-  padding-left: 15px;
-`;
-
-const StyledNavigation = styled.nav``;
-
-const StyledList = styled.ul`
-  margin-top: 30px;
-  list-style-type: none;
-`;
-
-const StyledItem = styled.li`
-  ${({ theme }) => useFontSize(theme)}
-  font-weight: 300;
-
-  :last-of-type {
-    margin-bottom: 0;
+  @media (max-width: 1024px) {
+    border-left: 0;
+    padding-left: 0;
+    padding-top: 0;
+    margin-top: 30px;
   }
-
-  ${({ $isActive }) =>
-    $isActive &&
-    css`
-      font-weight: 400;
-      color: ${({ theme }) => theme.black};
-      cursor: default;
-    `}
-
-  :hover {
-    background: ${({ theme }) => theme.lighterGray};
-  }
-`;
-
-const StyledLink = styled(Link)`
-  color: inherit;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  padding: 15px 75px 15px 15px;
-  width: 100%;
-`;
-
-const StyledIcon = styled(Icon)`
-  font-size: 2rem;
-  margin-right: 10px;
 `;
 
 const StyledHeadline = styled.h2`
@@ -93,42 +45,23 @@ const StyledHeadline = styled.h2`
   font-weight: 400;
 `;
 
-const items = [
-  { name: "Zamówienia", icon: ordersIcon, link: routes.orders },
-  { name: "Zwroty i reklamacje", icon: returnIcon, link: routes.returns },
-  { name: "Zapisane produkty", icon: heartIcon, link: routes.favorite },
-  { name: "Ustawienia", icon: settingsIcon, link: routes.settings },
-];
-
-const UserTemplate = ({ Headline, children }) => {
-  const { pathname } = useLocation();
+const UserTemplate = ({ Headline, children, withoutBackButton }) => {
+  const { width } = useWindowSize();
 
   return (
     <MainTemplate>
       <StyledWrapper>
         <StyledInnerWrapper>
           <StyledLeftColumn>
-            <StyledGreeting>
-              Cześć,
-              <StyledUserName>Jakub Chmielewski</StyledUserName>
-            </StyledGreeting>
-
-            <StyledNavigation>
-              <StyledList>
-                {items.map(({ name, icon, link }) => {
-                  const isActive = pathname.includes(link);
-
-                  return (
-                    <StyledItem key={link} $isActive={isActive}>
-                      <StyledLink to={link}>
-                        <StyledIcon icon={icon} />
-                        {name}
-                      </StyledLink>
-                    </StyledItem>
-                  );
-                })}
-              </StyledList>
-            </StyledNavigation>
+            {width > 1024 ? (
+              <UserNav />
+            ) : (
+              !withoutBackButton && (
+                <BackButton to={routes.user} onClick={() => {}}>
+                  Zawróć się
+                </BackButton>
+              )
+            )}
           </StyledLeftColumn>
           <StyledRightColumn>
             {Headline && (
@@ -147,10 +80,12 @@ const UserTemplate = ({ Headline, children }) => {
 UserTemplate.propTypes = {
   Headline: PropTypes.node,
   children: PropTypes.node.isRequired,
+  withoutBackButton: PropTypes.bool,
 };
 
 UserTemplate.defaultProps = {
   Headline: null,
+  withoutBackButton: false,
 };
 
 export default UserTemplate;

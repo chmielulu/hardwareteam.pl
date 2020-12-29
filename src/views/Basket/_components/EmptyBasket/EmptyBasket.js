@@ -13,13 +13,13 @@ const StyledSection = styled.div`
 `;
 
 const StyledHeadline = styled.h2`
-  ${({ theme }) => useFontSize(theme, "l")}
+  ${({ theme }) => useFontSize(theme, "l", "xl")}
   font-weight: 400;
   margin-bottom: 10px;
 `;
 
 const StyledParagraph = styled.p`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   color: ${({ theme }) => theme.gray};
   margin-bottom: 20px;
 `;

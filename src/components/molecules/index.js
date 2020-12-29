@@ -8,6 +8,7 @@ import HotShot from "./HotShot/HotShot";
 import CategoryCard from "./CategoryCard/CategoryCard";
 import Comment from "./Comment/Comment";
 import Wysiwyg from "./Wysiwyg/Wysiwyg";
+import UserNav from "./UserNav/UserNav";
 
 export {
   ProductCard,
@@ -20,4 +21,5 @@ export {
   CategoryCard,
   Comment,
   Wysiwyg,
+  UserNav,
 };

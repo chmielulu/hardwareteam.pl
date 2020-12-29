@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import styled from "styled-components";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import { useSortedAwards } from "@hooks/utils";
 import { Award, Attribute, Score, Button } from "@components/atoms";
 import basketIcon from "@iconify/icons-clarity/shopping-cart-line";
@@ -68,11 +68,15 @@ const StyledPhoto = styled.img`
 const StyledPrice = styled.div`
   ${({ theme }) => useFontSize(theme, "xl", "xxl")};
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: ${useFluidSize({ min: 10, max: 20 })};
   display: flex;
   width: 100%;
   align-items: center;
   flex-direction: column;
+
+  @media (max-width: 360px) {
+    margin-bottom: 10px;
+  }
 `;
 
 const StyledDiscount = styled.div`
@@ -105,6 +109,16 @@ const StyledInformation = styled(Information)`
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: inherit;
+
+  :hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 1024px) {
+    :hover {
+      text-decoration: none;
+    }
+  }
 `;
 
 const Primary = ({

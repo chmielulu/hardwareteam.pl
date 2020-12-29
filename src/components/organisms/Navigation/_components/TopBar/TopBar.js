@@ -126,8 +126,8 @@ const TopBar = ({ innerSizes, basket }) => {
             <TextWithIcon icon={helpIcon} text="Kontakt" />
             <StyledPopUp />
           </PopUpWrapper>
-          <StyledSecondLink to={routes.index}>
-            <TextWithIcon icon={heartIcon} text="Listy zakupowe" />
+          <StyledSecondLink to={routes.favorite}>
+            <TextWithIcon icon={heartIcon} text="Ulubione produkty" />
           </StyledSecondLink>
           <StyledSecondLink to={routes.login}>
             <TextWithIcon icon={userIcon} text="Twoje konto" />

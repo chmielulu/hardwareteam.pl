@@ -38,6 +38,8 @@ const StyledInnerWrapper = styled.div`
 
 const StyledContent = styled.div`
   margin-left: 60px;
+  flex: 1;
+  oveflow: hidden;
 
   @media (max-width: 1024px) {
     margin-left: 0;
@@ -57,23 +59,24 @@ const StyledCategoryParagraph = styled.p`
 `;
 
 const StyledCategoriesWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-grow: 1;
-  overflow: hidden;
-  margin-left: -40px;
-  margin-right: -40px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  align-items: center;
+  justify-content: center;
+  grid-gap: 80px;
 
   @media (max-width: 1024px) {
-    margin-left: 0;
-    margin-right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: unset;
+    justify-content: unset;
     margin-top: 20px;
+    grid-gap: unset;
   }
 `;
 
 const StyledCategoryCard = styled(CategoryCard)`
-  padding: 40px;
-
   @media (max-width: 1024px) {
     padding: 20px 0 20px 10px;
     width: 100%;

@@ -87,7 +87,7 @@ const Favorite = () => {
   }, [checkboxes]);
 
   return (
-    <UserTemplate Headline={() => <>Zapisane Produkty</>}>
+    <UserTemplate Headline={() => <>Ulubione Produkty</>}>
       <StyledWrapper>
         <StyledSlideControlWrapper>
           <StyledSlideControl

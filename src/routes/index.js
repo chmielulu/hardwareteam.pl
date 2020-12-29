@@ -15,7 +15,7 @@ export default {
   user: "/uzytkownik",
   orders: "/uzytkownik/zamowienia",
   returns: "/uzytkownik/zwroty-i-reklamacje",
-  favorite: "/uzytkownik/zapisane-produkty",
+  favorite: "/uzytkownik/ulubione-produkty",
   settings: "/uzytkownik/ustawienia",
   order: "/uzytkownik/zamowienia/:orderId",
 };
