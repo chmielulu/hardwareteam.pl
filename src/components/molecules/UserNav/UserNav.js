@@ -17,6 +17,10 @@ const StyledGreeting = styled.span`
   ${({ theme }) => useFontSize(theme)}
   font-weight: 300;
   padding-left: 15px;
+
+  @media (max-width: 1024px) {
+    padding-left: 0;
+  }
 `;
 
 const StyledUserName = styled.span`
@@ -25,6 +29,10 @@ const StyledUserName = styled.span`
   display: block;
   margin-top: 5px;
   padding-left: 15px;
+
+  @media (max-width: 1024px) {
+    padding-left: 0;
+  }
 `;
 
 const StyledNavigation = styled.nav``;
@@ -35,7 +43,7 @@ const StyledList = styled.ul`
 `;
 
 const StyledItem = styled.li`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")};
   font-weight: 300;
 
   :last-of-type {
@@ -56,6 +64,7 @@ const StyledItem = styled.li`
 
   @media (max-width: 1024px) {
     border-bottom: 1px solid ${({ theme }) => theme.lightGray};
+    font-weight: 400;
   }
 `;
 

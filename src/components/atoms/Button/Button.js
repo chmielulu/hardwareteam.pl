@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import { primary, secondary, tertiary } from "@constants/kinds";
 import { InlineIcon } from "@iconify/react";
 
@@ -37,8 +37,17 @@ const StyledButton = styled.button`
     `}
 
   @media (max-width: 1024px) {
-    padding: 10px 20px;
+    padding: ${useFluidSize({ min: 10, max: 15 })} ${useFluidSize({
+  min: 20,
+  max: 25,
+})};
+    border-radius: ${useFluidSize({ min: 5, max: 10 })};
+  }
+
+  @media (max-width: 360px) {
     border-radius: 5px;
+    padding: 10px 20px;
+
   }
 `;
 

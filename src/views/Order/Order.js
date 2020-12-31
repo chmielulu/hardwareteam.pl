@@ -4,7 +4,7 @@ import UserTemplate from "@templates/UserTemplate";
 import { BackButton } from "@components/atoms";
 import { OrderProcess } from "@components/molecules";
 import { useParams } from "react-router-dom";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import Icon from "@iconify/react";
 import shipmentIcon from "@iconify/icons-clarity/truck-line";
 import blikImg from "@assets/images/blik.png";
@@ -15,10 +15,19 @@ import productImg from "./_dummyContent/images/product.png";
 const StyledOrderProcess = styled(OrderProcess)`
   margin-top: 45px;
   margin-bottom: 70px;
+
+  @media (max-width: 1024px) {
+    margin-bottom: ${useFluidSize({ min: 30, max: 70 })};
+    margin-top: ${useFluidSize({ min: 30, max: 45 })};
+  }
+
+  @media (max-width: 360px) {
+    margin: 30px 0;
+  }
 `;
 
 const StyledHeadline = styled.h2`
-  ${({ theme }) => useFontSize(theme, "l")}
+  ${({ theme }) => useFontSize(theme, "l", "xl")}
   font-weight: 400;
 
   b {
@@ -27,7 +36,7 @@ const StyledHeadline = styled.h2`
 `;
 
 const StyledParagraph = styled.p`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 300;
   margin-top: 8px;
 `;
@@ -36,12 +45,28 @@ const StyledSection = styled.div`
   margin-top: 50px;
   width: 100%;
   max-width: 800px;
+
+  @media (max-width: 1024px) {
+    margin-top: ${useFluidSize({ min: 30, max: 50 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 30px;
+  }
 `;
 
 const StyledSectionHeadline = styled.h3`
-  ${({ theme }) => useFontSize(theme, "l")}
+  ${({ theme }) => useFontSize(theme, "l", "xl")}
   font-weight: 400;
   margin-bottom: 25px;
+
+  @media (max-width: 1024px) {
+    margin-bottom: ${useFluidSize({ min: 20, max: 25 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const StyledItem = styled.div`
@@ -61,7 +86,7 @@ const StyledRowWrapper = styled.div`
 `;
 
 const StyledItemText = styled.span`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 300;
   display: block;
   margin-bottom: 8px;
@@ -86,6 +111,10 @@ const StyledLink = styled.a`
   :hover {
     text-decoration: underline;
   }
+
+  @media (max-width: 720px) {
+    display: none;
+  }
 `;
 
 const StyledItemsWrapper = styled.div`
@@ -95,7 +124,17 @@ const StyledItemsWrapper = styled.div`
 
   ${StyledItem} {
     width: 49%;
-    margin: 0 !important;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 720px) {
+    flex-direction: column;
+    margin-top: 0;
+
+    ${StyledItem} {
+      width: 100%;
+      margin-bottom: 20px;
+    }
   }
 `;
 
@@ -117,18 +156,32 @@ const StyledProductsWrapper = styled.div`
   border-top: 1px solid ${({ theme }) => theme.lightGray};
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
   padding-top: 20px;
+
+  @media (max-width: 1024px) {
+    padding-top: ${useFluidSize({ min: 15, max: 20 })};
+    margin-top: ${useFluidSize({ min: 20, max: 40 })};
+  }
+
+  @media (max-width: 360px) {
+    padding-top: 15px;
+    margin-top: 20px;
+  }
 `;
 
 const StyledSummary = styled.div`
   width: 315px;
   margin-left: auto;
   margin-top: 30px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const StyledSummaryRow = styled.div`
   display: flex;
   justify-content: space-between;
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 300;
   margin-bottom: 10px;
   padding: 0 15px;

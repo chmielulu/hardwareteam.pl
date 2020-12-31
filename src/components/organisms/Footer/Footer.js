@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { primary, secondary } from "@constants/kinds";
+import { useFluidSize } from "@hooks/styled-components";
 import BrandZone from "./_components/BrandZone/BrandZone";
 import Newsletter from "./_components/Newsletter/Newsletter";
 import Navigation from "./_components/Navigation/Navigation";
@@ -16,7 +17,11 @@ const StyledWrapper = styled.footer`
 
   @media (max-width: 1024px) {
     width: 90%;
-    margin: 30px auto;
+    margin: ${useFluidSize({ min: 40, max: 80 })} auto 20px;
+  }
+
+  @media (max-width: 360px) {
+    margin: 40px auto 20px;
   }
 
   ${({ $kind }) =>

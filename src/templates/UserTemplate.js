@@ -36,12 +36,14 @@ const StyledRightColumn = styled.div`
     border-left: 0;
     padding-left: 0;
     padding-top: 0;
-    margin-top: 30px;
+    margin-top: ${({ $withoutBackButton }) =>
+      !$withoutBackButton ? "30px" : 0};
+    overflow: visible;
   }
 `;
 
 const StyledHeadline = styled.h2`
-  ${({ theme }) => useFontSize(theme, "xl")}
+  ${({ theme }) => useFontSize(theme, "xl", "xxl")}
   font-weight: 400;
 `;
 
@@ -63,7 +65,7 @@ const UserTemplate = ({ Headline, children, withoutBackButton }) => {
               )
             )}
           </StyledLeftColumn>
-          <StyledRightColumn>
+          <StyledRightColumn $withoutBackButton={withoutBackButton}>
             {Headline && (
               <StyledHeadline>
                 <Headline />
@@ -78,7 +80,7 @@ const UserTemplate = ({ Headline, children, withoutBackButton }) => {
 };
 
 UserTemplate.propTypes = {
-  Headline: PropTypes.node,
+  Headline: PropTypes.func,
   children: PropTypes.node.isRequired,
   withoutBackButton: PropTypes.bool,
 };

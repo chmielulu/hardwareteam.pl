@@ -57,6 +57,12 @@ const StyledName = styled.h3`
   ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 300;
   margin-top: 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  visibility: visible;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   ${({ $size, theme }) =>
     $size === "big" &&

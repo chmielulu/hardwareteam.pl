@@ -65,7 +65,7 @@ const StyledHeadline = styled.h3`
   margin-bottom: 15px;
 
   @media (max-width: 1024px) {
-    ${({ theme }) => useFontSize(theme, "l", "xl")}
+    font-size: 1.8rem;
 
     ${StyledContactWrapper} > & {
       margin-bottom: 20px;

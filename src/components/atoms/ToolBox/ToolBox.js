@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import Icon from "@iconify/react";
 import toolBoxIcon from "@iconify/icons-clarity/ellipsis-vertical-line";
 import { Link } from "react-router-dom";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import { useOutsideClick } from "@hooks/utils";
 
 const StyledWrapper = styled.div`
@@ -34,7 +34,11 @@ const StyledButton = styled.button`
     `}
 
   @media (max-width: 1024px) {
-    padding: 12px;
+    font-size: ${useFluidSize({ min: 2, max: 2.4, unit: "rem" })};
+  }
+
+  @media (max-width: 360px) {
+    font-size: 2rem;
   }
 `;
 
@@ -51,6 +55,7 @@ const StyledPopUp = styled.div`
   transform-origin: top right;
   opacity: 0;
   overflow: hidden;
+  z-index: 90;
 
   ${({ $isActive }) =>
     $isActive &&

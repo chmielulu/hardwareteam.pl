@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Input, Button, Slider } from "@components/atoms";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 
 const StyledWrapper = styled.div`
   width: 305px;
@@ -14,10 +14,18 @@ const StyledWrapper = styled.div`
   @media (max-width: 1024px) {
     width: 80%;
   }
+
+  @media (max-width: 680px) {
+    width: 90%;
+  }
 `;
 
 const StyledTopWrapper = styled.div`
   display: flex;
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
 `;
 
 const StyledText = styled.span`
@@ -33,18 +41,47 @@ const StyledBottomWrapper = styled.div`
   display: flex;
   margin-top: 15px;
   align-items: center;
+
+  @media (max-width: 1024px) {
+    margin-top: ${useFluidSize({ min: 20, max: 30 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 20px;
+  }
 `;
 
 const StyledInput = styled(Input)`
   width: 80px;
 
   input {
+    ${({ theme }) => useFontSize(theme, "m", "l")}
     text-align: center;
     padding: 6px;
+
+    @media (max-width: 1024px) {
+      padding: 8px ${useFluidSize({ min: 5, max: 15 })};
+    }
+
+    @media (max-width: 360px) {
+      padding: 8px 5px;
+    }
   }
 
   @media (max-width: 1420px) {
     width: 60px;
+  }
+
+  @media (max-width: 1024px) {
+    width: ${useFluidSize({ min: 70, max: 120 })};
+
+    :last-of-type {
+      margin-right: 20px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    width: 70px;
   }
 `;
 
@@ -59,18 +96,61 @@ const StyledSpacer = styled.span`
     width: 10px;
     margin: 0 5px;
   }
+
+  @media (max-width: 1024px) {
+    width: ${useFluidSize({ min: 25, max: 50 })};
+    margin: 0 ${useFluidSize({ min: 10, max: 15 })};
+  }
+
+  @media (max-width: 360px) {
+    width: 25px;
+    margin: 0 10px;
+  }
 `;
 
 const StyledButton = styled(Button)`
   margin-left: auto;
   padding: 8px 15px;
+
+  @media (max-width: 1024px) {
+    margin-left: auto;
+    flex: 1;
+    max-width: 200px;
+  }
 `;
 
 const StyledSlider = styled(Slider)`
   flex: 1;
+
+  @media (max-width: 1024px) {
+    margin-top: 10px;
+    width: 100% !important;
+    height: ${useFluidSize({ min: 18, max: 22 })} !important;
+
+    .noUi-handle {
+      height: ${useFluidSize({ min: 25, max: 29 })} !important;
+      width: ${useFluidSize({ min: 25, max: 29 })} !important;
+    }
+  }
+
+  @media (max-width: 360px) {
+    height: 18px !important;
+
+    .noUi-handle {
+      height: 25px !important;
+      width: 25px !important;
+    }
+  }
 `;
 
-const PriceRange = ({ min, max, currentMin, currentMax, changePriceRange }) => {
+const PriceRange = ({
+  min,
+  max,
+  currentMin,
+  currentMax,
+  changePriceRange,
+  ...props
+}) => {
   const [initialMinPrice, initialMaxPrice] = [min, max];
 
   const [latestMinPrice, setLatestMinPrice] = useState(initialMinPrice);
@@ -168,7 +248,7 @@ const PriceRange = ({ min, max, currentMin, currentMax, changePriceRange }) => {
   }, [currentMin, currentMax]);
 
   return (
-    <StyledWrapper>
+    <StyledWrapper {...props}>
       <StyledTopWrapper>
         <StyledText>Cena (zł)</StyledText>
         <StyledSlider

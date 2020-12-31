@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import UserTemplate from "@templates/UserTemplate";
-import { useFontSize } from "@hooks/styled-components";
+import { useFluidSize, useFontSize } from "@hooks/styled-components";
 import { Input, Button } from "@components/atoms";
 import Icon from "@iconify/react";
 import bundleIcon from "@iconify/icons-clarity/bundle-solid";
@@ -12,6 +12,14 @@ import { tertiary } from "@constants/kinds";
 
 const StyledWrapper = styled.div`
   margin-top: 35px;
+
+  @media (max-width: 1024px) {
+    margin-top: ${useFluidSize({ min: 20, max: 25 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 20px;
+  }
 `;
 
 const StyledSection = styled.div`
@@ -23,13 +31,25 @@ const StyledSection = styled.div`
 `;
 
 const StyledSectionHeadline = styled.h3`
-  ${({ theme }) => useFontSize(theme, "l")}
+  ${({ theme }) => useFontSize(theme, "l", "xl")}
   font-weight: 400;
   margin-bottom: 30px;
+
+  @media (max-width: 1024px) {
+    margin-bottom: ${useFluidSize({ min: 20, max: 35 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const StyledFormWrapper = styled.div`
   width: 470px;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const StyledInput = styled(Input)`
@@ -42,6 +62,14 @@ const StyledButton = styled(Button)`
 
 const StyledTypesOfSubmissionWrapper = styled.div`
   display: flex;
+
+  @media (max-width: 1024px) {
+    justify-content: space-between;
+  }
+
+  @media (max-width: 580px) {
+    flex-direction: column;
+  }
 `;
 
 const StyledTypeOfSubmission = styled.div`
@@ -50,16 +78,37 @@ const StyledTypeOfSubmission = styled.div`
   height: 280px;
   display: flex;
   flex-direction: column;
+
+  :last-of-type {
+    margin-right: 0;
+  }
+
+  @media (max-width: 1024px) {
+    width: 45%;
+  }
+
+  @media (max-width: 580px) {
+    width: 100%;
+    height: unset;
+
+    :last-of-type {
+      margin-top: 40px;
+    }
+  }
 `;
 
 const StyledHeadline = styled.h4`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 400;
   margin-bottom: 18px;
 `;
 
 const StyledList = styled.ul`
   list-style-type: none;
+
+  @media (max-width: 580px) {
+    max-width: 350px;
+  }
 `;
 
 const StyledItem = styled.li`
@@ -75,7 +124,7 @@ const StyledIcon = styled(Icon)`
 `;
 
 const StyledText = styled.p`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 300;
   flex: 1;
   line-height: 1.3;
@@ -83,6 +132,10 @@ const StyledText = styled.p`
 
 const StyledTypeOfSubmissionButton = styled(Button)`
   margin-top: auto;
+
+  @media (max-width: 580px) {
+    margin-top: 20px;
+  }
 `;
 
 const types = [

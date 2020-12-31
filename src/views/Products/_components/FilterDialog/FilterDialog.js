@@ -4,11 +4,12 @@ import { Button } from "@components/atoms";
 import PropTypes from "prop-types";
 import Dialog from "@components/molecules/Dialog/Window/Window";
 import arrowIcon from "@iconify/icons-clarity/circle-arrow-line";
+import { useFluidSize } from "@hooks/styled-components";
 import Filter from "../Filter/Filter";
 import PriceRange from "../PriceRange/PriceRange";
 
 const StyledWrapper = styled.div`
-  margin: 0 auto;
+  margin: ${useFluidSize({ min: 0, max: 20 })} 0;
   padding: 20px 5%;
   width: 100%;
   overflow: hidden;
@@ -20,6 +21,10 @@ const StyledWrapper = styled.div`
     css`
       position: static;
     `}
+
+  @media (max-width: 360px) {
+    margin: 0;
+  }
 `;
 
 const StyledBottomBarWrapper = styled.div`
@@ -31,8 +36,16 @@ const StyledBottomBarWrapper = styled.div`
 `;
 
 const FiltersWrapper = styled.div`
-  margin-top: 20px;
+  margin-top: ${useFluidSize({ min: 20, max: 30 })};
   overflow: hidden;
+
+  @media (max-width: 360px) {
+    margin-top: 20px;
+  }
+`;
+
+const StyledPriceRange = styled(PriceRange)`
+  margin-left: 10px;
 `;
 
 const FilterDialog = ({
@@ -70,7 +83,7 @@ const FilterDialog = ({
       bottomBar={() => <BottomBar onClick={handleButtonClick} />}
     >
       <StyledWrapper $isActive={isItemsActive}>
-        <PriceRange
+        <StyledPriceRange
           min={minPrice}
           max={maxPrice}
           currentMinPrice={currentMinPrice}

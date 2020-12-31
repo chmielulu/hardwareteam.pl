@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import formatPrice from "@utils/formatPrice";
 import { Img } from "react-image";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -14,6 +14,16 @@ const StyledWrapper = styled.div`
   :last-of-type {
     border-bottom: 0;
   }
+
+  @media (max-width: 1024px) {
+    padding-left: ${useFluidSize({ min: 20, max: 40 })};
+    padding-bottom: ${useFluidSize({ min: 15, max: 20 })};
+  }
+
+  @media (max-width: 360px) {
+    padding-left: 20px;
+    padding-bottom: 15px;
+  }
 `;
 
 const StyledImageWrapper = styled.div``;
@@ -21,14 +31,35 @@ const StyledImageWrapper = styled.div``;
 const StyledImage = styled(Img)`
   max-width: 135px;
   max-height: 135px;
+
+  @media (max-width: 1024px) {
+    max-width: ${useFluidSize({ min: 90, max: 135 })};
+    max-height: ${useFluidSize({ min: 90, max: 135 })};
+  }
+
+  @media (max-width: 360px) {
+    max-width: 90px;
+    max-height: 90px;
+  }
 `;
 
 const StyledContentWrapper = styled.div`
   padding-top: 20px;
+  margin-left: 20px;
+
+  @media (max-width: 1024px) {
+    padding-top: ${useFluidSize({ min: 10, max: 20 })};
+    margin-left: ${useFluidSize({ min: 10, max: 20 })};
+  }
+
+  @media (max-width: 360px) {
+    padding-top: 10px;
+    margin-left: 10px;
+  }
 `;
 
 const StyledName = styled.h4`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 300;
 `;
 
@@ -39,13 +70,13 @@ const StyledInformationsWrapper = styled.div`
 `;
 
 const StyledPrice = styled.span`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 400;
   margin-right: 10px;
 `;
 
 const StyledCount = styled.span`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   color: ${({ theme }) => theme.darkGray};
   font-weight: 300;
 `;

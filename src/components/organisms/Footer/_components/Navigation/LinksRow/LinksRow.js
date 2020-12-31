@@ -38,7 +38,7 @@ const StyledHeadline = styled.h3`
   max-width: 160px;
 
   @media (max-width: 1024px) {
-    ${({ theme }) => useFontSize(theme, "l", "xl")}
+    font-size: 1.8rem;
     margin-bottom: 0;
     font-weight: 300;
     max-width: 80%;

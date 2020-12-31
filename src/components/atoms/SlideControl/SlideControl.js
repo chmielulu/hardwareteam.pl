@@ -17,15 +17,15 @@ const StyledInnerWrapper = styled.div`
   margin-right: 10px;
 
   @media (max-width: 1024px) {
-    min-width: ${useFluidSize({ min: 30, max: 35 })};
-    width: ${useFluidSize({ min: 30, max: 35 })};
-    height: ${useFluidSize({ min: 15, max: 20 })};
+    min-width: ${useFluidSize({ min: 32, max: 35 })};
+    width: ${useFluidSize({ min: 32, max: 35 })};
+    height: ${useFluidSize({ min: 17, max: 20 })};
   }
 
   @media (max-width: 360px) {
-    min-width: 30px;
-    width: 30px;
-    height: 15px;
+    min-width: 32px;
+    width: 32px;
+    height: 17px;
   }
 `;
 
@@ -65,13 +65,13 @@ const StyledWheel = styled.div`
   transition: transform 0.2s ease-in-out;
 
   @media (max-width: 1024px) {
-    width: ${useFluidSize({ min: 12, max: 16 })};
-    height: ${useFluidSize({ min: 12, max: 16 })};
+    width: ${useFluidSize({ min: 13.5, max: 16 })};
+    height: ${useFluidSize({ min: 13.5, max: 16 })};
   }
 
   @media (max-width: 360px) {
-    width: 12px;
-    height: 12px;
+    width: 13.5px;
+    height: 13.5px;
   }
 `;
 

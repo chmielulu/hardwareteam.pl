@@ -1,27 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Window from "@components/molecules/Dialog/Window/Window";
 import { Radio, Button } from "@components/atoms/";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import arrowIcon from "@iconify/icons-clarity/circle-arrow-line";
 
 const StyledWrapper = styled.div`
-  margin: 20px 0;
+  margin: ${useFluidSize({ min: 20, max: 40 })} 0;
+
+  @media (max-width: 360px) {
+    margin: 20px 0;
+  }
 `;
 
 const StyledHeadline = styled.span`
   ${({ theme }) => useFontSize(theme, "m", "l")}
   margin-left: 5%;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: ${useFluidSize({ min: 10, max: 20 })};
+
+  @media (max-width: 360px) {
+    margin-bottom: 10px;
+  }
 `;
 
 const StyledOptionWrapper = styled.div`
   width: 90%;
   margin: 0 auto;
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
-  padding: 15px 4%;
+  padding: 15px 20px;
 
   :first-of-type {
     border-top: 1px solid ${({ theme }) => theme.lightGray};
@@ -41,15 +49,13 @@ const StyledBottomBarWrapper = styled.div`
   height: 75px;
 `;
 
-const SortDialog = ({ sort, isActive, onClose }) => {
-  const [controlledRadios, setControlledRadios] = useState([
-    { name: "Domyślne", id: "default" },
-    { name: "Cena od najtańszych", id: "lowestPrice", checked: true },
-    { name: "Cena od najdroższych", id: "highestPrice", checked: false },
-    { name: "Ocena: od najlepszej", id: "bestGrade", checked: false },
-    { name: "Nazwa: A-Z", id: "nameAZ", checked: false },
-    { name: "Nazwa: Z-A", id: "nameZA", checked: false },
-  ]);
+const SortDialog = ({ sort, isActive, onClose, items, activeOption }) => {
+  const [controlledRadios, setControlledRadios] = useState(
+    items.map((item, index) => ({
+      ...item,
+      checked: index === 0,
+    }))
+  );
 
   const handleOptionClick = (id) => {
     setControlledRadios(
@@ -66,6 +72,31 @@ const SortDialog = ({ sort, isActive, onClose }) => {
     sort(id);
     onClose();
   };
+
+  const updateRadios = () => {
+    setControlledRadios(
+      controlledRadios.map((radio, index) =>
+        index === activeOption
+          ? { ...radio, checked: true }
+          : { ...radio, checked: false }
+      )
+    );
+  };
+
+  useLayoutEffect(() => {
+    updateRadios();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeOption]);
+
+  useLayoutEffect(() => {
+    if (
+      isActive &&
+      activeOption !== controlledRadios.findIndex((radio) => radio.checked)
+    ) {
+      updateRadios();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isActive]);
 
   return (
     <Window
@@ -107,6 +138,17 @@ SortDialog.propTypes = {
   sort: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      id: PropTypes.string,
+    })
+  ).isRequired,
+  activeOption: PropTypes.number,
+};
+
+SortDialog.defaultProps = {
+  activeOption: null,
 };
 
 export default SortDialog;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { Icon } from "@iconify/react";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import { primary, secondary } from "@constants/kinds";
 
 const StyledWrapper = styled.div`
@@ -34,6 +34,14 @@ const StyledInput = styled.input`
     css`
       padding: 10px 35px 10px 15px;
     `}
+
+  @media (max-width: 1024px) {
+    border-radius: ${useFluidSize({ min: 5, max: 10 })};
+  }
+
+  @media (max-width: 360px) {
+    border-radius: 5px;
+  }
 `;
 
 const StyledIcon = styled(Icon)`

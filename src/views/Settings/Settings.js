@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import UserTemplate from "@templates/UserTemplate";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import { Checkbox, Button } from "@components/atoms";
 import extractLink from "@utils/extractLink";
 import EditButton from "./_components/EditButton/EditButton";
 
 const StyledWrapper = styled.div`
   margin-top: 35px;
+
+  @media (max-width: 1024px) {
+    margin-top: ${useFluidSize({ min: 25, max: 35 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 25px;
+  }
 `;
 
 const StyledSection = styled.div`
@@ -19,9 +27,17 @@ const StyledSection = styled.div`
 `;
 
 const StyledSectionHeadline = styled.h3`
-  ${({ theme }) => useFontSize(theme, "l")}
+  ${({ theme }) => useFontSize(theme, "l", "xl")}
   font-weight: 400;
   margin-bottom: 30px;
+
+  @media (max-width: 1024px) {
+    margin-bottom: ${useFluidSize({ min: 20, max: 30 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const StyledItem = styled.div`
@@ -35,22 +51,26 @@ const StyledItem = styled.div`
 `;
 
 const StyledItemHeadline = styled.h4`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 400;
   margin-bottom: 10px;
 `;
 
 const StyledItemContentWrapper = styled.div`
-  padding: 20px 25px;
+  padding: 20px 65px 20px 25px;
   border: 1px solid ${({ theme }) => theme.lightGray};
   border-radius: 10px;
   position: relative;
 `;
 
 const StyledItemContent = styled.p`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 300;
   margin-bottom: 8px;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   :last-of-type {
     margin-bottom: 0;
@@ -72,10 +92,18 @@ const StyledEditButton = styled(EditButton)`
 
 const StyledCheckbox = styled(Checkbox)`
   margin-bottom: 15px;
+
+  @media (max-width: 1024px) {
+    margin-bottom: ${useFluidSize({ min: 10, max: 15 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-bottom: 10px;
+  }
 `;
 
 const StyledCheckboxRender = styled.div`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: ${({ $fontWeight }) => $fontWeight || 300};
   max-width: 500px;
   

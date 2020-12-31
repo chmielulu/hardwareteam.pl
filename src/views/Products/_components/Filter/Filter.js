@@ -5,7 +5,7 @@ import { Checkbox } from "@components/atoms";
 import { Icon } from "@iconify/react";
 import angleIcon from "@iconify/icons-clarity/angle-line";
 import arrowIcon from "@iconify/icons-clarity/arrow-line";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import { useWindowSize } from "@hooks/utils";
 
 const StyledWrapper = styled.section`
@@ -24,7 +24,7 @@ const StyledHeader = styled.header`
 
   @media (max-width: 1024px) {
     border-bottom: 1px solid ${({ theme }) => theme.lightGray};
-    padding: 15px 10px;
+    padding: 15px 10px 15px 20px;
     margin-bottom: 0;
 
     ${StyledWrapper}:first-of-type & {
@@ -35,6 +35,14 @@ const StyledHeader = styled.header`
 
 const StyledHeadline = styled.span`
   ${({ theme }) => useFontSize(theme, "l")}
+
+  @media (max-width: 1024px) {
+    font-size: ${useFluidSize({ min: 1.4, max: 1.8, unit: "rem" })};
+  }
+
+  @media (max-width: 360px) {
+    font-size: 1.4rem;
+  }
 `;
 
 const StyledButton = styled.button`

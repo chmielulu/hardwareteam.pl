@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useFluidSize, useFontSize } from "@hooks/styled-components";
@@ -8,8 +8,9 @@ import listIcon from "@iconify/icons-oi/list-rich";
 import filterIcon from "@iconify/icons-clarity/filter-line";
 import sortIcon from "@iconify/icons-clarity/two-way-arrows-line";
 import { primary, secondary } from "@constants/kinds";
+import { useSearchParameters } from "@hooks/utils";
+import SortDialog from "@components/molecules/Dialog/SortDialog/SortDialog";
 import FilterDialog from "../FilterDialog/FilterDialog";
-import SortDialog from "../SortDialog/SortDialog";
 
 const StyledWrapper = styled.div`
   width: 100%;
@@ -81,6 +82,18 @@ const MobileNav = ({
   const handleSortClick = () => setSortDialogActive(true);
   const handleSortOnClose = () => setSortDialogActive(false);
 
+  const [activeOption, setActiveOption] = useState(0);
+  const { sort: sortParam } = useSearchParameters();
+
+  useLayoutEffect(() => {
+    if (!sortParam || sortParam === "default") setActiveOption(0);
+    if (sortParam === "lowestPrice") setActiveOption(1);
+    if (sortParam === "highestPrice") setActiveOption(2);
+    if (sortParam === "bestGrade") setActiveOption(3);
+    if (sortParam === "nameAZ") setActiveOption(4);
+    if (sortParam === "nameZA") setActiveOption(5);
+  }, [sortParam]);
+
   return (
     <>
       <StyledWrapper>
@@ -114,6 +127,15 @@ const MobileNav = ({
         isActive={isSortDialogActive}
         onClose={handleSortOnClose}
         sort={sort}
+        items={[
+          { name: "Domyślne", id: "default" },
+          { name: "Cena od najtańszych", id: "lowestPrice" },
+          { name: "Cena od najdroższych", id: "highestPrice" },
+          { name: "Ocena: od najlepszej", id: "bestGrade" },
+          { name: "Nazwa: A-Z", id: "nameAZ" },
+          { name: "Nazwa: Z-A", id: "nameZA" },
+        ]}
+        activeOption={activeOption}
       />
     </>
   );

@@ -78,7 +78,8 @@ const StyledIcon = styled(Icon)`
 
 const StyledName = styled.h3`
   font-weight: 300;
-  ${({ theme }) => useFontSize(theme, "m", "xs")}
+  ${({ theme }) => useFontSize(theme, "m")}
+  white-space: nowrap;
 
   ${({ $isActive }) =>
     $isActive &&
