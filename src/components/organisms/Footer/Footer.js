@@ -58,13 +58,15 @@ Footer.propTypes = {
       icon: PropTypes.any.isRequired,
       name: PropTypes.string,
     })
-  ).isRequired,
-  copyrightImages: PropTypes.array.isRequired,
+  ),
+  copyrightImages: PropTypes.array,
   kind: PropTypes.oneOf([primary, secondary]),
 };
 
 Footer.defaultProps = {
   kind: primary,
+  copyrightImages: null,
+  brands: null,
 };
 
 export default Footer;

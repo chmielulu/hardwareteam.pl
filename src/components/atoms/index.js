@@ -19,6 +19,8 @@ import Spinner from "./Spinner/Spinner";
 import ArrowButton from "./ArrowButton/ArrowButton";
 import SocialButton from "./SocialButton/SocialButton";
 import Information from "./Information/Information";
+import Frame from "./Frame/Frame";
+import CircleButton from "./CircleButton/CircleButton";
 
 export {
   Attribute,
@@ -42,4 +44,6 @@ export {
   ArrowButton,
   SocialButton,
   Information,
+  Frame,
+  CircleButton,
 };

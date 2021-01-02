@@ -109,12 +109,13 @@ const Copyright = ({ copyrightImages, kind }) => {
 };
 
 Copyright.propTypes = {
-  copyrightImages: PropTypes.array.isRequired,
+  copyrightImages: PropTypes.array,
   kind: PropTypes.oneOf([primary, secondary]),
 };
 
 Copyright.defaultProps = {
   kind: primary,
+  copyrightImages: [],
 };
 
 export default Copyright;

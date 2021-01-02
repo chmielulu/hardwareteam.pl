@@ -1,7 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
 import Icon from "@iconify/react";
-import pencilIcon from "@iconify/icons-clarity/pencil-line";
 
 const StyledWrapper = styled.button`
   border: 0;
@@ -30,12 +30,17 @@ const StyledIcon = styled(Icon)`
   font-size: 2rem;
 `;
 
-const EditButton = ({ ...props }) => {
+const EditButton = ({ icon, label, ...props }) => {
   return (
-    <StyledWrapper aria-labelledby="Edytuj" title="Edytuj" {...props}>
-      <StyledIcon icon={pencilIcon} />
+    <StyledWrapper aria-labelledby={label} title={label} {...props}>
+      <StyledIcon icon={icon} />
     </StyledWrapper>
   );
+};
+
+EditButton.propTypes = {
+  icon: PropTypes.object.isRequired,
+  label: PropTypes.string.isRequired,
 };
 
 export default EditButton;

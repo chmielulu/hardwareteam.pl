@@ -9,6 +9,8 @@ import CategoryCard from "./CategoryCard/CategoryCard";
 import Comment from "./Comment/Comment";
 import Wysiwyg from "./Wysiwyg/Wysiwyg";
 import UserNav from "./UserNav/UserNav";
+import WhyUs from "./WhyUs/WhyUs";
+import RadioGroup from "./RadioGroup/RadioGroup";
 
 export {
   ProductCard,
@@ -22,4 +24,6 @@ export {
   Comment,
   Wysiwyg,
   UserNav,
+  WhyUs,
+  RadioGroup,
 };

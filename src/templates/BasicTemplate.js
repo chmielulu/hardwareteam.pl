@@ -5,12 +5,10 @@ import { theme } from "@themes/theme";
 import GlobalStyles from "@themes/GlobalStyles";
 
 const MainTemplate = ({ children }) => (
-  <>
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      {children}
-    </ThemeProvider>
-  </>
+  <ThemeProvider theme={theme}>
+    <GlobalStyles />
+    {children}
+  </ThemeProvider>
 );
 
 MainTemplate.propTypes = {

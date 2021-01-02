@@ -11,6 +11,8 @@ import tagsIcon from "@iconify/icons-clarity/tags-line";
 import { Button } from "@components/atoms";
 import { useFontSize } from "@hooks/styled-components";
 import { useWindowSize } from "@hooks/utils";
+import routes from "@routes";
+import { Link } from "react-router-dom";
 import Window from "../Window/Window";
 import Spacer from "../_components/Spacer/Spacer";
 
@@ -91,11 +93,19 @@ const NotLoggedIn = ({ isActive, onClose }) => {
           position="right"
           rotateIcon={90}
           fullWidth={width <= 1024}
+          as={Link}
+          to={routes.newOrder}
         >
           Kontunuuj jako gość
         </Button>
         <Spacer />
-        <Button icon={userIcon} kind="tertiary" fullWidth={width <= 1024}>
+        <Button
+          icon={userIcon}
+          kind="tertiary"
+          fullWidth={width <= 1024}
+          as={Link}
+          to={routes.login}
+        >
           Zaloguj się lub zarejestruj
         </Button>
         <StyledListWrapper>

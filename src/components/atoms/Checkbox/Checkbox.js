@@ -5,6 +5,7 @@ import { rgba } from "polished";
 import checkIcon from "@iconify/icons-bi/check";
 import { Icon } from "@iconify/react";
 import { useFontSize } from "@hooks/styled-components";
+import { primary, secondary } from "@constants/kinds";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -38,7 +39,7 @@ const StyledCheckbox = styled.span`
   display: block;
 
   ${StyledInput}:checked ~ & {
-    background: ${({ theme }) => theme.primary};
+    background: ${({ theme, $kind }) => theme[$kind]};
     border: 1px solid ${({ theme }) => rgba(theme.black, 0)};
   }
 `;
@@ -63,7 +64,16 @@ const StyledLabel = styled.label`
   line-height: 16px;
 `;
 
-const Checkbox = ({ name, label, render, id, checked, onChange, ...props }) => (
+const Checkbox = ({
+  name,
+  label,
+  render,
+  id,
+  checked,
+  onChange,
+  kind,
+  ...props
+}) => (
   <StyledWrapper {...props}>
     <StyledInnerWrapper>
       <StyledInput
@@ -73,7 +83,7 @@ const Checkbox = ({ name, label, render, id, checked, onChange, ...props }) => (
         name={name}
         id={id || name}
       />
-      <StyledCheckbox />
+      <StyledCheckbox $kind={kind} />
       <StyledIcon icon={checkIcon} />
     </StyledInnerWrapper>
     <StyledLabel htmlFor={id || name}>{render ? render() : label}</StyledLabel>
@@ -87,6 +97,7 @@ Checkbox.propTypes = {
   id: PropTypes.string,
   checked: PropTypes.bool,
   onChange: PropTypes.func,
+  kind: PropTypes.oneOf([primary, secondary]),
 };
 
 Checkbox.defaultProps = {
@@ -95,6 +106,7 @@ Checkbox.defaultProps = {
   id: null,
   checked: undefined,
   onChange: undefined,
+  kind: primary,
 };
 
 export default Checkbox;

@@ -18,4 +18,7 @@ export default {
   favorite: "/uzytkownik/ulubione-produkty",
   settings: "/uzytkownik/ustawienia",
   order: "/uzytkownik/zamowienia/:orderId",
+  newOrder: "/skladanie-zamowienia/",
+  newOrderSummary: "/skladanie-zamowienia/podsumowanie",
+  newOrderDone: "/skladanie-zamowienia/gotowe",
 };

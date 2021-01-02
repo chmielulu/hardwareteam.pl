@@ -95,15 +95,11 @@ const StyledImg = styled.img`
     `}
 `;
 
-const StyledPrice = styled.div`
+const StyledPriceWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   margin-top: 25px;
   margin-bottom: 7px;
-
-  @media (max-width: 1024px) {
-    ${({ theme }) => useFontSize(theme, "m", "l")}
-  }
 
   ${({ $size }) =>
     $size === "small" &&
@@ -112,11 +108,23 @@ const StyledPrice = styled.div`
     `}
 `;
 
+const StyledPrice = styled.div`
+  @media (max-width: 1024px) {
+    ${({ theme }) => useFontSize(theme, "m", "l")}
+  }
+
+  ${({ $isDiscount }) =>
+    $isDiscount &&
+    css`
+      ${({ theme }) => useFontSize(theme, "s", "m")}
+      text-decoration: line-through;
+      color: ${({ theme }) => theme.gray};
+    `}
+`;
+
 const StyledDiscount = styled.div`
-  ${({ theme }) => useFontSize(theme, "s", "m")}
-  color: ${({ theme }) => theme.gray};
-  text-decoration: line-through;
-  margin-left: 6px;
+  ${({ theme }) => useFontSize(theme, "m", "l")}
+  margin-right: 6px;
 `;
 
 const StyledName = styled.h3`
@@ -186,12 +194,14 @@ const Secondary = ({
       <StyledLink to={productLink}>
         <StyledImg src={img} alt={name} $size={size} />
         <StyledInnerWrapper>
-          <StyledPrice $size={size}>
-            {formatPrice(price)}
+          <StyledPriceWrapper $size={size}>
             {discount && (
               <StyledDiscount>{formatPrice(discount)}</StyledDiscount>
             )}
-          </StyledPrice>
+            <StyledPrice $isDiscount={!!discount}>
+              {formatPrice(price)}
+            </StyledPrice>
+          </StyledPriceWrapper>
           <StyledName $size={size} as={titleAs || undefined}>
             {shortenName}
           </StyledName>

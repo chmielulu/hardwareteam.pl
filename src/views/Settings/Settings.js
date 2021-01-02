@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import UserTemplate from "@templates/UserTemplate";
 import { useFontSize, useFluidSize } from "@hooks/styled-components";
-import { Checkbox, Button } from "@components/atoms";
+import { Checkbox, Button, CircleButton } from "@components/atoms";
 import extractLink from "@utils/extractLink";
-import EditButton from "./_components/EditButton/EditButton";
+import pencilIcon from "@iconify/icons-clarity/pencil-line";
 
 const StyledWrapper = styled.div`
   margin-top: 35px;
@@ -84,7 +84,10 @@ const StyledItemContent = styled.p`
     `}
 `;
 
-const StyledEditButton = styled(EditButton)`
+const StyledCircleButton = styled(CircleButton).attrs(() => ({
+  icon: pencilIcon,
+  label: "Edytuj",
+}))`
   position: absolute;
   right: 7px;
   top: 9px;
@@ -155,7 +158,7 @@ const Settings = () => {
             <StyledItemContentWrapper>
               <StyledItemContent>Jakub Chmielewski</StyledItemContent>
               <StyledItemContent>Telefon: +48 887 077 904</StyledItemContent>
-              <StyledEditButton />
+              <StyledCircleButton />
             </StyledItemContentWrapper>
           </StyledItem>
           <StyledItem>
@@ -164,14 +167,14 @@ const Settings = () => {
               <StyledItemContent>
                 jakubchmielewski80@gmail.com
               </StyledItemContent>
-              <StyledEditButton />
+              <StyledCircleButton />
             </StyledItemContentWrapper>
           </StyledItem>
           <StyledItem>
             <StyledItemHeadline>Hasło</StyledItemHeadline>
             <StyledItemContentWrapper>
               <StyledItemContent $password>••••••••</StyledItemContent>
-              <StyledEditButton />
+              <StyledCircleButton />
             </StyledItemContentWrapper>
           </StyledItem>
         </StyledSection>

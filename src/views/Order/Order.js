@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import UserTemplate from "@templates/UserTemplate";
-import { BackButton } from "@components/atoms";
+import { BackButton, Frame } from "@components/atoms";
 import { OrderProcess } from "@components/molecules";
 import { useParams } from "react-router-dom";
 import { useFontSize, useFluidSize } from "@hooks/styled-components";
@@ -69,17 +69,6 @@ const StyledSectionHeadline = styled.h3`
   }
 `;
 
-const StyledItem = styled.div`
-  padding: 20px 25px;
-  border: 1px solid ${({ theme }) => theme.lightGray};
-  border-radius: 10px;
-  margin-bottom: 20px;
-
-  :last-of-type {
-    margin-bottom: 0;
-  }
-`;
-
 const StyledRowWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -122,7 +111,7 @@ const StyledItemsWrapper = styled.div`
   justify-content: space-between;
   margin-top: 20px;
 
-  ${StyledItem} {
+  ${Frame} {
     width: 49%;
     margin-bottom: 0;
   }
@@ -131,7 +120,7 @@ const StyledItemsWrapper = styled.div`
     flex-direction: column;
     margin-top: 0;
 
-    ${StyledItem} {
+    ${Frame} {
       width: 100%;
       margin-bottom: 20px;
     }
@@ -228,7 +217,7 @@ const Order = () => {
 
       <StyledSection>
         <StyledSectionHeadline>Dostawa</StyledSectionHeadline>
-        <StyledItem>
+        <Frame>
           <StyledRowWrapper>
             <StyledShipmentIcon icon={shipmentIcon} />
             <StyledItemText>
@@ -242,35 +231,35 @@ const Order = () => {
               Śledź przesyłkę
             </StyledLink>
           </StyledRowWrapper>
-        </StyledItem>
+        </Frame>
         <StyledItemsWrapper>
-          <StyledItem>
+          <Frame>
             <StyledItemHeader>Dane odbiorcy:</StyledItemHeader>
             <StyledItemText>Jakub Chmielewski</StyledItemText>
             <StyledItemText>
               E-mail: jakubchmielewski80@gmail.com
             </StyledItemText>
             <StyledItemText>Telefon: +48 887 077 904</StyledItemText>
-          </StyledItem>
+          </Frame>
 
-          <StyledItem>
+          <Frame>
             <StyledItemHeader>Adres dostawy:</StyledItemHeader>
             <StyledItemText>ul. Rzepińska 5A/3</StyledItemText>
             <StyledItemText>69-110 Kowalów</StyledItemText>
-          </StyledItem>
+          </Frame>
         </StyledItemsWrapper>
       </StyledSection>
 
       <StyledSection>
         <StyledSectionHeadline>Płatność</StyledSectionHeadline>
-        <StyledItem>
+        <Frame>
           <StyledRowWrapper>
             <StyledImg src={blikImg} alt="BLIK" />
             <StyledItemText>BLIK</StyledItemText>
           </StyledRowWrapper>
-        </StyledItem>
+        </Frame>
 
-        <StyledItem>
+        <Frame>
           <StyledItemHeader>
             Dane do faktury:
             <StyledLink
@@ -284,14 +273,14 @@ const Order = () => {
           <StyledItemText>Jakub Chmielewski</StyledItemText>
           <StyledItemText>ul. Rzepińska 5A/3</StyledItemText>
           <StyledItemText>69-110 Kowalów</StyledItemText>
-        </StyledItem>
+        </Frame>
       </StyledSection>
 
       <StyledSection>
         <StyledSectionHeadline>Komentarz do zamówienia</StyledSectionHeadline>
-        <StyledItem>
+        <Frame>
           <StyledItemText>Brak uwag</StyledItemText>
-        </StyledItem>
+        </Frame>
       </StyledSection>
 
       <StyledSection>

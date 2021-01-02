@@ -10,7 +10,7 @@ const StyledLink = styled(Link)`
   ${({ theme }) => useFontSize(theme, "m", "l")}
   color: inherit;
   text-decoration: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
 
   :hover {

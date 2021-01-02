@@ -33,9 +33,9 @@ const StyledImage = styled.img`
     `}
 `;
 
-const Logo = ({ size, withoutText }) => {
+const Logo = ({ size, withoutText, ...props }) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper {...props}>
       <StyledImage src={logo} size={size} withoutText={withoutText} />
       {!withoutText && <StyledText size={size}>Hardware Team</StyledText>}
     </StyledWrapper>

@@ -45,7 +45,7 @@ const StyledHeadline = styled.h1`
     $kind === secondary &&
     css`
       padding-left: 0;
-      display: inline;
+      display: inline-flex;
       padding-top: 15px;
       font-weight: 300;
 

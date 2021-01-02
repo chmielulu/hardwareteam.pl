@@ -53,10 +53,23 @@ const StyledLabel = styled.label`
   ${({ theme }) => useFontSize(theme)}
   cursor: pointer;
   user-select: none;
+  flex: 1;
+  overflow: hidden;
 `;
 
-const Radio = ({ name, label, render, id, checked, readOnly }) => (
-  <StyledWrapper>
+const Radio = ({
+  name,
+  label,
+  render,
+  id,
+  checked,
+  readOnly,
+  value,
+  withoutLabel,
+  onChange,
+  ...props
+}) => (
+  <StyledWrapper {...props}>
     <StyledInnerWrapper>
       <StyledInput
         type="radio"
@@ -64,10 +77,14 @@ const Radio = ({ name, label, render, id, checked, readOnly }) => (
         id={id}
         checked={checked}
         readOnly={readOnly}
+        value={value}
+        onChange={onChange}
       />
       <StyledCheckbox />
     </StyledInnerWrapper>
-    <StyledLabel htmlFor={id}>{render ? render() : label}</StyledLabel>
+    {!withoutLabel && (
+      <StyledLabel htmlFor={id}>{render ? render() : label}</StyledLabel>
+    )}
   </StyledWrapper>
 );
 
@@ -78,6 +95,9 @@ Radio.propTypes = {
   render: PropTypes.func,
   checked: PropTypes.bool,
   readOnly: PropTypes.bool,
+  value: PropTypes.string,
+  withoutLabel: PropTypes.bool,
+  onChange: PropTypes.func,
 };
 
 Radio.defaultProps = {
@@ -86,6 +106,9 @@ Radio.defaultProps = {
   checked: undefined,
   id: undefined,
   readOnly: false,
+  value: undefined,
+  withoutLabel: false,
+  onChange: undefined,
 };
 
 export default Radio;

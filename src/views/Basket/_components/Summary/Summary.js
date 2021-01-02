@@ -85,7 +85,7 @@ const StyledInputWithButton = styled(InputWithButton)`
   }
 `;
 
-const Summary = ({ products }) => {
+const Summary = ({ products, handleOpenDialog }) => {
   const [summaryPrice, setSummaryPrice] = useState(0);
   const { width } = useWindowSize();
 
@@ -110,7 +110,9 @@ const Summary = ({ products }) => {
           do darmowej dostawy brakuje ci 0 zł
         </StyledFreeShipment>
       )}
-      <StyledButton icon={shoppingBagIcon}>Przejdź do dostawy</StyledButton>
+      <StyledButton icon={shoppingBagIcon} onClick={handleOpenDialog}>
+        Przejdź do dostawy
+      </StyledButton>
       <StyledButton icon={dollarIcon} kind={tertiary}>
         Oblicz ratę lub leasing
       </StyledButton>
@@ -123,6 +125,7 @@ const Summary = ({ products }) => {
 
 Summary.propTypes = {
   products: PropTypes.array.isRequired,
+  handleOpenDialog: PropTypes.func.isRequired,
 };
 
 export default Summary;

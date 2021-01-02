@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import MainTemplate from "@templates/MainTemplate";
@@ -8,14 +8,14 @@ import { secondary } from "@constants/kinds";
 import heartIcon from "@iconify/icons-clarity/heart-line";
 import trashIcon from "@iconify/icons-clarity/trash-line";
 import { Headline, BackButton } from "@components/atoms";
-import { ProductCard, CustomSwiper } from "@components/molecules";
+import { ProductCard, CustomSwiper, WhyUs } from "@components/molecules";
 import { removeAllFromBasket as removeAllFromBasketAction } from "@actions";
 import routes from "@routes";
 import { useWindowSize } from "@hooks/utils";
+import NotLoggedInDialog from "@components/molecules/Dialog/NotLoggedIn/NotLoggedIn";
 import EmptyBasket from "./_components/EmptyBasket/EmptyBasket";
 import IconTextButton from "./_components/IconTextButton/IconTextButton";
 import BasketProduct from "./_components/BasketProduct/BasketProduct";
-import WhyUs from "./_components/WhyUs/WhyUs";
 import Summary from "./_components/Summary/Summary";
 import { recommendedProducts } from "../Index/_dummyContent/dummyContent";
 
@@ -97,7 +97,7 @@ const StyledProductsWrapper = styled.div`
 `;
 
 const StyledSection = styled.div`
-  margin-top: 60px;
+  margin-top: 40px;
 
   @media (max-width: 1024px) {
     margin-top: 30px;
@@ -105,12 +105,9 @@ const StyledSection = styled.div`
 `;
 
 const StyledSliderWrapper = styled.div`
-  margin: 0 auto;
   margin-top: 30px;
-  width: 90%;
 
   @media (max-width: 1024px) {
-    width: 100%;
     margin-top: 10px;
   }
 `;
@@ -122,79 +119,93 @@ const StyledBackButton = styled(BackButton)`
 
 const Basket = ({ basket, removeAllProducts }) => {
   const { width } = useWindowSize();
+  const [isDialogActive, setDialogActive] = useState(false);
+
+  const handleOpenDialog = () => setDialogActive(true);
+  const handleCloseDialog = () => setDialogActive(false);
+
   return (
     <MainTemplate footerKind={secondary}>
-      <StyledWrapper>
-        {basket.count > 0 ? (
-          <>
-            <StyledInnerWrapper>
-              <StyledLeftColumn>
-                <StyledNavigation>
-                  <StyledHeadline>
-                    Koszyk <span>({basket.count})</span>
-                  </StyledHeadline>
+      <>
+        <StyledWrapper>
+          {basket.count > 0 ? (
+            <>
+              <StyledInnerWrapper>
+                <StyledLeftColumn>
+                  <StyledNavigation>
+                    <StyledHeadline>
+                      Koszyk <span>({basket.count})</span>
+                    </StyledHeadline>
 
-                  <StyledButtonsWrapper>
-                    <IconTextButton icon={heartIcon}>
-                      Zapisz jako listę
-                    </IconTextButton>
-                    <IconTextButton
-                      icon={trashIcon}
-                      onClick={removeAllProducts}
-                    >
-                      Wyczyść koszyk
-                    </IconTextButton>
-                  </StyledButtonsWrapper>
-                </StyledNavigation>
+                    <StyledButtonsWrapper>
+                      <IconTextButton icon={heartIcon}>
+                        Zapisz jako listę
+                      </IconTextButton>
+                      <IconTextButton
+                        icon={trashIcon}
+                        onClick={removeAllProducts}
+                      >
+                        Wyczyść koszyk
+                      </IconTextButton>
+                    </StyledButtonsWrapper>
+                  </StyledNavigation>
 
-                <StyledProductsWrapper>
-                  {basket.products.map(
-                    ({ name, price, discount, count, img }, index) => (
-                      <BasketProduct
-                        price={price}
-                        name={name}
-                        discount={discount}
-                        img={img}
-                        count={count}
-                        key={index}
-                      />
-                    )
-                  )}
-                </StyledProductsWrapper>
-              </StyledLeftColumn>
+                  <StyledProductsWrapper>
+                    {basket.products.map(
+                      ({ name, price, discount, count, img }, index) => (
+                        <BasketProduct
+                          price={price}
+                          name={name}
+                          discount={discount}
+                          img={img}
+                          count={count}
+                          key={index}
+                        />
+                      )
+                    )}
+                  </StyledProductsWrapper>
+                </StyledLeftColumn>
 
-              <StyledRightColumn>
-                <Summary products={basket.products} />
-              </StyledRightColumn>
-            </StyledInnerWrapper>
+                <StyledRightColumn>
+                  <Summary
+                    products={basket.products}
+                    handleOpenDialog={handleOpenDialog}
+                  />
+                </StyledRightColumn>
+              </StyledInnerWrapper>
 
-            {width > 1024 && (
-              <>
-                <StyledBackButton to={routes.index}>
-                  Wróć do zakupów
-                </StyledBackButton>
-                <WhyUs />
-              </>
-            )}
-          </>
-        ) : (
-          <EmptyBasket />
-        )}
-        <StyledSection>
-          <Headline kind="secondary" as="h2">
-            {basket.count > 0
-              ? "Rekomendowane akcesoria"
-              : "Ostatnio przeglądane"}
-          </Headline>
-          <StyledSliderWrapper>
-            <CustomSwiper>
-              {recommendedProducts[0].map((props, index) => (
-                <ProductCard key={index} kind="secondary" {...props} />
-              ))}
-            </CustomSwiper>
-          </StyledSliderWrapper>
-        </StyledSection>
-      </StyledWrapper>
+              {width > 1024 && (
+                <>
+                  <StyledBackButton to={routes.index}>
+                    Wróć do zakupów
+                  </StyledBackButton>
+                  <WhyUs />
+                </>
+              )}
+            </>
+          ) : (
+            <EmptyBasket />
+          )}
+          <StyledSection>
+            <Headline kind="secondary" as="h2">
+              {basket.count > 0
+                ? "Rekomendowane akcesoria"
+                : "Ostatnio przeglądane"}
+            </Headline>
+            <StyledSliderWrapper>
+              <CustomSwiper>
+                {recommendedProducts[0].map((props, index) => (
+                  <ProductCard key={index} kind="secondary" {...props} />
+                ))}
+              </CustomSwiper>
+            </StyledSliderWrapper>
+          </StyledSection>
+        </StyledWrapper>
+        <NotLoggedInDialog
+          isActive={isDialogActive}
+          onClose={handleCloseDialog}
+        />
+      </>
     </MainTemplate>
   );
 };
