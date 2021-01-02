@@ -85,19 +85,20 @@ const StyledInputWithButton = styled(InputWithButton)`
   }
 `;
 
-const Summary = ({ products, handleOpenDialog }) => {
+const Summary = ({ basket, handleOpenDialog }) => {
   const [summaryPrice, setSummaryPrice] = useState(0);
   const { width } = useWindowSize();
 
   useEffect(() => {
+    const { products } = basket;
     let sumPrice = 0;
 
-    products.forEach(({ discount, price }) => {
-      sumPrice += discount || price;
+    products.forEach(({ discount, price, count }) => {
+      sumPrice += (discount || price) * count;
     });
 
     setSummaryPrice(sumPrice);
-  }, [products]);
+  }, [basket]);
 
   return (
     <StyledWrapper>
@@ -124,7 +125,7 @@ const Summary = ({ products, handleOpenDialog }) => {
 };
 
 Summary.propTypes = {
-  products: PropTypes.array.isRequired,
+  basket: PropTypes.object.isRequired,
   handleOpenDialog: PropTypes.func.isRequired,
 };
 

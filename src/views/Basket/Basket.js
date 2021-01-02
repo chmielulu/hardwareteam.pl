@@ -165,10 +165,9 @@ const Basket = ({ basket, removeAllProducts }) => {
                     )}
                   </StyledProductsWrapper>
                 </StyledLeftColumn>
-
                 <StyledRightColumn>
                   <Summary
-                    products={basket.products}
+                    basket={basket}
                     handleOpenDialog={handleOpenDialog}
                   />
                 </StyledRightColumn>
@@ -217,7 +216,6 @@ Basket.propTypes = {
 
 const mapStateToProps = (state) => {
   const { basket } = state;
-
   return { basket };
 };
 
