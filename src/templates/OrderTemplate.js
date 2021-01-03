@@ -13,23 +13,54 @@ import { Footer } from "@components/organisms";
 import { secondary } from "@constants/kinds";
 import { Link } from "react-router-dom";
 import routes from "@routes";
+import { useWindowSize } from "@hooks/utils";
 import { recommendedProducts } from "../views/Index/_dummyContent/dummyContent";
 
 const StyledWrapper = styled.div`
   width: 90%;
   max-width: 1500px;
   margin: auto;
+
+  @media (max-width: 1160px) {
+    width: 100%;
+  }
+
+  @media (max-width: 1024px) {
+    width: 90%;
+  }
 `;
 
 const StyledHeader = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   padding: 20px 65px 30px;
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
+
+  @media (max-width: 1380px) {
+    padding: 20px 30px 30px;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px 0 0;
+    border-bottom: 0;
+  }
 `;
 
-const StyledLogo = styled(Logo)`
-  margin-right: 100px;
+const StyledOrderProcess = styled(OrderProcess)`
+  margin-left: 100px;
+
+  @media (max-width: 1480px) {
+    margin-left: 50px;
+  }
+
+  @media (max-width: 1024px) {
+    margin-left: 0;
+    margin-top: 30px;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -53,6 +84,8 @@ const StyledSliderWrapper = styled.div`
 `;
 
 const OrderTemplate = ({ level, children }) => {
+  const { width } = useWindowSize();
+
   useLayoutEffect(() => {
     const { body } = document;
     body.style.overflow = "";
@@ -64,9 +97,9 @@ const OrderTemplate = ({ level, children }) => {
         <StyledWrapper>
           <StyledHeader>
             <StyledLink to={routes.index}>
-              <StyledLogo />
+              <Logo />
             </StyledLink>
-            <OrderProcess
+            <StyledOrderProcess
               content={[
                 { name: "Koszyk", isActive: false, isFinished: true },
                 {
@@ -85,10 +118,11 @@ const OrderTemplate = ({ level, children }) => {
                   isFinished: level === 3,
                 },
               ]}
+              secondary={width > 1024}
             />
           </StyledHeader>
           {children}
-          <WhyUs />
+          {width > 1024 && <WhyUs />}
           {level >= 3 && (
             <>
               <StyledHeadline forwardedAs="h2">
@@ -104,7 +138,7 @@ const OrderTemplate = ({ level, children }) => {
             </>
           )}
         </StyledWrapper>
-        <Footer kind={secondary} />
+        {width > 1024 && <Footer kind={secondary} />}
       </>
     </BasicTemplate>
   );

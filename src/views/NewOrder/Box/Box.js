@@ -8,6 +8,7 @@ import { InputWithButton } from "@components/molecules";
 import arrowIcon from "@iconify/icons-clarity/circle-arrow-line";
 import { Link } from "react-router-dom";
 import routes from "@routes/";
+import { useWindowSize } from "@hooks/utils";
 import Product from "../Product/Product";
 
 const StyledWrapper = styled.div`
@@ -17,6 +18,19 @@ const StyledWrapper = styled.div`
   position: sticky;
   top: 25px;
   overflow: hidden;
+
+  @media (max-width: 1480px) {
+    width: 480px;
+  }
+
+  @media (max-width: 1280px) {
+    width: 420px;
+  }
+
+  @media (max-width: 1024px) {
+    top: unset;
+    position: static;
+  }
 `;
 
 const StyledContainer = styled.div`
@@ -24,12 +38,22 @@ const StyledContainer = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
 
   :first-of-type {
-    max-height: 46vh;
+    max-height: 290px;
     overflow-y: auto;
   }
 
   :last-of-type {
     border-bottom: 0;
+  }
+
+  @media (max-width: 1280px) {
+    padding: 40px 35px;
+  }
+
+  @media (max-width: 1024px) {
+    :first-of-type {
+      max-height: unset;
+    }
   }
 `;
 
@@ -107,6 +131,7 @@ const StyledProduct = styled(Product)`
 const Box = ({ basket, values, level }) => {
   const [basketValue, setBasketValue] = useState(0);
   const [discountSum, setDiscountSum] = useState(0);
+  const { width } = useWindowSize();
 
   useEffect(() => {
     const { products } = basket;
@@ -134,11 +159,13 @@ const Box = ({ basket, values, level }) => {
 
   return (
     <StyledWrapper>
-      <StyledContainer>
-        {basket.products.map(({ name, ...props }) => (
-          <StyledProduct name={name} key={name} {...props} />
-        ))}
-      </StyledContainer>
+      {width > 1024 && (
+        <StyledContainer>
+          {basket.products.map(({ name, ...props }) => (
+            <StyledProduct name={name} key={name} {...props} />
+          ))}
+        </StyledContainer>
+      )}
       <StyledContainer>
         <StyledInnerWrapper>
           <StyledSummaryPriceWrapper>

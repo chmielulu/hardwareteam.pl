@@ -18,9 +18,32 @@ const StyledWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 60px;
+
+  @media (max-width: 1480px) {
+    padding: 0 0 0 50px;
+  }
+
+  @media (max-width: 1380px) {
+    padding: 0 0 0 30px;
+  }
+
+  @media (max-width: 1160px) {
+    padding: 0 30px;
+  }
+
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    padding: 0;
+  }
 `;
 
-const StyledLeftColumn = styled.div``;
+const StyledLeftColumn = styled.div`
+  max-width: 550px;
+
+  @media (max-width: 1280px) {
+    max-width: 500px;
+  }
+`;
 
 const StyledRightColumn = styled.div``;
 

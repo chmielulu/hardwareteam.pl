@@ -13,6 +13,7 @@ const StyledWrapper = styled.div`
 const StyledText = styled.h1`
   ${({ theme }) => useFontSize(theme, l)}
   font-weight: 400;
+  white-space: nowrap;
 `;
 
 const StyledImage = styled.img`

@@ -147,7 +147,7 @@ const StyledTitle = styled.h3`
 
 const StyledContentWrapper = styled.div`
   max-height: calc(100vh - 240px);
-  max-height: calc(var(--vh, 1vh) * 100 - 240px);
+  max-height: calc(var(--vh, 1vh) * 100 - 120px);
   position: relative;
   overflow-y: auto;
 

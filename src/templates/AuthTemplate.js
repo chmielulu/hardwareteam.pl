@@ -58,6 +58,7 @@ const StyledLeftColumn = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding-top: 60px;
 
   @media (max-width: 1250px) {
     width: 50%;

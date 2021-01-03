@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import formatPrice from "@utils/formatPrice";
 import { useFontSize } from "@hooks/styled-components";
 import { useWindowSize } from "@hooks/utils";
@@ -9,6 +9,7 @@ import { InputWithButton } from "@components/molecules";
 import shoppingBagIcon from "@iconify/icons-clarity/shopping-bag-line";
 import dollarIcon from "@iconify/icons-clarity/dollar-line";
 import { tertiary } from "@constants/kinds";
+import { connect } from "react-redux";
 
 const StyledWrapper = styled.div`
   width: 360px;
@@ -17,6 +18,7 @@ const StyledWrapper = styled.div`
   border-radius: 10px;
   position: sticky;
   top: 150px;
+  transition: transform 0.2s ease-in-out;
 
   @media (max-width: 1024px) {
     position: static;
@@ -28,6 +30,18 @@ const StyledWrapper = styled.div`
     flex-direction: column;
     width: 100%;
   }
+
+  ${({ $isBottomBarHidden }) =>
+    $isBottomBarHidden &&
+    css`
+      @media (min-width: 1024px) {
+        transform: translateY(-45px);
+      }
+
+      @media (max-width: 1752px) {
+        transform: translateY(-50px);
+      }
+    `}
 `;
 
 const StyledPriceWrapper = styled.div`
@@ -85,7 +99,7 @@ const StyledInputWithButton = styled(InputWithButton)`
   }
 `;
 
-const Summary = ({ basket, handleOpenDialog }) => {
+const Summary = ({ basket, handleOpenDialog, isBottomBarHidden }) => {
   const [summaryPrice, setSummaryPrice] = useState(0);
   const { width } = useWindowSize();
 
@@ -101,7 +115,7 @@ const Summary = ({ basket, handleOpenDialog }) => {
   }, [basket]);
 
   return (
-    <StyledWrapper>
+    <StyledWrapper $isBottomBarHidden={isBottomBarHidden}>
       <StyledPriceWrapper>
         <StyledHeadline>Łączna kwota</StyledHeadline>
         <StyledPrice>{formatPrice(summaryPrice)}</StyledPrice>
@@ -127,6 +141,12 @@ const Summary = ({ basket, handleOpenDialog }) => {
 Summary.propTypes = {
   basket: PropTypes.object.isRequired,
   handleOpenDialog: PropTypes.func.isRequired,
+  isBottomBarHidden: PropTypes.bool.isRequired,
 };
 
-export default Summary;
+const mapStateToProps = (state) => {
+  const { navigation } = state;
+  return { isBottomBarHidden: navigation.isBottomBarHidden };
+};
+
+export default connect(mapStateToProps)(Summary);

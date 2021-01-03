@@ -12,6 +12,10 @@ const StyledWrapper = styled.div`
   border-top: 0;
   border-bottom: 0;
   border-radius: 10px;
+
+  @media (max-width: 1280px) {
+    max-width: 500px;
+  }
 `;
 
 const StyledLabel = styled.label`
@@ -112,10 +116,10 @@ const StyledImg = styled(Img)`
 
 const StyledText = styled.span`
   font-weight: 300;
+  margin-right: 20px;
 `;
 
 const StyledAdditionalText = styled.span`
-  margin-left: 5px;
   font-weight: 300;
   color: ${({ theme }) => theme.gray};
 `;
@@ -146,8 +150,10 @@ const RadioGroup = ({ items, name, ...props }) => {
             />
 
             <StyledLabelContent>
-              <StyledText>{text}</StyledText>
-              <StyledAdditionalText>{additionalText}</StyledAdditionalText>
+              <StyledText>
+                {text}{" "}
+                <StyledAdditionalText>{additionalText}</StyledAdditionalText>
+              </StyledText>
               {icon && <StyledIcon icon={icon} $isActive={isActive} />}
               {img && typeof img === "string" ? (
                 <StyledImg src={img} alt="" $isActive={isActive} />

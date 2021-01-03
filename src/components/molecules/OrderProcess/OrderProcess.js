@@ -118,9 +118,33 @@ const StyledSpacer = styled.div`
     width: 15px;
     margin: 0 7px;
   }
+
+  ${({ $secondary }) =>
+    $secondary &&
+    css`
+      @media (max-width: 1380px) {
+        width: 80px;
+        margin: 0 20px;
+      }
+
+      @media (max-width: 1220px) {
+        width: 55px;
+        margin: 0 10px;
+      }
+
+      @media (max-width: 1024px) {
+        width: ${useFluidSize({ min: 15, max: 55 })};
+        margin: 0 ${useFluidSize({ min: 7, max: 10 })};
+      }
+
+      @media (max-width: 360px) {
+        width: 15px;
+        margin: 0 7px;
+      }
+    `}
 `;
 
-const OrderProcess = ({ content, ...props }) => {
+const OrderProcess = ({ content, secondary, ...props }) => {
   return (
     <StyledWrapper {...props}>
       {content.map(({ name, isFinished, description, isActive }, index) => (
@@ -134,7 +158,9 @@ const OrderProcess = ({ content, ...props }) => {
               <StyledDescription>{description}</StyledDescription>
             )}
           </StyledItem>
-          {index !== content.length - 1 && <StyledSpacer />}
+          {index !== content.length - 1 && (
+            <StyledSpacer $secondary={secondary} />
+          )}
         </React.Fragment>
       ))}
     </StyledWrapper>
@@ -150,6 +176,11 @@ OrderProcess.propTypes = {
       isActive: PropTypes.bool,
     })
   ).isRequired,
+  secondary: PropTypes.bool,
+};
+
+OrderProcess.defaultProps = {
+  secondary: false,
 };
 
 export default OrderProcess;
