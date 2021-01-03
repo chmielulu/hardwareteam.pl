@@ -11,6 +11,7 @@ import { useWindowSize } from "@hooks/utils";
 const StyledWrapper = styled.div`
   width: 100vw;
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   position: fixed;
   overflow: hidden;
   pointer-events: none;
@@ -32,6 +33,7 @@ const StyledWrapper = styled.div`
     padding: 0;
     height: unset;
     min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
     z-index: 999999;
     width: 100%;
     position: fixed;
@@ -68,6 +70,7 @@ const StyledWindow = styled.div`
   @media (max-width: 1024px) {
     width: 100%;
     height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
     left: 0;
     top: 0;
     transform: translateX(-100vw);
@@ -144,12 +147,14 @@ const StyledTitle = styled.h3`
 
 const StyledContentWrapper = styled.div`
   max-height: calc(100vh - 240px);
+  max-height: calc(var(--vh, 1vh) * 100 - 240px);
   position: relative;
   overflow-y: auto;
 
   @media (max-width: 1024px) {
     max-height: unset;
     height: calc(100vh - 135px);
+    height: calc(var(--vh, 1vh) * 100 - 135px);
   }
 `;
 
