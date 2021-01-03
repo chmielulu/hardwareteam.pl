@@ -9,9 +9,7 @@ import { payment, shipment } from "../dummyContent/dummyContent";
 
 const StyledWrapper = styled.div``;
 
-const StyledRadioGroup = styled(RadioGroup)`
-  margin-bottom: 60px;
-`;
+const StyledRadioGroup = styled(RadioGroup)``;
 
 const StyledInput = styled(Input).attrs(() => ({
   kind: secondary,
@@ -38,53 +36,60 @@ const StyledCheckboxHeadline = styled.span`
 const StyledCheckbox = styled(Checkbox).attrs(() => ({
   kind: secondary,
 }))`
-  margin-bottom: ${({ $last, $withoutMargin }) =>
-    $last ? `60px` : $withoutMargin ? 0 : `15px`};
+  margin-bottom: ${({ $withoutMargin }) => ($withoutMargin ? 0 : `15px`)};
 
   label {
     font-weight: ${({ $bold }) => ($bold ? 400 : 300)};
   }
 `;
 
-const DeliveryAndPayment = ({ Headline, SecondHeadline }) => {
+const DeliveryAndPayment = ({ Headline, SecondHeadline, Section }) => {
   return (
     <StyledWrapper>
       <Headline>Dostawa i płatność</Headline>
 
-      <SecondHeadline>1. Sposób dostawy</SecondHeadline>
-      <StyledRadioGroup name={shipment.name} items={shipment.items} />
+      <Section>
+        <SecondHeadline>1. Sposób dostawy</SecondHeadline>
+        <StyledRadioGroup name={shipment.name} items={shipment.items} />
+      </Section>
 
-      <SecondHeadline>2. Metody płatności</SecondHeadline>
-      <StyledRadioGroup name={payment.name} items={payment.items} />
+      <Section>
+        <SecondHeadline>2. Metody płatności</SecondHeadline>
+        <StyledRadioGroup name={payment.name} items={payment.items} />
+      </Section>
 
-      <SecondHeadline>3. Dane odbiorcy</SecondHeadline>
-      <StyledInput name="name" label="Imię i nazwisko lub nazwa firmy" />
-      <StyledInput name="street" label="Ulica i numer" />
-      <StyledInput name="postcode" label="Kod pocztowy" />
-      <StyledInput name="city" label="Miejscowość" />
-      <StyledInput name="email" label="E-mail" />
-      <StyledInput name="phone" label="Telefon" />
+      <Section>
+        <SecondHeadline>3. Dane odbiorcy</SecondHeadline>
+        <StyledInput name="name" label="Imię i nazwisko lub nazwa firmy" />
+        <StyledInput name="street" label="Ulica i numer" />
+        <StyledInput name="postcode" label="Kod pocztowy" />
+        <StyledInput name="city" label="Miejscowość" />
+        <StyledInput name="email" label="E-mail" />
+        <StyledInput name="phone" label="Telefon" />
 
-      <StyledCheckboxHeadline>Dane do faktury</StyledCheckboxHeadline>
-      <StyledCheckbox
-        name="invoiceDetails"
-        label="Chcę dodać inne dane lub potrzebuję faktury na firmę"
-        $withoutMargin
-      />
+        <StyledCheckboxHeadline>Dane do faktury</StyledCheckboxHeadline>
+        <StyledCheckbox
+          name="invoiceDetails"
+          label="Chcę dodać inne dane lub potrzebuję faktury na firmę"
+          $withoutMargin
+        />
 
-      <StyledCheckboxHeadline>Komentarz do zamówienia</StyledCheckboxHeadline>
-      <StyledCheckbox name="comment" label="Komentarz do zamówienia" $last />
+        <StyledCheckboxHeadline>Komentarz do zamówienia</StyledCheckboxHeadline>
+        <StyledCheckbox name="comment" label="Komentarz do zamówienia" />
+      </Section>
 
-      <SecondHeadline>Zgody formalne</SecondHeadline>
-      <StyledCheckbox name="checkall" label="Zaznacz wszystkie" $bold />
-      <StyledCheckbox
-        name="shareOpinion"
-        label="Chcę podzielić się opinią o satysfakcji z zakupów Więcej"
-      />
-      <StyledCheckbox
-        name="emailInvoice"
-        label="Wyrażam zgodę na wystawienie i przesłanie faktury w formie elektronicznej"
-      />
+      <Section>
+        <SecondHeadline>Zgody formalne</SecondHeadline>
+        <StyledCheckbox name="checkall" label="Zaznacz wszystkie" $bold />
+        <StyledCheckbox
+          name="shareOpinion"
+          label="Chcę podzielić się opinią o satysfakcji z zakupów Więcej"
+        />
+        <StyledCheckbox
+          name="emailInvoice"
+          label="Wyrażam zgodę na wystawienie i przesłanie faktury w formie elektronicznej"
+        />
+      </Section>
     </StyledWrapper>
   );
 };
@@ -92,6 +97,7 @@ const DeliveryAndPayment = ({ Headline, SecondHeadline }) => {
 DeliveryAndPayment.propTypes = {
   Headline: PropTypes.object.isRequired,
   SecondHeadline: PropTypes.object.isRequired,
+  Section: PropTypes.object.isRequired,
 };
 
 export default DeliveryAndPayment;

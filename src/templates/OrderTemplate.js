@@ -30,7 +30,7 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const StyledHeader = styled.div`
+const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -121,22 +121,24 @@ const OrderTemplate = ({ level, children }) => {
               secondary={width > 1024}
             />
           </StyledHeader>
-          {children}
-          {width > 1024 && <WhyUs />}
-          {level >= 3 && (
-            <>
-              <StyledHeadline forwardedAs="h2">
-                To może cię zainteresować
-              </StyledHeadline>
-              <StyledSliderWrapper>
-                <CustomSwiper>
-                  {recommendedProducts[0].map((props, index) => (
-                    <ProductCard key={index} kind="secondary" {...props} />
-                  ))}
-                </CustomSwiper>
-              </StyledSliderWrapper>
-            </>
-          )}
+          <main>
+            {children}
+            {width > 1024 && <WhyUs />}
+            {level >= 3 && (
+              <>
+                <StyledHeadline forwardedAs="h2">
+                  To może cię zainteresować
+                </StyledHeadline>
+                <StyledSliderWrapper>
+                  <CustomSwiper>
+                    {recommendedProducts[0].map((props, index) => (
+                      <ProductCard key={index} kind="secondary" {...props} />
+                    ))}
+                  </CustomSwiper>
+                </StyledSliderWrapper>
+              </>
+            )}
+          </main>
         </StyledWrapper>
         {width > 1024 && <Footer kind={secondary} />}
       </>

@@ -59,6 +59,10 @@ const StyledSecondHeadline = styled.h3`
   margin-bottom: 30px;
 `;
 
+const StyledSection = styled.section`
+  margin-bottom: 60px;
+`;
+
 const StyledBackButton = styled(BackButton)`
   margin-left: 10px;
 `;
@@ -79,6 +83,7 @@ const NewOrder = ({ level, basket }) => {
                   <DeliveryAndPayment
                     Headline={StyledHeadline}
                     SecondHeadline={StyledSecondHeadline}
+                    Section={StyledSection}
                   />
                 )}
                 {level === 2 && (
@@ -86,6 +91,7 @@ const NewOrder = ({ level, basket }) => {
                     Headline={StyledHeadline}
                     SecondHeadline={StyledSecondHeadline}
                     basket={basket}
+                    Section={StyledSection}
                   />
                 )}
               </StyledLeftColumn>

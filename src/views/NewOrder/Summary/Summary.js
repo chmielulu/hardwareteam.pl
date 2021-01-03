@@ -66,12 +66,6 @@ const StyledFrame = styled(Frame)`
       display: flex;
       align-items: center;
     `}
-
-  ${({ $last }) =>
-    $last &&
-    css`
-      margin-bottom: 55px;
-    `}
 `;
 
 const StyledCircleButton = styled(CircleButton).attrs(({ to }) => ({
@@ -93,54 +87,62 @@ const StyledProduct = styled(Product)`
   }
 `;
 
-const Summary = ({ Headline, SecondHeadline, basket }) => {
+const Summary = ({ Headline, SecondHeadline, Section, basket }) => {
   return (
     <StyledWrapper>
       <Headline>Podsumowanie</Headline>
 
-      <SecondHeadline>Dostawa</SecondHeadline>
-      <StyledFrame $staticHeight>
-        <StyledInnerWrapper>
-          <StyledIcon icon={truckIcon} />
-          <StyledText>Kurier – InPost, UPS, DHL, FedEx lub DTS </StyledText>
+      <Section>
+        <SecondHeadline>Dostawa</SecondHeadline>
+        <StyledFrame $staticHeight>
+          <StyledInnerWrapper>
+            <StyledIcon icon={truckIcon} />
+            <StyledText>Kurier – InPost, UPS, DHL, FedEx lub DTS </StyledText>
+            <StyledCircleButton />
+          </StyledInnerWrapper>
+        </StyledFrame>
+
+        <StyledFrame>
+          <StyledFrameHeadline>Dane odbiorcy: </StyledFrameHeadline>
+          <StyledText>Jakub Chmielewski</StyledText>
+          <StyledText>ul. Rzepińska 5A/3</StyledText>
+          <StyledText>69-110 Kowalów</StyledText>
+          <StyledText>E-mail: jakubchmielewski80@gmail.com</StyledText>
+          <StyledText>Telefon: +48 887 077 904</StyledText>
           <StyledCircleButton />
-        </StyledInnerWrapper>
-      </StyledFrame>
+        </StyledFrame>
+      </Section>
 
-      <StyledFrame $last>
-        <StyledFrameHeadline>Dane odbiorcy: </StyledFrameHeadline>
-        <StyledText>Jakub Chmielewski</StyledText>
-        <StyledText>ul. Rzepińska 5A/3</StyledText>
-        <StyledText>69-110 Kowalów</StyledText>
-        <StyledText>E-mail: jakubchmielewski80@gmail.com</StyledText>
-        <StyledText>Telefon: +48 887 077 904</StyledText>
-        <StyledCircleButton />
-      </StyledFrame>
+      <Section>
+        <SecondHeadline>Płatność</SecondHeadline>
+        <StyledFrame $staticHeight>
+          <StyledInnerWrapper>
+            <StyledImg src={blikImg} alt="BLIK" />
+            <StyledText>BLIK</StyledText>
+            <StyledCircleButton />
+          </StyledInnerWrapper>
+        </StyledFrame>
+      </Section>
 
-      <SecondHeadline>Płatność</SecondHeadline>
-      <StyledFrame $staticHeight $last>
-        <StyledInnerWrapper>
-          <StyledImg src={blikImg} alt="BLIK" />
-          <StyledText>BLIK</StyledText>
-          <StyledCircleButton />
-        </StyledInnerWrapper>
-      </StyledFrame>
+      <Section>
+        <SecondHeadline>Koszyk</SecondHeadline>
+        <StyledFrame $basket>
+          {basket.products.map(({ name, ...props }) => (
+            <StyledProduct name={name} key={name} {...props} />
+          ))}
+          <StyledCircleButton to={routes.basket} />
+        </StyledFrame>
+      </Section>
 
-      <SecondHeadline>Koszyk</SecondHeadline>
-      <StyledFrame $basket $last>
-        {basket.products.map(({ name, ...props }) => (
-          <StyledProduct name={name} key={name} {...props} />
-        ))}
-        <StyledCircleButton to={routes.basket} />
-      </StyledFrame>
-
-      <SecondHeadline>Komentarz do zamówienia</SecondHeadline>
-      <StyledFrame $staticHeight>
-        <StyledInnerWrapper>
-          <StyledText>Brak uwag</StyledText>
-          <StyledCircleButton />
-        </StyledInnerWrapper>
-      </StyledFrame>
+      <Section>
+        <SecondHeadline>Komentarz do zamówienia</SecondHeadline>
+        <StyledFrame $staticHeight>
+          <StyledInnerWrapper>
+            <StyledText>Brak uwag</StyledText>
+            <StyledCircleButton />
+          </StyledInnerWrapper>
+        </StyledFrame>
+      </Section>
     </StyledWrapper>
   );
 };
@@ -149,6 +151,7 @@ Summary.propTypes = {
   Headline: PropTypes.object.isRequired,
   SecondHeadline: PropTypes.object.isRequired,
   basket: PropTypes.object.isRequired,
+  Section: PropTypes.object.isRequired,
 };
 
 export default Summary;
