@@ -9,6 +9,7 @@ import chatIcon from "@iconify/icons-clarity/chat-bubble-line";
 import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import scrollTo from "@utils/scrollToElement";
 import useVisibilitySensor from "@rooks/use-visibility-sensor";
+import { connect } from "react-redux";
 
 const items = ({ description, reviews, accessories, specification }) => {
   const yOffset = 220;
@@ -42,8 +43,8 @@ const StyledWrapper = styled.nav`
   border-radius: 10px;
   border: 1px solid ${({ theme }) => theme.lightGray};
   display: inline-flex;
-  margin-top: 20px;
   background: #fff;
+  transition: transform 0.2s ease-in-out;
 
   @media (max-width: 1024px) {
     width: 100%;
@@ -59,12 +60,11 @@ const StyledWrapper = styled.nav`
       position: fixed;
       left: 0;
       top: 130px;
-      z-index: 99999;
+      z-index: 999;
       margin-top: 0;
       border-radius: 0;
-      border-top: 0;
-      border-left: 0;
-      border-right: 0;
+      border: 0;
+      border-bottom: 1px solid ${({ theme }) => theme.lightGray}!important;
       width: 100%;
       padding: 15px 5%;
 
@@ -79,6 +79,20 @@ const StyledWrapper = styled.nav`
 
       @media (max-width: 768px) {
         top: 55px;
+      }
+    `}
+
+  ${({ $isBottomBarHidden, $isFixed }) =>
+    $isBottomBarHidden &&
+    $isFixed &&
+    css`
+      z-index: 9999;
+      @media (min-width: 1024px) {
+        transform: translateY(-45px);
+      }
+
+      @media (max-width: 1752px) {
+        transform: translateY(-50px);
       }
     `}
 `;
@@ -129,7 +143,7 @@ const StyledItem = styled.li`
   }
 `;
 
-const Navigation = ({ allSections }) => {
+const Navigation = ({ allSections, isBottomBarHidden }) => {
   const wrapper = useRef();
   const [top, setTop] = useState();
   const [isFixed, setFixed] = useState(false);
@@ -177,17 +191,20 @@ const Navigation = ({ allSections }) => {
   );
 
   useEffect(() => {
-    setTop(wrapper.current.offsetTop);
+    const rect = wrapper.current.getBoundingClientRect();
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    setTop(rect.top + scrollTop);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     const updateFixed = () => {
-      const y = window.pageYOffset;
+      const y = window.scrollY;
+      const offset = 100;
 
-      if (y > top && !isFixed) {
+      if (y - offset > top && !isFixed) {
         setFixed(true);
-      } else if (y <= top && isFixed) {
+      } else if (y + offset < top && isFixed) {
         setFixed(false);
         setActiveSection(0);
       }
@@ -218,7 +235,11 @@ const Navigation = ({ allSections }) => {
   ]);
 
   return (
-    <StyledWrapper ref={wrapper} $isFixed={isFixed}>
+    <StyledWrapper
+      ref={wrapper}
+      $isFixed={isFixed}
+      $isBottomBarHidden={isBottomBarHidden}
+    >
       <StyledList>
         {items(allSections).map(({ icon, text, onClick }, index) => (
           <StyledItem
@@ -242,6 +263,12 @@ Navigation.propTypes = {
     specification: PropTypes.any,
     reviews: PropTypes.any,
   }).isRequired,
+  isBottomBarHidden: PropTypes.bool.isRequired,
 };
 
-export default Navigation;
+const mapStateToProps = (state) => {
+  const { navigation } = state;
+  return { isBottomBarHidden: navigation.isBottomBarHidden };
+};
+
+export default connect(mapStateToProps)(Navigation);

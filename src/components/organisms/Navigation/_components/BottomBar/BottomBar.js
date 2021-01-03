@@ -1,6 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { useScrollDirection } from "@hooks/utils";
+import { connect } from "react-redux";
+import { setBottomBarHidden as setBottomBarHiddenAction } from "@actions";
 import TextWithIcon from "../TextWithIcon/TextWithIcon";
 import DropDown from "./DropDown/DropDown";
 import Link from "../StyledLink/StyledLink";
@@ -13,10 +16,20 @@ const StyledWrapper = styled.nav`
   background: #fff;
   display: flex;
   justify-content: center;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  transform-origin: top center;
 
   @media (max-width: 1752px) {
     height: 50px;
   }
+
+  ${({ $isHide }) =>
+    $isHide &&
+    css`
+      transform: scaleY(0);
+      opacity: 0;
+      pointer-events: none;
+    `}
 `;
 
 const StyledListWrapper = styled.ul`
@@ -72,10 +85,22 @@ const StyledListItemLink = styled(Link)`
   }
 `;
 
-const BottomBar = ({ categories, isDropDownActive, setDropDownActive }) => {
+const BottomBar = ({
+  categories,
+  isDropDownActive,
+  setDropDownActive,
+  isBottomBarHidden,
+  setBottomBarHidden,
+}) => {
   const [activeOption, setActiveOption] = useState(0);
   const [delayHandler, setDelayHandler] = useState(null);
   const [preventDelay, setPreventDelay] = useState(false);
+  const scrollProperties = useScrollDirection({
+    initialDirection: "up",
+    thresholdPixels: 100,
+    off: true,
+  });
+
   const wrapper = useRef(null);
 
   const handleMouseEnter = (index) => {
@@ -113,8 +138,21 @@ const BottomBar = ({ categories, isDropDownActive, setDropDownActive }) => {
     setDropDownActive(false);
   };
 
+  useEffect(() => {
+    const { direction, y } = scrollProperties;
+
+    if (y > 50 && direction === "down" && !isBottomBarHidden) {
+      setBottomBarHidden(true);
+    } else if (y > 50 && direction === "up" && isBottomBarHidden) {
+      setBottomBarHidden(false);
+    } else if (y < 50 && isBottomBarHidden) {
+      setBottomBarHidden(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollProperties]);
+
   return (
-    <StyledWrapper>
+    <StyledWrapper $isHide={isBottomBarHidden}>
       <StyledListWrapper ref={wrapper}>
         {categories.map(
           ({ name, icon, featuredProduct, subcategories, link }, index) => (
@@ -147,8 +185,19 @@ BottomBar.propTypes = {
   categories: PropTypes.array.isRequired,
   isDropDownActive: PropTypes.bool.isRequired,
   setDropDownActive: PropTypes.func.isRequired,
+  isBottomBarHidden: PropTypes.bool.isRequired,
+  setBottomBarHidden: PropTypes.func.isRequired,
 };
 
 BottomBar.defaultProps = {};
 
-export default BottomBar;
+const mapStateToProps = (state) => {
+  const { navigation } = state;
+  return { isBottomBarHidden: navigation.isBottomBarHidden };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  setBottomBarHidden: (payload) => dispatch(setBottomBarHiddenAction(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(BottomBar);

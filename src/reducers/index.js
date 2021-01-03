@@ -3,6 +3,7 @@ import {
   REMOVE_FROM_BASKET,
   CLOSE_ADDED_TO_BASKET_DIALOG,
   REMOVE_ALL_FROM_BASKET,
+  SET_BOTTOM_BAR_HIDDEN,
 } from "@actions";
 
 const initialState = {
@@ -12,6 +13,9 @@ const initialState = {
     isDialogActive: false,
     addedProduct: {},
     count: 0,
+  },
+  navigation: {
+    isBottomBarHidden: false,
   },
 };
 
@@ -68,6 +72,14 @@ const rootReducer = (state = initialState, { type, payload }) => {
         basket: {
           ...state.basket,
           isDialogActive: false,
+        },
+      };
+    case SET_BOTTOM_BAR_HIDDEN:
+      return {
+        ...state,
+        navigation: {
+          ...state.navigation,
+          isBottomBarHidden: payload,
         },
       };
     default:

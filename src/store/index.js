@@ -11,6 +11,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const persistConfig = {
   key: "root",
   storage,
+  blacklist: ["navigation"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

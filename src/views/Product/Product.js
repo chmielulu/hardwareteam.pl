@@ -318,6 +318,11 @@ const StyledGalleryWrapper = styled.div`
     display: flex;
   }
 
+  @media (max-width: 1420px) {
+    width: 400px;
+    height: 400px;
+  }
+
   @media (max-width: 1024px) {
     width: ${useFluidSize({ min: 220, max: 460 })};
     height: ${useFluidSize({ min: 220, max: 460 })};
@@ -327,6 +332,11 @@ const StyledGalleryWrapper = styled.div`
 const StyledActiveImage = styled.img`
   width: 460px;
   height: 460px;
+
+  @media (max-width: 1420px) {
+    width: 400px;
+    height: 400px;
+  }
 
   @media (max-width: 1024px) {
     width: ${useFluidSize({ min: 220, max: 460 })};
@@ -540,6 +550,11 @@ const StyledImage = styled(Img)`
   height: 85px;
 `;
 
+const StyledDescriptionWrapper = styled.div`
+  position: relative;
+  padding-top: 52px;
+`;
+
 const Product = ({ addToBasket }) => {
   const count = 6;
   const { width } = useWindowSize();
@@ -677,8 +692,8 @@ const Product = ({ addToBasket }) => {
                   }}
                   updateOnWindowResize
                 >
-                  {gallery.map((img) => (
-                    <SwiperSlide>
+                  {gallery.map((img, index) => (
+                    <SwiperSlide key={index}>
                       <StyledActiveImage
                         src={img}
                         alt="Smartfon Huawei Y6P 64GB Dual SIM Fioletowy"
@@ -699,7 +714,7 @@ const Product = ({ addToBasket }) => {
           <StyledThirdColumn>
             <StyledPrice>559,00 zł</StyledPrice>
             <StyledProductActionWrapper>
-              <StyledInput name="count" value={1} label="count" />
+              <StyledInput name="count" value={(1).toString()} label="count" />
               <StyledButton
                 icon={basketIcon}
                 onClick={() =>
@@ -734,8 +749,8 @@ const Product = ({ addToBasket }) => {
               freeMode
               updateOnWindowResize
             >
-              {gallery.map((img) => (
-                <SwiperSlide>
+              {gallery.map((img, index) => (
+                <SwiperSlide key={index}>
                   <StyledImage src={img} alt="" loader={<Spinner />} />
                 </SwiperSlide>
               ))}
@@ -743,10 +758,12 @@ const Product = ({ addToBasket }) => {
           </StyledThumbsWrapper>
         </StyledImagesWrapper>
 
-        <Navigation
-          allSections={{ description, specification, accessories, reviews }}
-        />
-        <Description ref={description} />
+        <StyledDescriptionWrapper>
+          <Navigation
+            allSections={{ description, specification, accessories, reviews }}
+          />
+          <Description ref={description} />
+        </StyledDescriptionWrapper>
         <Specification ref={specification} />
         <Recommended ref={accessories} />
         <Reviews ref={reviews} />

@@ -271,7 +271,7 @@ Comment.propTypes = {
   likeCount: PropTypes.number.isRequired,
   dislikeCount: PropTypes.number.isRequired,
   productOptions: PropTypes.shape({
-    isConfirmed: PropTypes.bool.isRequired,
+    isConfirmed: PropTypes.bool,
     score: PropTypes.number.isRequired,
     images: PropTypes.array,
   }),

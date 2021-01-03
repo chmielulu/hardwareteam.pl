@@ -10,6 +10,7 @@ import usePriceRanges from "./src/usePriceRanges";
 import useSortedProducts from "./src/useSortedProducts";
 import useLocalStorage from "./src/useLocalStorage";
 import useReducerWithLocalStorage from "./src/useReducerWithLocalStorage";
+import useScrollDirection from "./src/useScrollDirection";
 
 export {
   useOutsideClick,
@@ -24,4 +25,5 @@ export {
   useSortedProducts,
   useLocalStorage,
   useReducerWithLocalStorage,
+  useScrollDirection,
 };
