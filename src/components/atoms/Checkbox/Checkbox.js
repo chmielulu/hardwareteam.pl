@@ -61,7 +61,7 @@ const StyledLabel = styled.label`
   user-select: none;
   align-self: flex-start;
   flex: 1;
-  line-height: 16px;
+  line-height: 1.8rem;
 `;
 
 const Checkbox = ({
@@ -72,6 +72,7 @@ const Checkbox = ({
   checked,
   onChange,
   kind,
+  defaultChecked,
   ...props
 }) => (
   <StyledWrapper {...props}>
@@ -82,6 +83,7 @@ const Checkbox = ({
         onChange={onChange}
         name={name}
         id={id || name}
+        defaultChecked={defaultChecked}
       />
       <StyledCheckbox $kind={kind} />
       <StyledIcon icon={checkIcon} />
@@ -98,6 +100,7 @@ Checkbox.propTypes = {
   checked: PropTypes.bool,
   onChange: PropTypes.func,
   kind: PropTypes.oneOf([primary, secondary]),
+  defaultChecked: PropTypes.bool,
 };
 
 Checkbox.defaultProps = {
@@ -107,6 +110,7 @@ Checkbox.defaultProps = {
   checked: undefined,
   onChange: undefined,
   kind: primary,
+  defaultChecked: undefined,
 };
 
 export default Checkbox;

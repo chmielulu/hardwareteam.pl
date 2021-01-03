@@ -80,14 +80,10 @@ const DeliveryAndPayment = ({ Headline, SecondHeadline, Section }) => {
 
       <Section>
         <SecondHeadline>Zgody formalne</SecondHeadline>
-        <StyledCheckbox name="checkall" label="Zaznacz wszystkie" $bold />
-        <StyledCheckbox
-          name="shareOpinion"
-          label="Chcę podzielić się opinią o satysfakcji z zakupów Więcej"
-        />
         <StyledCheckbox
           name="emailInvoice"
           label="Wyrażam zgodę na wystawienie i przesłanie faktury w formie elektronicznej"
+          defaultChecked
         />
       </Section>
     </StyledWrapper>
