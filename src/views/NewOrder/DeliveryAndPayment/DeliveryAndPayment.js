@@ -20,10 +20,14 @@ const StyledInput = styled(Input).attrs(() => ({
   :last-of-type {
     margin-bottom: 0;
   }
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 const StyledCheckboxHeadline = styled.span`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   display: block;
   margin-bottom: 15px;
   margin-top: 25px;
@@ -39,6 +43,7 @@ const StyledCheckbox = styled(Checkbox).attrs(() => ({
   margin-bottom: ${({ $withoutMargin }) => ($withoutMargin ? 0 : `15px`)};
 
   label {
+    ${({ theme }) => useFontSize(theme, "m", "l")};
     font-weight: ${({ $bold }) => ($bold ? 400 : 300)};
   }
 `;

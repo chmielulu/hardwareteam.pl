@@ -62,6 +62,18 @@ const StyledIndex = styled.div`
     width: 18px;
     height: 18px;
   }
+
+  ${({ $secondary }) =>
+    $secondary &&
+    css`
+      @media (max-width: 1024px) {
+        margin-bottom: ${useFluidSize({ min: 5, max: 10 })};
+      }
+
+      @media (max-width: 360px) {
+        margin-bottom: 5px;
+      }
+    `}
 `;
 
 const StyledIcon = styled(Icon)`
@@ -85,6 +97,12 @@ const StyledName = styled.h3`
     $isActive &&
     css`
       font-weight: 400;
+    `}
+
+  ${({ $secondary }) =>
+    $secondary &&
+    css`
+      ${({ theme }) => useFontSize(theme, "m", "s")}
     `}
 `;
 
@@ -133,8 +151,8 @@ const StyledSpacer = styled.div`
       }
 
       @media (max-width: 1024px) {
-        width: ${useFluidSize({ min: 15, max: 55 })};
-        margin: 0 ${useFluidSize({ min: 7, max: 10 })};
+        width: ${useFluidSize({ min: 15, max: 100 })};
+        margin: 0 ${useFluidSize({ min: 7, max: 30 })};
       }
 
       @media (max-width: 360px) {
@@ -150,10 +168,16 @@ const OrderProcess = ({ content, secondary, ...props }) => {
       {content.map(({ name, isFinished, description, isActive }, index) => (
         <React.Fragment key={index}>
           <StyledItem>
-            <StyledIndex $isFinished={isFinished} $isActive={isActive}>
+            <StyledIndex
+              $isFinished={isFinished}
+              $isActive={isActive}
+              $secondary={secondary}
+            >
               {isFinished ? <StyledIcon icon={checkIcon} /> : index + 1}
             </StyledIndex>
-            <StyledName $isActive={isActive}>{name}</StyledName>
+            <StyledName $isActive={isActive} $secondary={secondary}>
+              {name}
+            </StyledName>
             {isFinished && description && (
               <StyledDescription>{description}</StyledDescription>
             )}

@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import { Radio } from "@components/atoms";
 import Icon from "@iconify/react";
 import { Img } from "react-image";
-import { useFontSize } from "@hooks/styled-components";
+import { useFluidSize, useFontSize } from "@hooks/styled-components";
 
 const StyledWrapper = styled.div`
   max-width: 625px;
@@ -15,6 +15,11 @@ const StyledWrapper = styled.div`
 
   @media (max-width: 1280px) {
     max-width: 500px;
+  }
+
+  @media (max-width: 720px) {
+    width: 100%;
+    max-width: unset;
   }
 `;
 
@@ -53,6 +58,11 @@ const StyledLabel = styled.label`
     css`
       border-top: 1px solid transparent;
     `}
+
+  @media (max-width: 720px) {
+    height: unset;
+    min-height: 60px;
+  }
 `;
 
 const StyledRadio = styled(Radio)`
@@ -70,7 +80,7 @@ const StyledRadio = styled(Radio)`
 `;
 
 const StyledLabelContent = styled.div`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   display: flex;
   align-items: center;
   width: 100%;
@@ -93,6 +103,14 @@ const StyledIcon = styled(Icon)`
       opacity: 1;
       filter: grayscale(0);
     `}
+
+  @media (max-width: 720px) {
+    font-size: ${useFluidSize({ min: 2, max: 2.5, unit: "rem" })};
+  }
+
+  @media (max-width: 360px) {
+    font-size: 2rem;
+  }
 `;
 
 const StyledImg = styled(Img)`
@@ -112,6 +130,16 @@ const StyledImg = styled(Img)`
       opacity: 1;
       filter: grayscale(0);
     `}
+
+  @media (max-width: 720px) {
+    max-width: ${useFluidSize({ min: 36, max: 42, maxView: 720 })};
+    max-height: ${useFluidSize({ min: 21, max: 42, maxView: 720 })};
+  }
+
+  @media (max-width: 360px) {
+    max-width: 36px;
+    max-height: 21px;
+  }
 `;
 
 const StyledText = styled.span`

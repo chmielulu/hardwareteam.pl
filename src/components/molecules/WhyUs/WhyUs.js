@@ -63,9 +63,9 @@ const StyledParagraph = styled.p`
   flex: 1;
 `;
 
-const WhyUs = () => {
+const WhyUs = ({ ...props }) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper {...props}>
       {items.map(({ icon, name, value }, index) => (
         <StyledItem key={index}>
           <StyledHeadline>{name}</StyledHeadline>

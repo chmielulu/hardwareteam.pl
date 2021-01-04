@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
-import { useFontSize } from "@hooks/styled-components";
+import { useFluidSize, useFontSize } from "@hooks/styled-components";
 import { l } from "@constants/fontSizes";
 import logo from "@assets/images/logo.png";
 
@@ -32,12 +32,31 @@ const StyledImage = styled.img`
     css`
       margin-right: 0;
     `}
+
+  ${({ $toSmall }) =>
+    $toSmall &&
+    css`
+      @media (max-width: 1024px) {
+        width: ${useFluidSize({ min: 34, max: 50 })};
+        margin-right: ${useFluidSize({ min: 5, max: 10 })};
+      }
+
+      @media (max-width: 360px) {
+        width: 34px;
+        margin-right: 5px;
+      }
+    `}
 `;
 
-const Logo = ({ size, withoutText, ...props }) => {
+const Logo = ({ size, withoutText, toSmall, ...props }) => {
   return (
     <StyledWrapper {...props}>
-      <StyledImage src={logo} size={size} withoutText={withoutText} />
+      <StyledImage
+        src={logo}
+        size={size}
+        withoutText={withoutText}
+        $toSmall={toSmall}
+      />
       {!withoutText && <StyledText size={size}>Hardware Team</StyledText>}
     </StyledWrapper>
   );
@@ -46,11 +65,13 @@ const Logo = ({ size, withoutText, ...props }) => {
 Logo.propTypes = {
   size: PropTypes.string,
   withoutText: PropTypes.bool,
+  toSmall: PropTypes.bool,
 };
 
 Logo.defaultProps = {
   size: null,
   withoutText: false,
+  toSmall: false,
 };
 
 export default Logo;

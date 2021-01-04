@@ -83,6 +83,14 @@ const StyledSliderWrapper = styled.div`
   }
 `;
 
+const StyledWhyUs = styled(WhyUs)`
+  @media (max-width: 1160px) {
+    width: 95% !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+`;
+
 const OrderTemplate = ({ level, children }) => {
   const { width } = useWindowSize();
 
@@ -97,7 +105,7 @@ const OrderTemplate = ({ level, children }) => {
         <StyledWrapper>
           <StyledHeader>
             <StyledLink to={routes.index}>
-              <Logo />
+              <Logo toSmall />
             </StyledLink>
             <StyledOrderProcess
               content={[
@@ -118,12 +126,12 @@ const OrderTemplate = ({ level, children }) => {
                   isFinished: level === 3,
                 },
               ]}
-              secondary={width > 1024}
+              secondary
             />
           </StyledHeader>
           <main>
             {children}
-            {width > 1024 && <WhyUs />}
+            {width > 1024 && <StyledWhyUs />}
             {level >= 3 && (
               <>
                 <StyledHeadline forwardedAs="h2">

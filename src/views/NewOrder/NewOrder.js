@@ -5,7 +5,8 @@ import styled from "styled-components";
 import OrderTemplate from "@templates/OrderTemplate";
 import { BackButton } from "@components/atoms";
 import routes from "@routes/";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
+import { useWindowSize } from "@hooks/utils";
 import { connect } from "react-redux";
 import DeliveryAndPayment from "./DeliveryAndPayment/DeliveryAndPayment";
 import Box from "./Box/Box";
@@ -34,6 +35,11 @@ const StyledWrapper = styled.div`
   @media (max-width: 1024px) {
     flex-direction: column;
     padding: 0;
+    margin-top: ${useFluidSize({ min: 25, max: 45 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 25px;
   }
 `;
 
@@ -43,31 +49,55 @@ const StyledLeftColumn = styled.div`
   @media (max-width: 1280px) {
     max-width: 500px;
   }
+
+  @media (max-width: 720px) {
+    max-width: unset;
+    width: 100%;
+  }
 `;
 
 const StyledRightColumn = styled.div``;
 
 const StyledHeadline = styled.h2`
-  ${({ theme }) => useFontSize(theme, "xl")}
+  ${({ theme }) => useFontSize(theme, "xl", "xxl")}
   font-weight: 400;
   margin-bottom: 25px;
 `;
 
 const StyledSecondHeadline = styled.h3`
-  ${({ theme }) => useFontSize(theme, "l")}
+  ${({ theme }) => useFontSize(theme, "l", "xl")}
   font-weight: 400;
   margin-bottom: 30px;
+
+  @media (max-width: 1024px) {
+    margin-bottom: ${useFluidSize({ min: 20, max: 30 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const StyledSection = styled.section`
   margin-bottom: 60px;
+
+  @media (max-width: 1024px) {
+    margin-bottom: ${useFluidSize({ min: 30, max: 60 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-bottom: 30px;
+  }
 `;
 
 const StyledBackButton = styled(BackButton)`
-  margin-left: 10px;
+  @media (max-width: 1160px) {
+    margin-left: 2.5%;
+  }
 `;
 
 const NewOrder = ({ level, basket }) => {
+  const { width } = useWindowSize();
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, [level]);
@@ -111,7 +141,7 @@ const NewOrder = ({ level, basket }) => {
             <Done />
           )}
         </StyledWrapper>
-        {level < 3 && (
+        {level < 3 && width > 1024 && (
           <StyledBackButton to={routes.basket}>
             Wróć do zakupów
           </StyledBackButton>

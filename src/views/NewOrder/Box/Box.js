@@ -30,6 +30,8 @@ const StyledWrapper = styled.div`
   @media (max-width: 1024px) {
     top: unset;
     position: static;
+    width: 100%;
+    border: 0;
   }
 `;
 
@@ -54,11 +56,19 @@ const StyledContainer = styled.div`
     :first-of-type {
       max-height: unset;
     }
+    padding: 0;
   }
 `;
 
 const StyledInnerWrapper = styled.div`
   width: 335px;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    /* max-width: 500px; */
+  }
 `;
 
 const StyledSummaryPriceWrapper = styled.div`
@@ -67,26 +77,40 @@ const StyledSummaryPriceWrapper = styled.div`
   padding-bottom: 10px;
   border-bottom: 1px solid ${({ theme }) => theme.lightGray};
   margin-bottom: 15px;
+
+  @media (max-width: 1024px) {
+    border-bottom: 0;
+    border-top: 1px solid ${({ theme }) => theme.lightGray};
+    padding: 10px 10px 0 10px;
+    padding-bottom: 0;
+    margin-top: 15px;
+    margin-bottom: 0;
+  }
 `;
 
 const StyledHeadline = styled.h4`
-  ${({ theme }) => useFontSize(theme, "l")}
+  ${({ theme }) => useFontSize(theme, "l", "xl")}
   font-weight: 300;
 `;
 
 const StyledSummaryPrice = styled.p`
-  ${({ theme }) => useFontSize(theme, "l")}
+  ${({ theme }) => useFontSize(theme, "l", "xl")}
   font-weight: 500;
 `;
 
 const StyledPriceComponent = styled.div`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")};
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
 
   :last-of-type {
     margin-bottom: 0;
+  }
+
+  @media (max-width: 1024px) {
+    order: -1;
+    padding: 0 10px;
   }
 `;
 
@@ -101,6 +125,14 @@ const StyledPrice = styled.p`
 
 const StyledButton = styled(Button)`
   margin-top: 30px;
+
+  @media (max-width: 1024px) {
+    order: 2;
+  }
+
+  @media (max-width: 1024px) {
+    margin-top: 20px;
+  }
 `;
 
 const StyledInputWithButton = styled(InputWithButton)`
@@ -113,6 +145,20 @@ const StyledInputWithButton = styled(InputWithButton)`
 
   button {
     flex: 1;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 0 10px;
+    margin-top: 30px;
+
+    button {
+      width: 100px;
+      flex: unset;
+    }
+
+    div {
+      flex: 1;
+    }
   }
 `;
 
