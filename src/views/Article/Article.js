@@ -1,5 +1,6 @@
 import React from "react";
-import styled from "styled-components";
+import PropTypes from "prop-types";
+import styled, { css } from "styled-components";
 import MainTemplate from "@templates/MainTemplate";
 import { Locator, Spinner, SocialButton } from "@components/atoms";
 import { Wysiwyg } from "@components/molecules";
@@ -11,6 +12,8 @@ import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import { Img } from "react-image";
 import { useWysiwygStructure } from "@hooks/utils";
 import scrollToElement from "@utils/scrollToElement";
+import { connect } from "react-redux";
+
 import dummyContent from "./_dummyContent/dummyContent";
 import Comments from "./_components/Comments/Comments";
 
@@ -152,6 +155,19 @@ const StyledListWrapper = styled.nav`
   width: 300px;
   position: sticky;
   top: 160px;
+  transition: transform 0.2s ease-in-out;
+
+  ${({ $isBottomBarHidden }) =>
+    $isBottomBarHidden &&
+    css`
+      @media (min-width: 1024px) {
+        transform: translateY(-45px);
+      }
+
+      @media (max-width: 1752px) {
+        transform: translateY(-50px);
+      }
+    `}
 `;
 
 const StyledListHeadline = styled.div`
@@ -208,7 +224,7 @@ const StyledPagination = styled.div`
   }
 `;
 
-const ArticleView = () => {
+const ArticleView = ({ isBottomBarHidden }) => {
   const { articleId } = useParams();
   const { pathname } = useLocation();
 
@@ -253,7 +269,7 @@ const ArticleView = () => {
         <StyledInnerWrapper>
           <StyledRightColumn>
             {structure && (
-              <StyledListWrapper className="sticky">
+              <StyledListWrapper $isBottomBarHidden={isBottomBarHidden}>
                 <StyledListHeadline>Spis treści</StyledListHeadline>
                 <StyledList>
                   {structure.map(({ name, id, subHeaders }, index) => (
@@ -311,4 +327,13 @@ const ArticleView = () => {
   );
 };
 
-export default ArticleView;
+ArticleView.propTypes = {
+  isBottomBarHidden: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  const { navigation } = state;
+  return { isBottomBarHidden: navigation.isBottomBarHidden };
+};
+
+export default connect(mapStateToProps)(ArticleView);
