@@ -39,7 +39,7 @@ const StyledInnerWrapper = styled.div`
 const StyledContent = styled.div`
   margin-left: 60px;
   flex: 1;
-  oveflow: hidden;
+  overflow: hidden;
 
   @media (max-width: 1024px) {
     margin-left: 0;
@@ -65,6 +65,7 @@ const StyledCategoriesWrapper = styled.div`
   align-items: center;
   justify-content: center;
   grid-gap: 80px;
+  margin-top: 40px;
 
   @media (max-width: 1024px) {
     display: flex;

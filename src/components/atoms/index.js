@@ -21,6 +21,7 @@ import SocialButton from "./SocialButton/SocialButton";
 import Information from "./Information/Information";
 import Frame from "./Frame/Frame";
 import CircleButton from "./CircleButton/CircleButton";
+import DarkModeToggle from "./DarkModeToggle/DarkModeToggle";
 
 export {
   Attribute,
@@ -46,4 +47,5 @@ export {
   Information,
   Frame,
   CircleButton,
+  DarkModeToggle,
 };

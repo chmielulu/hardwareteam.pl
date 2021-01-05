@@ -21,6 +21,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "copy-webpack-plugin": "^6.3.2",
+    "darkreader": "^4.9.26",
     "eslint-plugin-react-hooks": "^4.2.0",
     "faker": "^5.1.0",
     "gsap": "^3.5.1",

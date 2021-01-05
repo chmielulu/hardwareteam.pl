@@ -9,6 +9,7 @@ import {
 import routes from "@routes/";
 import { Provider } from "react-redux";
 import createStore from "@store";
+import { DarkModeToggle } from "@components/atoms";
 import { PersistGate } from "redux-persist/integration/react";
 import IndexView from "./Index/Index";
 import LoginView from "./Login/Login";
@@ -94,6 +95,7 @@ const Root = () => {
                 <Redirect to={routes.notFound} />
               </Route>
             </Switch>
+            <DarkModeToggle />
           </Router>
         </PersistGate>
       </Provider>
