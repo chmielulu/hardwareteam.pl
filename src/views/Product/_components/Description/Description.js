@@ -9,6 +9,7 @@ import cpuIcon from "@iconify/icons-clarity/cpu-line";
 import shoppingIcon from "@iconify/icons-clarity/shopping-bag-line";
 import faceIcon from "@iconify/icons-clarity/happy-face-line";
 import { useFontSize, useFluidSize } from "@hooks/styled-components";
+import Image360 from "../Image360/Image360";
 import firstImg from "../../_dummyContent/images/1.png";
 import secondImg from "../../_dummyContent/images/6.png";
 import thirdImg from "../../_dummyContent/images/4.png";
@@ -16,6 +17,16 @@ import fourthImg from "../../_dummyContent/images/fourth.png";
 import fifthImg from "../../_dummyContent/images/fifth.png";
 
 const items = [
+  {
+    icon: phoneIcon,
+    headline: "Odkryj smartfon HUAWEI Y6p w 360 stopniach",
+    content: `HUAWEI Y6p to najnowszy produkt z rodziny Y. Sprawdzi się on wśród amatorów fotografii dzięki 3 aparatom oraz obiektywowi szerokokątnemu. Smartfon wyposażony jest również w ekran 6,3” typu Dewdrop, który zapewnia jeszcze lepszą widoczność. Dzięki niezwykle pojemnej baterii 5000 mAh Y6p może pracować przez wiele godzin na jednym ładowaniu
+    <br><br>
+    Sprawdź, jak HUAWEI Y6p wygląda w rzeczywistości. Chwyć zdjęcie poniżej i przeciągnij je w lewo lub prawo aby obrócić produkt lub skorzystaj z przycisków nawigacyjnych.`,
+    image360:
+      "https://3d.ab.pl/001/nCrY8ndKeLpmvcX5X3mAhR/ov3601/3/script?auto_rotate_dir=left&background_color=0xffffff&border_color=0xffffff&continous=yes&frame_rate=10&gui_background=0x000000C7&gui_foreground=0xFFFFFFC7&gui_foreground_active=0xFFFFFFFF&height=520&lang=pl&logo_src=&ovskin=no&preload_height=0&preload_width=0&rotate_dir=right&social=no&style=0&teaser=play&transition=no&width=600&wmode=default&valign=center&vmove=yes&content2=yes&report_bugs=no",
+    id: "nCrY8ndKeLpmvcX5X3mAhR",
+  },
   {
     icon: phoneIcon,
     headline: "Przejrzysty ekran",
@@ -193,13 +204,14 @@ const StyledImg = styled(Img)`
 const Description = React.forwardRef((_, ref) => {
   return (
     <StyledWrapper ref={ref}>
-      {items.map(({ icon, headline, content, img }, index) => (
+      {items.map(({ icon, headline, content, img, image360, id }, index) => (
         <StyledItem key={index}>
           <StyledIcon icon={icon} />
           <StyledContentWrapper>
             <StyledHeadline>{headline}</StyledHeadline>
             <StyledParagraph dangerouslySetInnerHTML={{ __html: content }} />
-            <StyledImg src={img} loader={<Spinner />} />
+            {img && <StyledImg src={img} loader={<Spinner />} />}
+            {image360 && <Image360 src={image360} id={id} />}
           </StyledContentWrapper>
         </StyledItem>
       ))}

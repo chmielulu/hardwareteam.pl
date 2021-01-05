@@ -1,0 +1,13 @@
+/* eslint-disable prefer-rest-params */
+function debounce(fn, ms) {
+  let timer;
+  return () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      timer = null;
+      fn.apply(this, arguments);
+    }, ms);
+  };
+}
+
+export default debounce;
