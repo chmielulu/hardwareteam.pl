@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
 import formatPrice from "@utils/formatPrice";
 import { Button } from "@components/atoms";
@@ -81,7 +81,7 @@ const StyledSummaryPriceWrapper = styled.div`
   @media (max-width: 1024px) {
     border-bottom: 0;
     border-top: 1px solid ${({ theme }) => theme.lightGray};
-    padding: 10px 10px 0 10px;
+    padding: 15px 10px 0 10px;
     padding-bottom: 0;
     margin-top: 15px;
     margin-bottom: 0;
@@ -104,9 +104,11 @@ const StyledPriceComponent = styled.div`
   justify-content: space-between;
   margin-bottom: 10px;
 
-  :last-of-type {
-    margin-bottom: 0;
-  }
+  ${({ $last }) =>
+    $last &&
+    css`
+      margin-bottom: 0;
+    `}
 
   @media (max-width: 1024px) {
     order: -1;
@@ -224,8 +226,11 @@ const Box = ({ basket, values, level }) => {
               <StyledPrice $green>{formatPrice(discountSum)}</StyledPrice>
             </StyledPriceComponent>
           )}
-          {values.map(({ name, price }) => (
-            <StyledPriceComponent key={name}>
+          {values.map(({ name, price }, index) => (
+            <StyledPriceComponent
+              key={name}
+              $last={index === values.length - 1}
+            >
               <StyledPriceComponentName>{name}</StyledPriceComponentName>
               <StyledPrice $green={price < 0}>{formatPrice(price)}</StyledPrice>
             </StyledPriceComponent>

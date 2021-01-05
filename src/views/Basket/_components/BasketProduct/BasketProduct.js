@@ -91,7 +91,14 @@ const StyledInput = styled(Input)`
 
     input {
       padding: ${useFluidSize({ min: 5, max: 10 })} 5px;
-      border-radius: 5px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    width: 20px;
+
+    input {
+      padding: 5px;
     }
   }
 `;

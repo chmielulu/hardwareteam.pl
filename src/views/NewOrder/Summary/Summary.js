@@ -8,11 +8,19 @@ import { Link } from "react-router-dom";
 import routes from "@routes";
 import Icon from "@iconify/react";
 import pencilIcon from "@iconify/icons-clarity/pencil-line";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import blikImg from "../dummyContent/images/blik.png";
 import Product from "../Product/Product";
 
-const StyledWrapper = styled.div``;
+const StyledWrapper = styled.div`
+  @media (max-width: 1024px) {
+    margin-top: ${useFluidSize({ min: 25, max: 45 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 25px;
+  }
+`;
 
 const StyledInnerWrapper = styled.div`
   display: flex;
@@ -28,12 +36,23 @@ const StyledImg = styled(Img)`
   margin-right: 15px;
   max-width: 42px;
   max-height: 42px;
+
+  @media (max-width: 1024px) {
+    max-width: ${useFluidSize({ min: 25, max: 42 })};
+    max-height: ${useFluidSize({ min: 25, max: 42 })};
+  }
+
+  @media (max-width: 360px) {
+    max-width: 25px;
+    max-height: 25px;
+  }
 `;
 
 const StyledText = styled.p`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 300;
   margin-bottom: 6px;
+  flex: 1;
 
   :last-of-type {
     margin-bottom: 0;
@@ -41,7 +60,7 @@ const StyledText = styled.p`
 `;
 
 const StyledFrameHeadline = styled.h4`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   font-weight: 400;
   margin-bottom: 10px;
 `;
@@ -50,11 +69,13 @@ const StyledFrame = styled(Frame)`
   position: relative;
   width: 515px;
   margin-bottom: 8px;
+  padding-right: 53px;
 
   ${({ $basket }) =>
     $basket &&
     css`
       width: 600px;
+      padding-right: 15px;
     `}
 
   ${({ $staticHeight }) =>
@@ -65,7 +86,33 @@ const StyledFrame = styled(Frame)`
       padding-bottom: 0;
       display: flex;
       align-items: center;
+
+      @media (max-width: 1024px) {
+        height: unset;
+        min-height: 55px;
+      }
     `}
+
+  @media (max-width: 1280px) {
+    width: 500px;
+  }
+
+  @media (max-width: 720px) {
+    width: 100%;
+    word-wrap: break-word;
+  }
+
+  @media (max-width: 1024px) {
+    padding-left: ${useFluidSize({ min: 15, max: 25 })};
+    padding-top: ${useFluidSize({ min: 15, max: 25 })};
+    padding-bottom: ${useFluidSize({ min: 15, max: 25 })};
+  }
+
+  @media (max-width: 360px) {
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
 `;
 
 const StyledCircleButton = styled(CircleButton).attrs(({ to }) => ({
@@ -130,7 +177,6 @@ const Summary = ({ Headline, SecondHeadline, Section, basket }) => {
           {basket.products.map(({ name, ...props }) => (
             <StyledProduct name={name} key={name} {...props} />
           ))}
-          <StyledCircleButton to={routes.basket} />
         </StyledFrame>
       </Section>
 

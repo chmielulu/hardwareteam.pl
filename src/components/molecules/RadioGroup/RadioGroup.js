@@ -145,6 +145,7 @@ const StyledImg = styled(Img)`
 const StyledText = styled.span`
   font-weight: 300;
   margin-right: 20px;
+  flex: 1;
 `;
 
 const StyledAdditionalText = styled.span`

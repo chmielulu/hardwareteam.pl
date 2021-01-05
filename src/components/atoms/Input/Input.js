@@ -14,7 +14,7 @@ const StyledLabel = styled.label`
 `;
 
 const StyledInput = styled.input`
-  ${({ theme }) => useFontSize(theme)}
+  ${({ theme }) => useFontSize(theme, "m", "l")}
   padding: 10px 15px;
   border-radius: 10px;
   border: 1.5px solid ${({ theme }) => theme.gray};

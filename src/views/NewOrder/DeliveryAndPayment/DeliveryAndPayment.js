@@ -4,10 +4,18 @@ import styled from "styled-components";
 import { RadioGroup } from "@components/molecules";
 import { Input, Checkbox } from "@components/atoms";
 import { secondary } from "@constants/kinds";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 import { payment, shipment } from "../dummyContent/dummyContent";
 
-const StyledWrapper = styled.div``;
+const StyledWrapper = styled.div`
+  @media (max-width: 1024px) {
+    margin-top: ${useFluidSize({ min: 25, max: 45 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 25px;
+  }
+`;
 
 const StyledRadioGroup = styled(RadioGroup)``;
 

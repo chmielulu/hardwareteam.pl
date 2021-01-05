@@ -9,7 +9,7 @@ import Icon from "@iconify/react";
 import { Link } from "react-router-dom";
 import routes from "@routes/";
 import { secondary } from "@constants/kinds";
-import { useFontSize } from "@hooks/styled-components";
+import { useFontSize, useFluidSize } from "@hooks/styled-components";
 
 const StyledWrapper = styled.div`
   margin-top: 60px;
@@ -18,6 +18,16 @@ const StyledWrapper = styled.div`
   align-items: center;
   width: 100%;
   margin-bottom: 40px;
+
+  @media (max-width: 1024px) {
+    margin-top: ${useFluidSize({ min: 30, max: 60 })};
+    margin-bottom: ${useFluidSize({ min: 30, max: 100 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
 `;
 
 const StyledInnerWrapper = styled.div``;
@@ -32,6 +42,16 @@ const StyledIcon = styled(Icon)`
   font-size: 5rem;
   color: ${({ theme }) => theme.secondary};
   margin-right: 20px;
+
+  @media (max-width: 1024px) {
+    font-size: ${useFluidSize({ min: 2.2, max: 5, unit: "rem" })};
+    margin-right: ${useFluidSize({ min: 10, max: 20 })};
+  }
+
+  @media (max-width: 360px) {
+    font-size: 2.2rem;
+    margin-right: 10px;
+  }
 `;
 
 const StyledHeadline = styled.h2`
@@ -45,6 +65,14 @@ const StyledParagraph = styled.p`
   font-weight: 300;
   max-width: 800px;
   margin-bottom: 40px;
+
+  @media (max-width: 1024px) {
+    margin-bottom: ${useFluidSize({ min: 20, max: 40 })};
+  }
+
+  @media (max-width: 360px) {
+    margin-bottom: 20px;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -55,6 +83,10 @@ const StyledLink = styled(Link)`
 
 const StyledButtonsWrapper = styled.div`
   display: flex;
+
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
 `;
 
 const StyledButton = styled(Button)`
@@ -62,6 +94,14 @@ const StyledButton = styled(Button)`
 
   :last-of-type {
     margin-right: 0;
+  }
+
+  @media (max-width: 720px) {
+    margin-right: 0;
+
+    :first-of-type {
+      margin-bottom: 10px;
+    }
   }
 `;
 

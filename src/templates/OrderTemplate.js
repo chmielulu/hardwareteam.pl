@@ -14,6 +14,7 @@ import { secondary } from "@constants/kinds";
 import { Link } from "react-router-dom";
 import routes from "@routes";
 import { useWindowSize } from "@hooks/utils";
+import { useFluidSize } from "@hooks/styled-components";
 import { recommendedProducts } from "../views/Index/_dummyContent/dummyContent";
 
 const StyledWrapper = styled.div`
@@ -27,6 +28,11 @@ const StyledWrapper = styled.div`
 
   @media (max-width: 1024px) {
     width: 90%;
+    padding-bottom: ${useFluidSize({ min: 30, max: 60 })};
+  }
+
+  @media (max-width: 360px) {
+    padding-bottom: 30px;
   }
 `;
 
@@ -72,14 +78,29 @@ const StyledLink = styled(Link)`
 const StyledHeadline = styled(Headline).attrs(() => ({
   kind: secondary,
 }))`
-  margin-top: 40px;
+  @media (max-width: 1160px) {
+    margin-left: 2.5%;
+  }
+
+  @media (min-width: 1024px) {
+    margin-top: 40px;
+  }
+
+  @media (max-width: 1024px) {
+    margin-left: 0;
+  }
 `;
 
 const StyledSliderWrapper = styled.div`
   margin-top: 30px;
 
+  @media (max-width: 1160px) {
+    margin-left: 2.5%;
+  }
+
   @media (max-width: 1024px) {
     margin-top: 10px;
+    margin-left: 0;
   }
 `;
 

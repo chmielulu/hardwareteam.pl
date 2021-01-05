@@ -35,11 +35,8 @@ const StyledWrapper = styled.div`
   @media (max-width: 1024px) {
     flex-direction: column;
     padding: 0;
-    margin-top: ${useFluidSize({ min: 25, max: 45 })};
-  }
-
-  @media (max-width: 360px) {
-    margin-top: 25px;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 `;
 

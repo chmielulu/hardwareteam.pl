@@ -151,12 +151,12 @@ const StyledSpacer = styled.div`
       }
 
       @media (max-width: 1024px) {
-        width: ${useFluidSize({ min: 15, max: 100 })};
-        margin: 0 ${useFluidSize({ min: 7, max: 30 })};
+        width: ${useFluidSize({ min: 10, max: 100, minView: 320 })};
+        margin: 0 ${useFluidSize({ min: 5, max: 30, minView: 320 })};
       }
 
-      @media (max-width: 360px) {
-        width: 15px;
+      @media (max-width: 320px) {
+        width: 10px;
         margin: 0 7px;
       }
     `}
