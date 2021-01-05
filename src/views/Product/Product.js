@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import MainTemplate from "@templates/MainTemplate";
 import {
   Locator,
@@ -212,7 +212,7 @@ const StyledProductVariantWrapper = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 5px;
-  margin-top: 5px;
+  margin-top: 10px;
 
   :nth-of-type(2) {
     border: 2px solid ${({ theme }) => theme.primary};
@@ -226,7 +226,7 @@ const StyledProductVariant = styled.img`
 
 const StyledAttributesLink = styled.a`
   ${({ theme }) => useFontSize(theme, "m", "l")}
-  margin-top: 20px;
+  margin-top: 10px;
   color: ${({ theme }) => theme.primary};
   display: flex;
 `;
@@ -430,6 +430,10 @@ const StyledPrice = styled.div`
   ${({ theme }) => useFontSize(theme, "xl", "xxl")}
   font-weight: 500;
   margin-bottom: 20px;
+
+  @media (max-width: 700px) {
+    text-align: right;
+  }
 `;
 
 const StyledProductActionWrapper = styled.div`
@@ -479,6 +483,24 @@ const StyledInformation = styled(Information)`
 
   @media (max-width: 700px) {
     width: 100%;
+    border: 1px solid ${({ theme }) => theme.lightGray};
+    border-bottom: 0;
+    margin-bottom: 0;
+    padding: 10px;
+    padding-left: 15px;
+
+    ${({ $first }) =>
+      $first &&
+      css`
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      `}
+
+    :last-of-type {
+      border: 1px solid ${({ theme }) => theme.lightGray};
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
   }
 `;
 
@@ -649,6 +671,14 @@ const Product = ({ addToBasket }) => {
               <StyledAttribute name="System" value="Android 10" />
               <StyledAttribute name="Kolor" value="Fioletowy" />
             </StyledAttributesWrapper>
+            <StyledAttributesLink
+              href="#"
+              onClick={(e) => {
+                scrollTo(specification, e, { yOffset: 280 });
+              }}
+            >
+              Zobacz wszystkie parametry
+            </StyledAttributesLink>
             <StyledProductVariants>
               <StyledProductVariantWrapper>
                 <StyledProductVariant src={blackImg} alt="Czarny" />
@@ -660,14 +690,6 @@ const Product = ({ addToBasket }) => {
                 <StyledProductVariant src={greenImg} alt="Zielony" />
               </StyledProductVariantWrapper>
             </StyledProductVariants>
-            <StyledAttributesLink
-              href="#"
-              onClick={(e) => {
-                scrollTo(specification, e, { yOffset: 280 });
-              }}
-            >
-              Zobacz wszystkie parametry
-            </StyledAttributesLink>
           </StyledFirstColumn>
           <StyledSecondColumn>
             <StyledActiveImageWrapper>
@@ -728,7 +750,7 @@ const Product = ({ addToBasket }) => {
                 Do koszyka
               </StyledButton>
             </StyledProductActionWrapper>
-            <StyledInformation kind="time" to="/" />
+            <StyledInformation kind="time" to="/" $first />
             <StyledInformation kind="delivery" to="/" />
             <StyledInformation
               kind="instalments"
