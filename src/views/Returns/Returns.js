@@ -180,7 +180,7 @@ const title = "Zwroty i Reklamacje";
 
 const Returns = () => {
   return (
-    <UserTemplate Headline={() => <></>} title={title}>
+    <UserTemplate Headline={() => <>{title}</>} title={title}>
       <StyledWrapper>
         <StyledSection>
           <StyledSectionHeadline>
