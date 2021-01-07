@@ -15,7 +15,8 @@
       "@database/*": ["./src/database/*"],
       "@actions/*": ["./src/actions/*"],
       "@store/*": ["./src/store/*"],
-      "@reducers/*": ["./src/reducers/*"]
+      "@reducers/*": ["./src/reducers/*"],
+      "@config/*": ["./src/config/*"]
     }
   },
   "exclude": ["node_modules", "build"]

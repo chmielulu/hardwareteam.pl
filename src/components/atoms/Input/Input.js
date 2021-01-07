@@ -67,6 +67,7 @@ const Input = ({
   className,
   value,
   onChange,
+  type,
   ...props
 }) => {
   const [inputValue, setValue] = useState();
@@ -90,6 +91,7 @@ const Input = ({
         $kind={kind}
         value={value || inputValue}
         onChange={handleInputChange}
+        type={type}
         {...props}
       />
       {icon && <StyledIcon icon={icon} $kind={kind} />}
@@ -105,6 +107,7 @@ Input.propTypes = {
   className: PropTypes.string,
   onChange: PropTypes.func,
   value: PropTypes.string,
+  type: PropTypes.oneOf(["text", "password"]),
 };
 
 Input.defaultProps = {
@@ -113,6 +116,7 @@ Input.defaultProps = {
   className: "",
   onChange: null,
   value: null,
+  type: "text",
 };
 
 export default Input;

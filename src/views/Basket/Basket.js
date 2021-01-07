@@ -125,7 +125,7 @@ const Basket = ({ basket, removeAllProducts }) => {
   const handleCloseDialog = () => setDialogActive(false);
 
   return (
-    <MainTemplate footerKind={secondary}>
+    <MainTemplate footerKind={secondary} title={`Koszyk (${basket.count})`}>
       <>
         <StyledWrapper>
           {basket.count > 0 ? (

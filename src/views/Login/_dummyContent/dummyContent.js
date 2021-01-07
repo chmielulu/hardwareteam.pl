@@ -5,10 +5,11 @@ import backgroundImg from "./images/background.png";
 
 export default {
   title: "Witaj z powrotem",
+  pageTitle: "Logowanie",
   subtitle: "Zaloguj się za pomocą swojego e-maila i hasła",
   inputs: [
     { name: "email", label: "Adres e-mail", icon: adIcon },
-    { name: "password", label: "Hasło", icon: lockIcon },
+    { name: "password", label: "Hasło", icon: lockIcon, type: "password" },
   ],
   slideControls: [
     { name: "remember_password", label: "Zapamiętaj mnie", fontWeight: 500 },

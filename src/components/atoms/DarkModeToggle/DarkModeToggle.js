@@ -21,10 +21,8 @@ const StyledButton = styled.button`
   border-radius: 50%;
   border: 0;
   background: ${({ theme }) => theme.secondary};
-  display: flex;
-  align-items: center;
-  justify-content: center;
   outline: none;
+  overflow: hidden;
 
   @media (max-width: 1024px) {
     bottom: 65px;
@@ -42,6 +40,19 @@ const StyledButton = styled.button`
 const StyledIcon = styled(Icon)`
   color: #fff;
   font-size: 2.5rem;
+  transform: translate(-50%, -50px) !important;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  opacity: 0.5;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+
+  ${({ $isActive }) =>
+    $isActive &&
+    css`
+      transform: translate(-50%, -50%) !important;
+      opacity: 1;
+    `}
 `;
 
 const testPathname = (path) => {
@@ -100,7 +111,8 @@ const DarkModeToggle = () => {
       onClick={toggle}
       $reduceBottom={reduceBottom}
     >
-      <StyledIcon icon={isDarkMode ? sunIcon : moonIcon} />
+      <StyledIcon icon={moonIcon} $isActive={!isDarkMode} />
+      <StyledIcon icon={sunIcon} $isActive={isDarkMode} />
     </StyledButton>
   );
 };

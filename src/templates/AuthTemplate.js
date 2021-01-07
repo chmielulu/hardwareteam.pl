@@ -201,11 +201,20 @@ const AuthTemplate = ({
   background,
   backLink,
   minHeight,
+  pageTitle,
+  description,
+  keywords,
+  ogImage,
 }) => {
   const { width } = useWindowSize();
 
   return (
-    <BlankTemplate>
+    <BlankTemplate
+      title={pageTitle}
+      description={description}
+      keywords={keywords}
+      ogImage={ogImage}
+    >
       <StyledWrapper $minHeight={minHeight}>
         <StyledLeftColumn>
           <StyledBackButton to={backLink}>Zawróć się</StyledBackButton>
@@ -223,12 +232,13 @@ const AuthTemplate = ({
             <StyledParagraph>{subtitle}</StyledParagraph>
 
             <StyledForm>
-              {inputs.map(({ name, label, icon }, index) => (
+              {inputs.map(({ name, label, icon, type }, index) => (
                 <StyledInput
                   icon={icon}
                   label={label}
                   name={name}
                   key={index}
+                  type={type}
                 />
               ))}
 
@@ -313,10 +323,18 @@ AuthTemplate.propTypes = {
   background: PropTypes.string.isRequired,
   backLink: PropTypes.string.isRequired,
   minHeight: PropTypes.number,
+  pageTitle: PropTypes.string,
+  description: PropTypes.string,
+  keywords: PropTypes.arrayOf(PropTypes.string),
+  ogImage: PropTypes.string,
 };
 
 AuthTemplate.defaultProps = {
   minHeight: 750,
+  pageTitle: undefined,
+  description: undefined,
+  keywords: undefined,
+  ogImage: undefined,
 };
 
 export default AuthTemplate;

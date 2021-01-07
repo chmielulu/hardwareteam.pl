@@ -236,11 +236,19 @@ const ArticleView = ({ isBottomBarHidden }) => {
     return <Redirect to={routes.notFound} />;
   }
 
-  const { title, author, time, featuredImg, blocks, comments } = dummyContent;
+  const {
+    title,
+    author,
+    time,
+    featuredImg,
+    blocks,
+    comments,
+    description,
+  } = dummyContent;
   const structure = useWysiwygStructure(blocks);
 
   return (
-    <MainTemplate>
+    <MainTemplate title={title} description={description} ogImage={featuredImg}>
       <StyledWrapper>
         <Locator
           locations={[

@@ -47,11 +47,24 @@ const StyledHeadline = styled.h2`
   font-weight: 400;
 `;
 
-const UserTemplate = ({ Headline, children, withoutBackButton }) => {
+const UserTemplate = ({
+  Headline,
+  children,
+  withoutBackButton,
+  title,
+  description,
+  keywords,
+  ogImage,
+}) => {
   const { width } = useWindowSize();
 
   return (
-    <MainTemplate>
+    <MainTemplate
+      title={title}
+      description={description}
+      keywords={keywords}
+      ogImage={ogImage}
+    >
       <StyledWrapper>
         <StyledInnerWrapper>
           <StyledLeftColumn>
@@ -83,11 +96,19 @@ UserTemplate.propTypes = {
   Headline: PropTypes.func,
   children: PropTypes.node.isRequired,
   withoutBackButton: PropTypes.bool,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  keywords: PropTypes.arrayOf(PropTypes.string),
+  ogImage: PropTypes.string,
 };
 
 UserTemplate.defaultProps = {
   Headline: null,
   withoutBackButton: false,
+  title: undefined,
+  description: undefined,
+  keywords: undefined,
+  ogImage: undefined,
 };
 
 export default UserTemplate;

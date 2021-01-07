@@ -52,6 +52,12 @@ const StyledWrapper = styled.div`
         height: 240px;
       }
     `}
+
+  ${({ $withBorderBottom }) =>
+    $withBorderBottom &&
+    css`
+      border-bottom: 1px solid ${({ theme }) => theme.lightGray};
+    `}
 `;
 
 const StyledLink = styled(Link)`
@@ -174,6 +180,25 @@ const StyledReviewsCounter = styled.div`
   margin-left: 7px;
 `;
 
+const StyledNewNote = styled.span`
+  ${({ theme }) => useFontSize(theme, "s", "m")}
+  background: #fff;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  border: 1px solid ${({ theme }) => theme.lightGray};
+  color: ${({ theme }) => theme.darkGray};
+  padding: 3px 5px;
+  border-radius: 10px;
+  pointer-events: none;
+  user-select: none;
+
+  @media (max-width: 1024px) {
+    top: 0;
+    right: 0;
+  }
+`;
+
 const Secondary = ({
   name,
   img,
@@ -185,12 +210,14 @@ const Secondary = ({
   size,
   addToBasket,
   titleAs,
+  withBorderBottom,
+  isNew,
   ...props
 }) => {
   const shortenName = useShortenText(name, size === "small" ? 30 : 50);
 
   return (
-    <StyledWrapper $size={size} {...props}>
+    <StyledWrapper $size={size} {...props} $withBorderBottom={withBorderBottom}>
       <StyledLink to={productLink}>
         <StyledImg src={img} alt={name} $size={size} />
         <StyledInnerWrapper>
@@ -223,6 +250,7 @@ const Secondary = ({
           })
         }
       />
+      {isNew && size !== "small" && <StyledNewNote>Nowość</StyledNewNote>}
     </StyledWrapper>
   );
 };

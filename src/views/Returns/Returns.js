@@ -176,9 +176,11 @@ const types = [
   },
 ];
 
+const title = "Zwroty i Reklamacje";
+
 const Returns = () => {
   return (
-    <UserTemplate Headline={() => <>Zwroty i Reklamacje</>}>
+    <UserTemplate Headline={() => <></>} title={title}>
       <StyledWrapper>
         <StyledSection>
           <StyledSectionHeadline>

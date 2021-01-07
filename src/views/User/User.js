@@ -21,7 +21,7 @@ const User = () => {
   }
 
   return (
-    <MainTemplate>
+    <MainTemplate title="Użytkownik">
       <StyledWrapper>
         <UserNav />
       </StyledWrapper>

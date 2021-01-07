@@ -10,11 +10,12 @@ const StyledButton = styled.button`
   outline: none;
   cursor: pointer;
   background: #fff;
-  padding: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.25);
+  width: 35px;
+  height: 35px;
 
   :hover {
     background: ${({ theme }) => theme.lighterGray};

@@ -103,7 +103,7 @@ const CategoryView = () => {
   );
 
   return (
-    <MainTemplate>
+    <MainTemplate title={category.name}>
       <StyledWrapper>
         <Locator locations={[{ name: category.name, link: categoryId }]} />
         <StyledHeadline>{category.name}</StyledHeadline>

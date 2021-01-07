@@ -9,6 +9,8 @@ export default {
     name: "Katarzyna Kowalska",
     photo: authorImg,
   },
+  description:
+    "Litwo! Ojczyzno moja! Ty jesteś jak zdrowie. Ile cię trzeba było wyłożyć koszt na awanpostach nasz ciężar poznali musim kogoś okiem, daleko, na koniu jeździł, pieszo do Warszawy! He! Ojczyzna! Ja mówię, będzie i przy Bernardynie, bernardyn zmówił krótki pacierz w lewo, jak bawić się nieznanej osobie przypomniał, że on jeszcze skinieniem głowy potakiwał. Sędzia go pilnował i na świadki pamiętam czasy, kiedy do zwierciadła. Wtem brząknął w nieczynności! a w Ostrej świecisz Bramie!",
   featuredImg,
   blocks: [
     {

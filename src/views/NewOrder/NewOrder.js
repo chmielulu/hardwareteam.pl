@@ -100,7 +100,7 @@ const NewOrder = ({ level, basket }) => {
   }, [level]);
 
   return (
-    <OrderTemplate level={level}>
+    <OrderTemplate level={level} title="Składanie zamówienia">
       <>
         <StyledWrapper>
           {level !== 3 ? (

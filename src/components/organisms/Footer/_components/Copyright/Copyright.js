@@ -92,7 +92,7 @@ const Copyright = ({ copyrightImages, kind }) => {
     <StyledWrapper $kind={kind}>
       <StyledInnerWrapper $kind={kind}>
         <StyledText>
-          Copyright 2020 - <StyledTextSpan>Hardware Team</StyledTextSpan> - All
+          Copyright 2021 - <StyledTextSpan>Hardware Team</StyledTextSpan> - All
           right reserved.
         </StyledText>
 

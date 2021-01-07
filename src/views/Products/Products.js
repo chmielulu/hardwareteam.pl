@@ -153,7 +153,7 @@ const ProductsView = () => {
   const changeToSecondary = () => setActiveGrid(secondary);
 
   return (
-    <MainTemplate>
+    <MainTemplate title={subcategory.name}>
       <StyledWrapper>
         <Locator
           locations={[
@@ -223,6 +223,7 @@ const ProductsView = () => {
                       {...props}
                       attributes={featuredAttributes}
                       kind={activeGrid}
+                      withBorderBottom
                     />
                   ))}
               </StyledProductsWrapper>

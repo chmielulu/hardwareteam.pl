@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-param-reassign */
 import { css } from "styled-components";
 import { defaultSize } from "@constants/fontSizes";
@@ -10,12 +11,12 @@ const fluidFontSize = (min, max, minView, maxView) =>
 const useFontSize = (
   theme,
   desktopFontSize = defaultSize,
-  mobileFontSize = desktopFontSize,
-  hiDpiFontSize = desktopFontSize
+  mobileFontSize = desktopFontSize
+  // hiDpiFontSize = desktopFontSize
 ) => css`
   font-size: ${`${theme.desktop[desktopFontSize]}rem`};
 
-  @media (min-width: 1921px) and (max-width: 3839px) {
+  ${/* @media (min-width: 1921px) and (max-width: 3839px) {
     font-size: ${fluidFontSize(
       theme.desktop[desktopFontSize],
       theme.hiDpi[hiDpiFontSize],
@@ -26,7 +27,8 @@ const useFontSize = (
 
   @media (min-width: 3840px) {
     font-size: ${`${theme.hiDpi[hiDpiFontSize]}rem`};
-  }
+  } */
+  null}
 
   @media (min-width: 361px) and (max-width: 768px) {
     font-size: ${fluidFontSize(

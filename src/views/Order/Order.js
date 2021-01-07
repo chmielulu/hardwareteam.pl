@@ -192,7 +192,7 @@ const Order = () => {
   const { orderId } = useParams();
 
   return (
-    <UserTemplate withoutBackButton>
+    <UserTemplate withoutBackButton title={`Zamówienie ${orderId}`}>
       <BackButton to="/uzytkownik/zamowienia">
         Pokaż wszystkie zamówienia
       </BackButton>

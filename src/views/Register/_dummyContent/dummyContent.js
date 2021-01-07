@@ -7,11 +7,13 @@ import backgroundImg from "./images/background.png";
 
 export default {
   title: "Stwórz swoje konto",
+  pageTitle: "Rejestracja",
   subtitle: "Posiadając konto zyskujesz jeszcze więcej możliwości",
   inputs: [
-    { name: "name", label: "Imię i nazwisko", icon: userIcon },
+    { name: "name", label: "Imię", icon: userIcon },
+    { name: "surname", label: "Nazwisko", icon: userIcon },
     { name: "email", label: "Adres e-mail", icon: adIcon },
-    { name: "password", label: "Hasło", icon: lockIcon },
+    { name: "password", label: "Hasło", icon: lockIcon, type: "password" },
   ],
   slideControls: [
     {

@@ -54,6 +54,12 @@ const StyledHeadline = styled.h2`
   margin-top: 40px;
   font-weight: 400;
 
+  ${({ $isNote }) =>
+    $isNote &&
+    css`
+      margin-top: 10px;
+    `}
+
   @media (max-width: 1420px) {
     margin-top: 0;
   }
@@ -117,6 +123,14 @@ const StyledAwardsWrapper = styled.div`
     flex-wrap: wrap;
     margin: 20px 0 10px -20px;
   }
+
+  ${({ $isNote }) =>
+    $isNote &&
+    css`
+      @media (max-width: 1420px) {
+        margin-top: 10px;
+      }
+    `}
 `;
 
 const StyledAward = styled(Award)`
@@ -577,6 +591,23 @@ const StyledDescriptionWrapper = styled.div`
   padding-top: 52px;
 `;
 
+const StyledNewNote = styled.span`
+  ${({ theme }) => useFontSize(theme, "s", "m")}
+  background: #fff;
+  border: 1px solid ${({ theme }) => theme.lightGray};
+  color: ${({ theme }) => theme.darkGray};
+  padding: 3px 5px;
+  border-radius: 10px;
+  pointer-events: none;
+  user-select: none;
+  margin-top: 40px;
+  display: inline-block;
+
+  @media (max-width: 1024px) {
+    order: -10;
+  }
+`;
+
 const Product = ({ addToBasket }) => {
   const count = 6;
   const { width } = useWindowSize();
@@ -605,7 +636,7 @@ const Product = ({ addToBasket }) => {
   const reviews = useRef();
 
   return (
-    <MainTemplate>
+    <MainTemplate title="Smartfon Huawei Y6P 64GB Dual SIM Fioletowy">
       <StyledWrapper>
         <Locator
           locations={[
@@ -623,15 +654,19 @@ const Product = ({ addToBasket }) => {
             },
           ]}
         />
+        {width <= 1420 && <StyledNewNote>Nowość</StyledNewNote>}
+
         {width <= 1420 && (
-          <StyledAwardsWrapper>
+          <StyledAwardsWrapper $isNote>
             <StyledAward kind="valueForMoney" />
             <StyledAward kind="bestseller" />
             <StyledAward kind="recommendable" />
           </StyledAwardsWrapper>
         )}
 
-        <StyledHeadline>
+        {width > 1420 && <StyledNewNote>Nowość</StyledNewNote>}
+
+        <StyledHeadline $isNote>
           Smartfon Huawei Y6P 64GB Dual SIM Fioletowy
         </StyledHeadline>
         <StyledInnerWrapper>

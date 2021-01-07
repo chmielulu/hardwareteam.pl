@@ -15,13 +15,22 @@ const MainTemplate = ({
   basket,
   closeAddedToBasketDialog,
   footerKind,
+  title,
+  description,
+  keywords,
+  ogImage,
 }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <BasicTemplate>
+    <BasicTemplate
+      title={title}
+      description={description}
+      keywords={keywords}
+      ogImage={ogImage}
+    >
       <Navigation />
       <div className="main-wrapper">
         <main>{children}</main>
@@ -57,10 +66,18 @@ MainTemplate.propTypes = {
   }).isRequired,
   closeAddedToBasketDialog: PropTypes.func.isRequired,
   footerKind: PropTypes.oneOf([primary, secondary]),
+  title: PropTypes.string,
+  description: PropTypes.string,
+  keywords: PropTypes.arrayOf(PropTypes.string),
+  ogImage: PropTypes.string,
 };
 
 MainTemplate.defaultProps = {
   footerKind: primary,
+  title: undefined,
+  description: undefined,
+  keywords: undefined,
+  ogImage: undefined,
 };
 
 const mapStateToProps = (state) => {

@@ -148,8 +148,10 @@ const Settings = () => {
     }
   };
 
+  const title = "Ustawienia konta";
+
   return (
-    <UserTemplate Headline={() => <>Ustawienia konta</>}>
+    <UserTemplate Headline={() => <>{title}</>} title={title}>
       <StyledWrapper>
         <StyledSection>
           <StyledSectionHeadline>Dane konta</StyledSectionHeadline>

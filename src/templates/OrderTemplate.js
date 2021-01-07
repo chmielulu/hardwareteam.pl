@@ -112,7 +112,14 @@ const StyledWhyUs = styled(WhyUs)`
   }
 `;
 
-const OrderTemplate = ({ level, children }) => {
+const OrderTemplate = ({
+  level,
+  children,
+  title,
+  description,
+  keywords,
+  ogImage,
+}) => {
   const { width } = useWindowSize();
 
   useLayoutEffect(() => {
@@ -121,7 +128,12 @@ const OrderTemplate = ({ level, children }) => {
   }, []);
 
   return (
-    <BasicTemplate>
+    <BasicTemplate
+      title={title}
+      description={description}
+      keywords={keywords}
+      ogImage={ogImage}
+    >
       <>
         <StyledWrapper>
           <StyledHeader>
@@ -178,6 +190,17 @@ const OrderTemplate = ({ level, children }) => {
 OrderTemplate.propTypes = {
   level: PropTypes.oneOf([1, 2, 3]).isRequired,
   children: PropTypes.node.isRequired,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  keywords: PropTypes.arrayOf(PropTypes.string),
+  ogImage: PropTypes.string,
+};
+
+OrderTemplate.defaultProps = {
+  title: undefined,
+  description: undefined,
+  keywords: undefined,
+  ogImage: undefined,
 };
 
 export default OrderTemplate;

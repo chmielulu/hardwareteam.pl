@@ -70,9 +70,10 @@ const User = () => {
   const [activeOption] = useState(0);
 
   const handleOpenDialog = () => setDialogActive(true);
+  const title = "Zamówienia (2)";
 
   return (
-    <UserTemplate Headline={() => <>Zamówienia (2)</>}>
+    <UserTemplate Headline={() => <>{title}</>} title={title}>
       <>
         {width > 1024 ? (
           <StyledSortWrapper>

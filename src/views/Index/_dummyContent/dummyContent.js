@@ -101,6 +101,7 @@ export const recommendedProducts = [
       discount: 889,
       score: 5,
       reviewsCount: 32,
+      isNew: true,
     },
     {
       name: "Xiaomi Redmi Note 9 4/128GB Forest Green",
@@ -124,6 +125,7 @@ export const recommendedProducts = [
       discount: 889,
       score: 4.6,
       reviewsCount: 37,
+      isNew: true,
     },
     {
       name: "Xiaomi POCO X3 NFC 6/64GB Shadow Gray",
@@ -161,6 +163,7 @@ export const recommendedProducts = [
       price: 3999,
       score: 4.8,
       reviewsCount: 2,
+      isNew: true,
     },
     {
       name: "Lenovo IdeaPad 3-15 i3-1005G1/8GB/256",

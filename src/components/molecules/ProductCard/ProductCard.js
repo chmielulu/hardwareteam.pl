@@ -24,6 +24,8 @@ const ProductCard = ({
   size,
   addToBasket,
   titleAs,
+  withBorderBottom,
+  isNew,
   ...props
 }) => {
   const productLink = "/produkt/test";
@@ -40,6 +42,8 @@ const ProductCard = ({
     discount,
     productLink,
     titleAs,
+    withBorderBottom,
+    isNew,
   };
 
   return getView({
@@ -100,6 +104,8 @@ ProductCard.propTypes = {
   size: PropTypes.oneOf(["big", "normal", "small"]),
   addToBasket: PropTypes.func,
   titleAs: PropTypes.string,
+  withBorderBottom: PropTypes.bool,
+  isNew: PropTypes.bool,
 };
 
 ProductCard.defaultProps = {
@@ -115,6 +121,8 @@ ProductCard.defaultProps = {
   attributes: null,
   addToBasket: null,
   titleAs: null,
+  withBorderBottom: false,
+  isNew: false,
 };
 
 const mapDispatchToProps = (dispatch) => ({

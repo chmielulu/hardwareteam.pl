@@ -20,6 +20,7 @@ module.exports = function override(config) {
     "@actions": "src/actions/",
     "@reducers": "src/reducers/",
     "@store": "src/store/",
+    "@config": "src/config/",
   })(config);
 
   config.entry = "./src/index.js";

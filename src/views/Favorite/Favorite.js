@@ -128,9 +128,10 @@ const Favorite = () => {
   }, [checkboxes]);
 
   const { width } = useWindowSize();
+  const title = "Ulubione Produkty";
 
   return (
-    <UserTemplate Headline={() => <>Ulubione Produkty</>}>
+    <UserTemplate Headline={() => <>{title}</>} title={title}>
       <StyledWrapper>
         <StyledSlideControlWrapper>
           <StyledSlideControl
