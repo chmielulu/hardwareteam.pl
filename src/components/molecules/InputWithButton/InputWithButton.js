@@ -31,10 +31,28 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const InputWithButton = ({ name, label, children, ...props }) => (
+const InputWithButton = ({
+  name,
+  label,
+  children,
+  value,
+  onChange,
+  onClick,
+  onKeyDown,
+  ...props
+}) => (
   <StyledWrapper {...props}>
-    <StyledInput name={name} label={label} kind="secondary" />
-    <StyledButton kind="secondary">{children}</StyledButton>
+    <StyledInput
+      name={name}
+      label={label}
+      kind="secondary"
+      value={value}
+      onChange={onChange}
+      onKeyDown={onKeyDown}
+    />
+    <StyledButton kind="secondary" onClick={onClick}>
+      {children}
+    </StyledButton>
   </StyledWrapper>
 );
 
@@ -42,6 +60,17 @@ InputWithButton.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  onClick: PropTypes.func,
+  onKeyDown: PropTypes.func,
+};
+
+InputWithButton.defaultProps = {
+  value: undefined,
+  onChange: undefined,
+  onClick: undefined,
+  onKeyDown: undefined,
 };
 
 export default InputWithButton;

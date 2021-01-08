@@ -159,16 +159,16 @@ const PriceRange = ({
   const [maxPrice, setMaxPrice] = useState(initialMaxPrice);
   const slider = useRef();
 
-  const handleMaxInputChange = (value) => {
-    const testedValue = testValue(value);
+  const handleMaxInputChange = ({ target }) => {
+    const testedValue = testValue(target.value);
     if (!testedValue) return null;
 
     setMaxPrice(testedValue);
     return null;
   };
 
-  const handleMinInputChange = (value) => {
-    const testedValue = testValue(value);
+  const handleMinInputChange = ({ target }) => {
+    const testedValue = testValue(target.value);
     if (!testedValue) return null;
 
     setMinPrice(testedValue);
@@ -294,7 +294,7 @@ PriceRange.defaultProps = {
 };
 
 function testValue(value) {
-  const reg = /^[0-9\b]+$/;
+  const reg = /^(?=.*\d)[\d ]+$/;
 
   if (value === "") {
     return " ";
@@ -303,8 +303,7 @@ function testValue(value) {
   if (!reg.test(value)) {
     return null;
   }
-
-  return value;
+  return value.trim();
 }
 
 export default PriceRange;

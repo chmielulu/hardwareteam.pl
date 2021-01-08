@@ -4,12 +4,13 @@ import styled, { css } from "styled-components";
 import formatPrice from "@utils/formatPrice";
 import { useFontSize } from "@hooks/styled-components";
 import { useWindowSize } from "@hooks/utils";
-import { Button } from "@components/atoms";
+import { Button, CircleButton } from "@components/atoms";
 import { InputWithButton } from "@components/molecules";
 import shoppingBagIcon from "@iconify/icons-clarity/shopping-bag-line";
 import dollarIcon from "@iconify/icons-clarity/dollar-line";
 import { tertiary } from "@constants/kinds";
 import { connect } from "react-redux";
+import trashIcon from "@iconify/icons-clarity/trash-line";
 
 const StyledWrapper = styled.div`
   width: 360px;
@@ -44,6 +45,11 @@ const StyledWrapper = styled.div`
     `}
 `;
 
+const StyledTop = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+`;
+
 const StyledPriceWrapper = styled.div`
   display: flex;
   align-items: center;
@@ -52,6 +58,14 @@ const StyledPriceWrapper = styled.div`
     margin: 20px 0;
     justify-content: space-between;
   }
+
+  ${({ $isDiscount }) =>
+    $isDiscount &&
+    css`
+      @media (max-width: 1024px) {
+        margin-top: 0;
+      }
+    `}
 `;
 
 const StyledHeadline = styled.span`
@@ -99,27 +113,151 @@ const StyledInputWithButton = styled(InputWithButton)`
   }
 `;
 
-const Summary = ({ basket, handleOpenDialog, isBottomBarHidden }) => {
+const StyledDiscountCodesWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  margin-top: 10px;
+
+  @media (max-width: 1024px) {
+    order: -1;
+    margin-top: 20px;
+    border-bottom: 1px solid ${({ theme }) => theme.lightGray};
+    padding-bottom: 10px;
+  }
+`;
+
+const StyledDiscount = styled.div`
+  display: flex;
+  border-bottom: 1px solid ${({ theme }) => theme.lightGray};
+  padding: 10px 7px;
+  position: relative;
+
+  :first-of-type {
+    border-top: 1px solid ${({ theme }) => theme.lightGray};
+  }
+
+  @media (max-width: 1024px) {
+    align-items: center;
+    padding: 10px 0;
+
+    :last-of-type {
+      margin-bottom: 0;
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    :first-of-type {
+      border-top: 0;
+    }
+  }
+`;
+
+const StyledDiscountHeadline = styled.span`
+  ${({ theme }) => useFontSize(theme, "m", "l")}
+  font-weight: 300;
+`;
+
+const StyledDiscountPrice = styled.span`
+  ${({ theme }) => useFontSize(theme, "m", "l")}
+  font-weight: 500;
+  color: #34ac4f;
+  margin-left: auto;
+`;
+
+const StyledCircleButton = styled(CircleButton)`
+  position: absolute;
+  left: calc(100% + 5px);
+  top: 50%;
+  transform: translateY(-50%);
+
+  @media (max-width: 1024px) {
+    position: static;
+    transform: translateY(0);
+    padding: 0;
+    margin-left: 15px;
+  }
+`;
+
+const Summary = ({
+  basket,
+  handleOpenDialog,
+  isBottomBarHidden,
+  addDiscountCode,
+  removeDiscountCode,
+}) => {
+  const { products, discountCodes } = basket;
   const [summaryPrice, setSummaryPrice] = useState(0);
+  const [finalPrice, setFinalPrice] = useState(0);
+  const [discountCode, setDiscountCode] = useState("");
+
   const { width } = useWindowSize();
 
   useEffect(() => {
-    const { products } = basket;
     let sumPrice = 0;
+    let finalPrice = 0;
 
     products.forEach(({ discount, price, count }) => {
       sumPrice += (discount || price) * count;
     });
 
+    finalPrice = sumPrice;
+    if (discountCodes) {
+      discountCodes.forEach(({ discount }) => {
+        const price = sumPrice * (discount / 100);
+        finalPrice -= price;
+      });
+    }
+
     setSummaryPrice(sumPrice);
-  }, [basket]);
+    setFinalPrice(finalPrice);
+  }, [products, discountCodes]);
+
+  useEffect(() => {
+    setDiscountCode("");
+  }, [discountCodes]);
+
+  const handleInputChange = ({ target }) => {
+    setDiscountCode(target.value);
+  };
+
+  const handleKeyDown = ({ key, target }) => {
+    if (key === "Enter" && discountCode) {
+      addDiscountCode(discountCode);
+      target.blur();
+    }
+
+    return null;
+  };
 
   return (
     <StyledWrapper $isBottomBarHidden={isBottomBarHidden}>
-      <StyledPriceWrapper>
-        <StyledHeadline>Łączna kwota</StyledHeadline>
-        <StyledPrice>{formatPrice(summaryPrice)}</StyledPrice>
-      </StyledPriceWrapper>
+      <StyledTop>
+        <StyledPriceWrapper
+          $isDiscount={discountCodes ? discountCodes.length !== 0 : false}
+        >
+          <StyledHeadline>Łączna kwota</StyledHeadline>
+          <StyledPrice>{formatPrice(finalPrice)}</StyledPrice>
+        </StyledPriceWrapper>
+        {(discountCodes ? discountCodes.length !== 0 : false) && (
+          <StyledDiscountCodesWrapper>
+            {discountCodes.map(({ discount, code }) => (
+              <StyledDiscount key={code}>
+                <StyledDiscountHeadline>Kod rabatowy</StyledDiscountHeadline>
+                <StyledDiscountPrice>
+                  -{formatPrice(summaryPrice * (discount / 100))}
+                </StyledDiscountPrice>
+                <StyledCircleButton
+                  label="Usuń kod rabatowy"
+                  icon={trashIcon}
+                  onClick={() => removeDiscountCode(code)}
+                />
+              </StyledDiscount>
+            ))}
+          </StyledDiscountCodesWrapper>
+        )}
+      </StyledTop>
+
       {width > 1024 && (
         <StyledFreeShipment>
           do darmowej dostawy brakuje ci 0 zł
@@ -131,7 +269,14 @@ const Summary = ({ basket, handleOpenDialog, isBottomBarHidden }) => {
       <StyledButton icon={dollarIcon} kind={tertiary}>
         Oblicz ratę lub leasing
       </StyledButton>
-      <StyledInputWithButton name="discount-code" label="Kod rabatowy">
+      <StyledInputWithButton
+        name="discount-code"
+        label="Kod rabatowy"
+        value={discountCode}
+        onChange={handleInputChange}
+        onClick={() => addDiscountCode(discountCode)}
+        onKeyDown={handleKeyDown}
+      >
         Dodaj
       </StyledInputWithButton>
     </StyledWrapper>
@@ -142,6 +287,8 @@ Summary.propTypes = {
   basket: PropTypes.object.isRequired,
   handleOpenDialog: PropTypes.func.isRequired,
   isBottomBarHidden: PropTypes.bool.isRequired,
+  addDiscountCode: PropTypes.func.isRequired,
+  removeDiscountCode: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {

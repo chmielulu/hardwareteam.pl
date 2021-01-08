@@ -22,6 +22,7 @@ import Information from "./Information/Information";
 import Frame from "./Frame/Frame";
 import CircleButton from "./CircleButton/CircleButton";
 import DarkModeToggle from "./DarkModeToggle/DarkModeToggle";
+import Status from "./Status/Status";
 
 export {
   Attribute,
@@ -48,4 +49,5 @@ export {
   Frame,
   CircleButton,
   DarkModeToggle,
+  Status,
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import { Icon } from "@iconify/react";
@@ -70,16 +70,6 @@ const Input = ({
   type,
   ...props
 }) => {
-  const [inputValue, setValue] = useState();
-
-  const handleInputChange = ({ target: { value } }) => {
-    if (onChange) {
-      onChange(value);
-    } else {
-      setValue(value);
-    }
-  };
-
   return (
     <StyledWrapper className={className}>
       <StyledLabel htmlFor={name}>{label}</StyledLabel>
@@ -89,8 +79,8 @@ const Input = ({
         placeholder={label}
         $icon={icon}
         $kind={kind}
-        value={value || inputValue}
-        onChange={handleInputChange}
+        value={value}
+        onChange={onChange}
         type={type}
         {...props}
       />
@@ -114,8 +104,8 @@ Input.defaultProps = {
   icon: null,
   kind: primary,
   className: "",
-  onChange: null,
-  value: null,
+  onChange: undefined,
+  value: undefined,
   type: "text",
 };
 

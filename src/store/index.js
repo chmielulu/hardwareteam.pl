@@ -9,7 +9,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 /* eslint-enable */
 
 const persistConfig = {
-  key: "root",
+  key: "store",
   storage,
   blacklist: ["navigation"],
 };

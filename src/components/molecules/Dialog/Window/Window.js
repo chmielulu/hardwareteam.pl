@@ -146,14 +146,12 @@ const StyledTitle = styled.h3`
 `;
 
 const StyledContentWrapper = styled.div`
-  max-height: calc(100vh - 240px);
-  max-height: calc(var(--vh, 1vh) * 100 - 120px);
+  max-height: calc(var(--vh, 1vh) * 100 - 240px);
   position: relative;
   overflow-y: auto;
 
   @media (max-width: 1024px) {
     max-height: unset;
-    height: calc(100vh - 135px);
     height: calc(var(--vh, 1vh) * 100 - 135px);
   }
 `;

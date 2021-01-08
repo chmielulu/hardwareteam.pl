@@ -231,10 +231,10 @@ AddedToBasket.propTypes = {
   isActive: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   addedProduct: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    img: PropTypes.any.isRequired,
-    price: PropTypes.number.isRequired,
-    count: PropTypes.number.isRequired,
+    name: PropTypes.string,
+    img: PropTypes.any,
+    price: PropTypes.number,
+    count: PropTypes.number,
   }).isRequired,
   recommendedProducts: PropTypes.arrayOf(
     PropTypes.shape({

@@ -9,7 +9,11 @@ import heartIcon from "@iconify/icons-clarity/heart-line";
 import trashIcon from "@iconify/icons-clarity/trash-line";
 import { Headline, BackButton } from "@components/atoms";
 import { ProductCard, CustomSwiper, WhyUs } from "@components/molecules";
-import { removeAllFromBasket as removeAllFromBasketAction } from "@actions";
+import {
+  removeAllFromBasket as removeAllFromBasketAction,
+  addDiscountCode as addDiscountCodeAction,
+  removeDiscountCode as removeDiscountCodeAction,
+} from "@actions/index";
 import routes from "@routes";
 import { useWindowSize } from "@hooks/utils";
 import NotLoggedInDialog from "@components/molecules/Dialog/NotLoggedIn/NotLoggedIn";
@@ -117,7 +121,12 @@ const StyledBackButton = styled(BackButton)`
   margin-left: 15px;
 `;
 
-const Basket = ({ basket, removeAllProducts }) => {
+const Basket = ({
+  basket,
+  removeAllProducts,
+  addDiscountCode,
+  removeDiscountCode,
+}) => {
   const { width } = useWindowSize();
   const [isDialogActive, setDialogActive] = useState(false);
 
@@ -169,6 +178,8 @@ const Basket = ({ basket, removeAllProducts }) => {
                   <Summary
                     basket={basket}
                     handleOpenDialog={handleOpenDialog}
+                    addDiscountCode={addDiscountCode}
+                    removeDiscountCode={removeDiscountCode}
                   />
                 </StyledRightColumn>
               </StyledInnerWrapper>
@@ -212,6 +223,8 @@ const Basket = ({ basket, removeAllProducts }) => {
 Basket.propTypes = {
   basket: PropTypes.object.isRequired,
   removeAllProducts: PropTypes.func.isRequired,
+  addDiscountCode: PropTypes.func.isRequired,
+  removeDiscountCode: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -221,6 +234,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   removeAllProducts: () => dispatch(removeAllFromBasketAction()),
+  addDiscountCode: (code) => dispatch(addDiscountCodeAction(code)),
+  removeDiscountCode: (code) => dispatch(removeDiscountCodeAction(code)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Basket);
