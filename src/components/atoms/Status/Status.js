@@ -16,8 +16,8 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 const StyledStatusItem = styled.div`
   ${({ theme }) => useFontSize(theme, "m", "l")}
   position: fixed;
-  top: 10px;
-  right: 10px;
+  left: 10px;
+  bottom: 10px;
   z-index: 99999999999;
   width: 350px;
   background: ${({ $kind }) => getBackground($kind)};
@@ -28,21 +28,21 @@ const StyledStatusItem = styled.div`
   align-items: center;
   transform-origin: center top;
   transition: 0.4s transform ease-in-out, 0.4s opacity ease-in-out;
-  transform: ${({ $translate }) => `translateY(${$translate})`};
+  transform: ${({ $translate }) => `translateY(-${$translate})`};
 
   &.enter {
     opacity: 0.5;
-    transform: ${({ $translate }) => `translateY(${$translate}) scale(0)`};
+    transform: ${({ $translate }) => `translateY(-${$translate}) scale(0)`};
   }
 
   &.enter-done {
     opacity: 1;
-    transform: ${({ $translate }) => `translateY(${$translate}) scale(1)`};
+    transform: ${({ $translate }) => `translateY(-${$translate}) scale(1)`};
   }
 
   &.exit-active {
     opacity: 0;
-    transform: ${({ $translate }) => `translateY(${$translate}) scale(0.5)`};
+    transform: ${({ $translate }) => `translateY(-${$translate}) scale(0.5)`};
   }
 
   @media (max-width: 1024px) {
@@ -51,6 +51,8 @@ const StyledStatusItem = styled.div`
     transform: ${({ $translate }) => `translate(-50%, ${$translate})`};
     left: 50%;
     width: 90%;
+    bottom: unset;
+
     &.enter {
       transform: ${({ $translate }) =>
         `translate(-50%, ${$translate}) scale(0)`};
@@ -136,7 +138,7 @@ const Status = ({ statuses, removeStatus }) => {
       newTranslateY.push(current.clientHeight + newTranslateY[index - 1] + 10);
     });
 
-    setTranslate(newTranslateY);
+    setTranslate(newTranslateY.reverse());
 
     return () => {
       setTranslate([]);
