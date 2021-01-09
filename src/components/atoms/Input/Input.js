@@ -59,35 +59,31 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
-const Input = ({
-  label,
-  name,
-  icon,
-  kind,
-  className,
-  value,
-  onChange,
-  type,
-  ...props
-}) => {
-  return (
-    <StyledWrapper className={className}>
-      <StyledLabel htmlFor={name}>{label}</StyledLabel>
-      <StyledInput
-        id={name}
-        name={name}
-        placeholder={label}
-        $icon={icon}
-        $kind={kind}
-        value={value}
-        onChange={onChange}
-        type={type}
-        {...props}
-      />
-      {icon && <StyledIcon icon={icon} $kind={kind} />}
-    </StyledWrapper>
-  );
-};
+const Input = React.forwardRef(
+  (
+    { label, name, icon, kind, className, value, onChange, type, ...props },
+    ref
+  ) => {
+    return (
+      <StyledWrapper className={className}>
+        <StyledLabel htmlFor={name}>{label}</StyledLabel>
+        <StyledInput
+          id={name}
+          name={name}
+          placeholder={label}
+          $icon={icon}
+          $kind={kind}
+          value={value}
+          onChange={onChange}
+          type={type}
+          {...props}
+          ref={ref}
+        />
+        {icon && <StyledIcon icon={icon} $kind={kind} />}
+      </StyledWrapper>
+    );
+  }
+);
 
 Input.propTypes = {
   label: PropTypes.string.isRequired,

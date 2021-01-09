@@ -59,6 +59,12 @@ const StyledLabel = styled.label`
       border-top: 1px solid transparent;
     `}
 
+    ${({ $disabled }) =>
+      $disabled &&
+      css`
+        color: ${({ theme }) => theme.gray}!important;
+      `}
+
   @media (max-width: 720px) {
     height: unset;
     min-height: 60px;
@@ -153,54 +159,69 @@ const StyledAdditionalText = styled.span`
   color: ${({ theme }) => theme.gray};
 `;
 
-const RadioGroup = ({ items, name, ...props }) => {
+const RadioGroup = ({
+  items,
+  name,
+  activeId,
+  onChange,
+  isRequired,
+  register,
+  ...props
+}) => {
   const [activeOption, setActiveOption] = useState(0);
 
   const handleRadioChange = (index) => setActiveOption(index);
 
   return (
     <StyledWrapper {...props}>
-      {items.map(({ id, value, icon, img, text, additionalText }, index) => {
-        const isActive = index === activeOption;
+      {items.map(
+        ({ id, value, icon, img, text, additionalText, disabled }, index) => {
+          const isActive = activeId ? activeId === id : index === activeOption;
+          const isNext =
+            index === items.findIndex(({ id }) => id === activeId) + 1;
 
-        return (
-          <StyledLabel
-            key={index}
-            $isActive={isActive}
-            $isNext={index === activeOption + 1}
-          >
-            <StyledRadio
-              name={name}
-              id={id}
-              value={value}
-              withoutLabel
-              checked={isActive}
-              onChange={() => handleRadioChange(index)}
-            />
+          return (
+            <StyledLabel
+              key={index}
+              $isActive={isActive}
+              $isNext={isNext}
+              $disabled={disabled}
+            >
+              <StyledRadio
+                name={name}
+                id={id}
+                value={value}
+                withoutLabel
+                checked={isActive}
+                onChange={onChange || (() => handleRadioChange(index))}
+                disabled={disabled}
+                ref={register ? register({ required: isRequired }) : undefined}
+              />
 
-            <StyledLabelContent>
-              <StyledText>
-                {text}{" "}
-                <StyledAdditionalText>{additionalText}</StyledAdditionalText>
-              </StyledText>
-              {icon && <StyledIcon icon={icon} $isActive={isActive} />}
-              {img && typeof img === "string" ? (
-                <StyledImg src={img} alt="" $isActive={isActive} />
-              ) : (
-                typeof img === "object" &&
-                img.map((img, index) => (
-                  <StyledImg
-                    src={img}
-                    alt=""
-                    key={index}
-                    $isActive={isActive}
-                  />
-                ))
-              )}
-            </StyledLabelContent>
-          </StyledLabel>
-        );
-      })}
+              <StyledLabelContent>
+                <StyledText>
+                  {text}{" "}
+                  <StyledAdditionalText>{additionalText}</StyledAdditionalText>
+                </StyledText>
+                {icon && <StyledIcon icon={icon} $isActive={isActive} />}
+                {img && typeof img === "string" ? (
+                  <StyledImg src={img} alt="" $isActive={isActive} />
+                ) : (
+                  typeof img === "object" &&
+                  img.map((img, index) => (
+                    <StyledImg
+                      src={img}
+                      alt=""
+                      key={index}
+                      $isActive={isActive}
+                    />
+                  ))
+                )}
+              </StyledLabelContent>
+            </StyledLabel>
+          );
+        }
+      )}
     </StyledWrapper>
   );
 };
@@ -220,6 +241,17 @@ RadioGroup.propTypes = {
     })
   ).isRequired,
   name: PropTypes.string.isRequired,
+  activeId: PropTypes.string,
+  onChange: PropTypes.func,
+  isRequired: PropTypes.bool,
+  register: PropTypes.any,
+};
+
+RadioGroup.defaultProps = {
+  activeId: null,
+  onChange: undefined,
+  isRequired: true,
+  register: undefined,
 };
 
 export default RadioGroup;

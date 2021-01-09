@@ -57,35 +57,43 @@ const StyledLabel = styled.label`
   overflow: hidden;
 `;
 
-const Radio = ({
-  name,
-  label,
-  render,
-  id,
-  checked,
-  readOnly,
-  value,
-  withoutLabel,
-  onChange,
-  ...props
-}) => (
-  <StyledWrapper {...props}>
-    <StyledInnerWrapper>
-      <StyledInput
-        type="radio"
-        name={name}
-        id={id}
-        checked={checked}
-        readOnly={readOnly}
-        value={value}
-        onChange={onChange}
-      />
-      <StyledCheckbox />
-    </StyledInnerWrapper>
-    {!withoutLabel && (
-      <StyledLabel htmlFor={id}>{render ? render() : label}</StyledLabel>
-    )}
-  </StyledWrapper>
+const Radio = React.forwardRef(
+  (
+    {
+      name,
+      label,
+      render,
+      id,
+      checked,
+      readOnly,
+      value,
+      withoutLabel,
+      onChange,
+      disabled,
+      ...props
+    },
+    ref
+  ) => (
+    <StyledWrapper {...props}>
+      <StyledInnerWrapper>
+        <StyledInput
+          type="radio"
+          name={name}
+          id={id}
+          checked={checked}
+          readOnly={readOnly}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+          ref={ref}
+        />
+        <StyledCheckbox />
+      </StyledInnerWrapper>
+      {!withoutLabel && (
+        <StyledLabel htmlFor={id}>{render ? render() : label}</StyledLabel>
+      )}
+    </StyledWrapper>
+  )
 );
 
 Radio.propTypes = {
@@ -98,6 +106,7 @@ Radio.propTypes = {
   value: PropTypes.string,
   withoutLabel: PropTypes.bool,
   onChange: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 Radio.defaultProps = {
@@ -109,6 +118,7 @@ Radio.defaultProps = {
   value: undefined,
   withoutLabel: false,
   onChange: undefined,
+  disabled: undefined,
 };
 
 export default Radio;

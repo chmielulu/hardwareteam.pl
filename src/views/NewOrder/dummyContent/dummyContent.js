@@ -1,5 +1,6 @@
 import truckIcon from "@iconify-icons/clarity/truck-line";
 import coinBagIcon from "@iconify/icons-clarity/coin-bag-line";
+import walletIcon from "@iconify/icons-clarity/wallet-line";
 import inpostImg from "./images/inpost.png";
 import blikImg from "./images/blik.png";
 import visaImg from "./images/visa.png";
@@ -16,16 +17,16 @@ export const shipment = {
   items: [
     {
       id: "courier",
-      value: "Kurier",
+      value: "courier",
       text: "Kurier – InPost, UPS, DHL, FedEx lub DTS ",
-      additionalText: "(bezpłatnie)",
+      price: 20,
       icon: truckIcon,
     },
     {
       id: "parcelMachine",
-      value: "Paczkomat",
+      value: "parcelMachine",
       text: "Paczkomaty inPost 24/7 ",
-      additionalText: "(bezpłatnie)",
+      price: 0,
       img: inpostImg,
     },
   ],
@@ -35,45 +36,56 @@ export const payment = {
   name: "payment",
   items: [
     {
+      id: "wallet",
+      value: "wallet",
+      text: "Twój portfel",
+      price: 0,
+      icon: walletIcon,
+      notLoggedIn: {
+        disabled: true,
+        additionalText: "(Tylko zalogowani użytkownicy)",
+      },
+    },
+    {
       id: "blik",
-      value: "BLIK",
+      value: "blik",
       text: "BLIK",
-      additionalText: "(bezpłatnie)",
+      price: 0,
       img: blikImg,
     },
     {
       id: "card",
-      value: "Karta płatnicza",
+      value: "card",
       text: "Karta płatniczna online ",
-      additionalText: "(bezpłatnie)",
+      price: 0,
       img: [visaImg, mastercardImg],
     },
     {
       id: "cashTransfer",
-      value: "Przelew gotówkowy",
+      value: "cashTransfer",
       text: "Przelew gotówkowy ",
-      additionalText: "(bezpłatnie)",
+      price: 0,
       img: traditionalImg,
     },
     {
       id: "onDelivery",
-      value: "Przy odbiorze",
+      value: "onDelivery",
       text: "Przy odbiorze",
-      additionalText: "(25 zł)",
+      price: 25,
       icon: coinBagIcon,
     },
     {
       id: "instalments",
-      value: "Raty",
+      value: "instalments",
       text: "Raty",
-      additionalText: "(bezpłatnie)",
+      price: 0,
       img: [aliorImg, santanderImg, creditImg],
     },
     {
       id: "leasing",
-      value: "Leasing",
+      value: "leasing",
       text: "Leasing",
-      additionalText: "(bezpłatnie)",
+      price: 0,
       img: [pkoImg, grenkeImg],
     },
   ],

@@ -4,10 +4,8 @@ import styled, { css } from "styled-components";
 import { useFontSize } from "@hooks/styled-components";
 import formatPrice from "@utils/formatPrice";
 import { Button } from "@components/atoms";
-import { InputWithButton } from "@components/molecules";
+import { DiscountCodesInputWithButton } from "@components/organisms";
 import arrowIcon from "@iconify/icons-clarity/circle-arrow-line";
-import { Link } from "react-router-dom";
-import routes from "@routes/";
 import { useWindowSize } from "@hooks/utils";
 import Product from "../Product/Product";
 
@@ -137,7 +135,7 @@ const StyledButton = styled(Button)`
   }
 `;
 
-const StyledInputWithButton = styled(InputWithButton)`
+const StyledDiscountCodesInputWithButton = styled(DiscountCodesInputWithButton)`
   width: 100%;
   margin-top: 10px;
 
@@ -176,9 +174,10 @@ const StyledProduct = styled(Product)`
   }
 `;
 
-const Box = ({ basket, values, level }) => {
+const Box = ({ basket, level, activePayment, activeShipment }) => {
   const [basketValue, setBasketValue] = useState(0);
   const [discountSum, setDiscountSum] = useState(0);
+  const [values, setValues] = useState([]);
   const { width } = useWindowSize();
 
   useEffect(() => {
@@ -190,20 +189,43 @@ const Box = ({ basket, values, level }) => {
       sumPrice += (discount || price) * count;
 
       if (discount) {
-        sumDiscount -= discount;
+        sumDiscount -= price - discount;
       }
     });
+
+    const values = [];
+
+    if (basket.discountCodes) {
+      values.push(
+        ...basket.discountCodes.map(({ discount }) => ({
+          name: "Kod rabatowy",
+          price: -(sumPrice * (discount / 100)),
+        }))
+      );
+    }
+
+    values.push(
+      {
+        name: "Płatność",
+        price: activePayment.price,
+      },
+      {
+        name: "Dostawa",
+        price: activeShipment.price,
+      }
+    );
 
     values.forEach(({ price }) => {
       sumPrice += price;
     });
 
     setBasketValue(sumPrice);
+    setValues(values);
 
     if (sumDiscount < 0) {
       setDiscountSum(sumDiscount);
     }
-  }, [basket, values]);
+  }, [basket, activePayment, activeShipment]);
 
   return (
     <StyledWrapper>
@@ -241,17 +263,12 @@ const Box = ({ basket, values, level }) => {
             position="right"
             rotateIcon={90}
             fullWidth
-            forwardedAs={Link}
-            to={level === 1 ? routes.newOrderSummary : routes.newOrderDone}
+            type="submit"
           >
             {level === 1 ? "Przejdź do podsumowania" : "Kupuję i płacę"}
           </StyledButton>
 
-          {level === 1 && (
-            <StyledInputWithButton name="discountCode" label="Kod rabatowy">
-              Dodaj
-            </StyledInputWithButton>
-          )}
+          {level === 1 && <StyledDiscountCodesInputWithButton />}
         </StyledInnerWrapper>
       </StyledContainer>
     </StyledWrapper>
@@ -260,13 +277,9 @@ const Box = ({ basket, values, level }) => {
 
 Box.propTypes = {
   basket: PropTypes.object.isRequired,
-  values: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      price: PropTypes.number,
-    })
-  ).isRequired,
   level: PropTypes.number.isRequired,
+  activeShipment: PropTypes.object.isRequired,
+  activePayment: PropTypes.object.isRequired,
 };
 
 export default Box;

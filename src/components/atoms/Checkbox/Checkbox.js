@@ -64,32 +64,42 @@ const StyledLabel = styled.label`
   line-height: 1.8rem;
 `;
 
-const Checkbox = ({
-  name,
-  label,
-  render,
-  id,
-  checked,
-  onChange,
-  kind,
-  defaultChecked,
-  ...props
-}) => (
-  <StyledWrapper {...props}>
-    <StyledInnerWrapper>
-      <StyledInput
-        type="checkbox"
-        checked={checked}
-        onChange={onChange}
-        name={name}
-        id={id || name}
-        defaultChecked={defaultChecked}
-      />
-      <StyledCheckbox $kind={kind} />
-      <StyledIcon icon={checkIcon} />
-    </StyledInnerWrapper>
-    <StyledLabel htmlFor={id || name}>{render ? render() : label}</StyledLabel>
-  </StyledWrapper>
+const Checkbox = React.forwardRef(
+  (
+    {
+      name,
+      label,
+      render,
+      id,
+      checked,
+      onChange,
+      kind,
+      defaultChecked,
+      readOnly,
+      ...props
+    },
+    ref
+  ) => (
+    <StyledWrapper {...props}>
+      <StyledInnerWrapper>
+        <StyledInput
+          type="checkbox"
+          checked={checked}
+          onChange={onChange}
+          name={name}
+          id={id || name}
+          defaultChecked={defaultChecked}
+          ref={ref}
+          readOnly={readOnly}
+        />
+        <StyledCheckbox $kind={kind} />
+        <StyledIcon icon={checkIcon} />
+      </StyledInnerWrapper>
+      <StyledLabel htmlFor={id || name}>
+        {render ? render() : label}
+      </StyledLabel>
+    </StyledWrapper>
+  )
 );
 
 Checkbox.propTypes = {
@@ -101,6 +111,7 @@ Checkbox.propTypes = {
   onChange: PropTypes.func,
   kind: PropTypes.oneOf([primary, secondary]),
   defaultChecked: PropTypes.bool,
+  readOnly: PropTypes.bool,
 };
 
 Checkbox.defaultProps = {
@@ -111,6 +122,7 @@ Checkbox.defaultProps = {
   onChange: undefined,
   kind: primary,
   defaultChecked: undefined,
+  readOnly: undefined,
 };
 
 export default Checkbox;

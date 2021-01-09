@@ -5,7 +5,6 @@ import { RadioGroup } from "@components/molecules";
 import { Input, Checkbox } from "@components/atoms";
 import { secondary } from "@constants/kinds";
 import { useFontSize, useFluidSize } from "@hooks/styled-components";
-import { payment, shipment } from "../dummyContent/dummyContent";
 
 const StyledWrapper = styled.div`
   @media (max-width: 1024px) {
@@ -56,29 +55,76 @@ const StyledCheckbox = styled(Checkbox).attrs(() => ({
   }
 `;
 
-const DeliveryAndPayment = ({ Headline, SecondHeadline, Section }) => {
+const DeliveryAndPayment = ({
+  Headline,
+  SecondHeadline,
+  Section,
+  shipment,
+  payment,
+  activeShipment,
+  activePayment,
+  handlePaymentChange,
+  handleShipmentChange,
+  register,
+}) => {
   return (
     <StyledWrapper>
       <Headline>Dostawa i płatność</Headline>
 
       <Section>
         <SecondHeadline>1. Sposób dostawy</SecondHeadline>
-        <StyledRadioGroup name={shipment.name} items={shipment.items} />
+        <StyledRadioGroup
+          name={shipment.name}
+          items={shipment.items}
+          activeId={activeShipment.id}
+          onChange={handleShipmentChange}
+          register={register}
+        />
       </Section>
 
       <Section>
         <SecondHeadline>2. Metody płatności</SecondHeadline>
-        <StyledRadioGroup name={payment.name} items={payment.items} />
+        <StyledRadioGroup
+          name={payment.name}
+          items={payment.items}
+          activeId={activePayment.id}
+          onChange={handlePaymentChange}
+          register={register}
+        />
       </Section>
 
       <Section>
         <SecondHeadline>3. Dane odbiorcy</SecondHeadline>
-        <StyledInput name="name" label="Imię i nazwisko lub nazwa firmy" />
-        <StyledInput name="street" label="Ulica i numer" />
-        <StyledInput name="postcode" label="Kod pocztowy" />
-        <StyledInput name="city" label="Miejscowość" />
-        <StyledInput name="email" label="E-mail" />
-        <StyledInput name="phone" label="Telefon" />
+        <StyledInput
+          name="name"
+          label="Imię i nazwisko lub nazwa firmy"
+          ref={register({ required: true })}
+        />
+        <StyledInput
+          name="street"
+          label="Ulica i numer"
+          ref={register({ required: true })}
+        />
+        <StyledInput
+          name="postCode"
+          label="Kod pocztowy"
+          ref={register({ required: true })}
+        />
+        <StyledInput
+          name="city"
+          label="Miejscowość"
+          ref={register({ required: true })}
+        />
+        <StyledInput
+          name="email"
+          label="E-mail"
+          ref={register({ required: true })}
+        />
+        <StyledInput
+          name="phone"
+          label="Telefon"
+          ref={register({ required: true })}
+        />
 
         <StyledCheckboxHeadline>Dane do faktury</StyledCheckboxHeadline>
         <StyledCheckbox
@@ -92,11 +138,17 @@ const DeliveryAndPayment = ({ Headline, SecondHeadline, Section }) => {
       </Section>
 
       <Section>
-        <SecondHeadline>Zgody formalne</SecondHeadline>
+        <SecondHeadline>Faktura</SecondHeadline>
         <StyledCheckbox
           name="emailInvoice"
-          label="Wyrażam zgodę na wystawienie i przesłanie faktury w formie elektronicznej"
-          defaultChecked
+          label="Faktura elektroniczna"
+          checked
+          readOnly
+        />
+        <StyledCheckbox
+          name="invoice"
+          label="Faktura papierowa"
+          ref={register}
         />
       </Section>
     </StyledWrapper>
@@ -107,6 +159,13 @@ DeliveryAndPayment.propTypes = {
   Headline: PropTypes.object.isRequired,
   SecondHeadline: PropTypes.object.isRequired,
   Section: PropTypes.object.isRequired,
+  shipment: PropTypes.object.isRequired,
+  payment: PropTypes.object.isRequired,
+  handlePaymentChange: PropTypes.func.isRequired,
+  handleShipmentChange: PropTypes.func.isRequired,
+  activeShipment: PropTypes.object.isRequired,
+  activePayment: PropTypes.object.isRequired,
+  register: PropTypes.any.isRequired,
 };
 
 export default DeliveryAndPayment;
