@@ -1,6 +1,6 @@
 # Hardware Team
 
-Storefront for an online store, which I had the pleasure to work on. Unfortunately, but the project didn't bomb and I wasn't able to finish it. You can view a preview using this [link](https://trusting-bassi-7f34f4.netlify.app/).
+Storefront for an online store, which I had the pleasure to work on. Unfortunately, but the project bombed and I wasn't able to finish it. You can view a preview using this [link](https://trusting-bassi-7f34f4.netlify.app/).
 
 ![Screenshot from homepage](https://github.com/chmielulu/hardwareteam.pl/blob/main/assets/screenshot.png?raw=true)
 
