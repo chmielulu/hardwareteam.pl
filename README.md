@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# Hardware Team
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Storefront for an online store, which I had the pleasure to work on. Unfortunately, but the project didn't bomb and I wasn't able to finish it. You can view a preview using this [link](https://trusting-bassi-7f34f4.netlify.app/).
 
-## Available Scripts
+![Screenshot from homepage](https://github.com/chmielulu/hardwareteam.pl/blob/main/assets/screenshot.png?raw=true)
 
-In the project directory, you can run:
+## How to run this site?
 
-### `yarn start`
+Just fetch all dependencies using `npm install` or `yarn`, and then `npm run start` or `yarn start`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## What does this project include?
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+The site includes:
 
-### `yarn test`
+- Homepage
+- Login & Register
+- List of products, categories
+- Articles
+- Product Page
+- Dark mode using [Dark Reader](https://www.npmjs.com/package/darkreader)
+- Hot shot
+- User Panel
+- Basket
+- Discount codes
+- and others...
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technology
 
-### `yarn build`
+I used the following technologies to build this site:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- React.js
+- React Router
+- React Redux
+- Styled Components
+- Iconify
+- Storybook
+- And others less important...
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+For structure managing I used [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design/). Full list of dependencies you can see in package.json.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Important informations
 
-### `yarn eject`
+I realize that many things could be improved here. For example catalog `_components` is unnecessary and complicates the structure in a meaningless way. Later, I realized about this.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Next is storybook, components I created later on don't have this. Components that I created earlier and that have a preview in the storybook, I modified later during the writing of the project and I no longer checked if something in the storybook stopped working.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Another issue is testing, it's just missing here
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+The structure of the files, especially `assets` is very messed up.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Image loading and page rendering times could be optimized
 
-## Learn More
+A few more things can be listed here, but under time pressure I left out some things. I had a lot of things to do and very little time, and on top of that I was doing it all by myself.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Design
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+I also created the design myself by taking inspiration from several major online retailers.
 
-### Code Splitting
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Distributed under the **GNU GPLv3** License. See `LICENSE` for more information.
