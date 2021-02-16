@@ -54,8 +54,10 @@ A few more things can be listed here, but under time pressure I left out some th
 
 ## Design
 
-I also created the design myself by taking inspiration from several major online retailers.
+I also created the design myself by taking inspiration from several major online retailers. **The graphic design currently belongs to someone else, so it is forbidden to use it.** 
+
 
 ## License
 
-Distributed under the **GNU GPLv3** License. See `LICENSE` for more information.
+The graphic design belongs to some person and it is prohibited to use it. All rights are reserved to this person. For this reason, you may not use this code for any commercial projects. 
+
