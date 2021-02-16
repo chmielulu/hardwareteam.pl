@@ -59,5 +59,5 @@ I also created the design myself by taking inspiration from several major online
 
 ## License
 
-The graphic design belongs to some person and it is prohibited to use it. All rights are reserved to this person. For this reason, you may not use this code for any commercial projects. 
+The graphic design belongs to some person and it is prohibited to use it. All rights are reserved to this person. For this reason, you may not use this code for any commercial projects. However, you can use parts of the code that do not contain design. 
 
